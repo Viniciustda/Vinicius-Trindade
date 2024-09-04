@@ -1,0 +1,188 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    background-color: #f4f4f4;
+}
+
+header {
+    background-color: #343a40;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    transition: top 0.3s ease;
+}
+
+header h1 {
+    font-size: 4em;
+    margin: 0;
+    color: #f8f9fa;
+}
+
+header p {
+    font-size: 1.5em;
+    margin-top: 10px;
+    color: #ced4da;
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+    background-color: #495057;
+    position: fixed;
+    width: 100%;
+    top: 150px;
+    z-index: 999;
+    transition: top 0.3s ease;
+}
+
+nav.vertical {
+    display: none;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-top: 60px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 200px;
+    background-color: #495057;
+    z-index: 1000;
+}
+
+nav a {
+    color: white;
+    padding: 14px 20px;
+    text-decoration: none;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+nav a:hover {
+    background-color: #6c757d;
+}
+
+.menu-icon {
+    display: none;
+    font-size: 2em;
+    padding: 14px 20px;
+    color: white;
+    cursor: pointer;
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1001;
+    background-color: #495057;
+    border-radius: 50%;
+}
+
+.menu-icon.active {
+    display: block;
+}
+
+main {
+    flex: 1;
+    padding-top: 200px; /* Espaço para o header e o nav */
+}
+
+section {
+    padding: 60px 40px;
+    max-width: 1000px;
+    margin: 0 auto;
+    display: none; /* Todas as seções estão ocultas inicialmente */
+    text-align: left;
+}
+
+section.active {
+    display: block; /* Apenas a seção ativa será exibida */
+}
+
+h1, h2, h3 {
+    color: #343a40;
+}
+
+/* Espaçamento entre seções */
+section > h2 {
+    margin-top: 40px; /* Aumenta o espaço entre as seções */
+}
+
+section > h3 {
+    margin-top: 10px;
+}
+
+.skills-list, .projects-list, .certifications-list, .achievements-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.skills-list li, .projects-list li, .certifications-list li, .achievements-list li {
+    background-color: #e9ecef;
+    margin: 10px 0;
+    padding: 10px;
+    border-left: 4px solid #343a40;
+}
+
+footer {
+    background-color: #343a40;
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+/* Estilo específico para Conquistas */
+.achievement-description {
+    display: none;
+    background-color: #f8f9fa;
+    padding: 10px;
+    border-left: 4px solid #343a40;
+    margin-top: 5px;
+    transition: display 0.3s ease;
+}
+
+.achievement-description.show {
+    display: block;
+}
+
+.achievement-description.hide {
+    display: none;
+}
+
+.achievement-title:hover + .achievement-description {
+    display: block;
+}
+
+/* Estilo específico para Projetos */
+.project-description {
+    display: none;
+    background-color: #f8f9fa;
+    padding: 10px;
+    border-left: 4px solid #343a40;
+    margin-top: 5px;
+}
+
+.project-description.show {
+    display: block;
+}
+
+.project-description.hide {
+    display: none;
+}
+
+.project-title:hover + .project-description {
+    display: block;
+}

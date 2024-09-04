@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Portfólio e Currículo Online - Ciência da Computação">
+    <title>Vinicius Trindade</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Link para o arquivo CSS externo -->
+</head>
+<body>
+
+    <!-- Header -->
+    <header id="header">
+        <h1>Vinicius Trindade</h1>
+        <p>Graduando em Ciência da Computação - UFMG</p>
+    </header>
+
+    <!-- Navigation Menu -->
+    <nav id="navbar">
+        <a onclick="showSection('about')">Sobre Mim</a>
+        <a onclick="showSection('projects')">Projetos</a>
+        <a onclick="showSection('certificates')">Certificados e Conquistas</a>
+        <a onclick="showSection('contact')">Contato</a>
+    </nav>
+
+    <!-- Vertical Menu (hidden initially) -->
+    <nav id="vertical-menu" class="vertical">
+        <a onclick="showSection('about')">Sobre Mim</a>
+        <a onclick="showSection('projects')">Projetos</a>
+        <a onclick="showSection('certificates')">Certificados e Conquistas</a>
+        <a onclick="showSection('contact')">Contato</a>
+    </nav>
+
+    <!-- Menu Icon (for toggling the vertical menu) -->
+    <div class="menu-icon" id="menu-icon" onclick="toggleMenu()">☰</div>
+
+    <!-- Main Content -->
+    <main>
+        <!-- About Section -->
+        <section id="about" class="active">
+            <h2>Sobre Mim</h2>
+            <p><b>Vinicius Trindade Dias Abel</b> - graduando em Ciência da Computação pela Universidade Federal de Minas Gerais (UFMG)</p>
+            
+            <h2>Formação Acadêmica</h2>
+            <h3>Universidade Federal de Minas Gerais (UFMG)</h3>
+            <p>Bacharelado em Ciência da Computação (2020 - Atual)</p>
+            <h3>Instituto Federal de Minas Gerais (IFMG)</h3>
+            <p>Técnico em Edificações (2017 - 2019)</p>
+
+            <h2>Experiência Profissional</h2>
+            <h3>EXÉRCITO BRASILEIRO – 4ª CIA COM L MTH | 12/2021 – 06/2023</h3>
+            <p><b>Segundo Tenente</b></p>
+            <p>Responsabilidades:</p>
+            <p>Comandante do 1º Pelotão de Comunicações</p>
+            <p>Comandante do 2º Pelotão de Comunicações</p>
+            <p>Comandante do Pelotão de Comando e Apoio</p>
+            <p>Chefe da Seção de Logística</p>
+            <p>Chefe da Seção de Operações e Instrução</p>
+            <p>Chefe do Setor Financeiro</p>
+            <p>Instrutor chefe do curso de formação de cabos</p>
+            <p>Instrutor chefe do curso de formação de soldados</p>
+            <p>Instrutor do Estágio de Instrução Preparatória para Oficiais Temporários</p>
+            <p>Oficial de Comunicações da Operação Diedro</p>
+            <p>Oficial de Comunicações da Operação Membeca</p>
+            <p>Oficial de Comunicações da Operação Pantheon</p>
+            <p>Oficial de munições</p>
+            <p>Oficial de tiro / Instrutor de tiro</p>
+            
+            <h3>EXÉRCITO BRASILEIRO – CPOR-BH | 02/2021 – 12/2021</h3>
+            <p><b>Aluno</b></p>
+
+            <h3>iJunior UFMG – Empresa júnior | 08/2020 – 01/2021</h3>
+            <p><b>Trainee</b></p>
+
+            <h3>SECRETARIA DE OBRAS DA PREFEITURA DE SANTA LUZIA | 01/2019 – 07/2019</h3>
+            <p><b>Estagiário</b></p>
+            <p>Responsabilidades:</p>
+            <p>Orçamento de materiais e serviços para obras</p>
+
+            <h2>Habilidades Técnicas</h2>
+            <ul class="skills-list">
+                <li>Banco de Dados (SQL)</li>
+                <li>C</li>
+                <li>C++</li>
+                <li>Controle de Versionamento (Git, GitHub)</li>
+                <li>Python</li>
+            </ul>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects">
+            <h2>Projetos</h2>
+            <ul class="projects-list">
+                <li class="project-item">
+                    <strong class="project-title" onclick="toggleDescription(this)">Projeto 1: Desenvolvimento de um site pessoal utilizando HTML, CSS e JavaScript</strong>
+                    <p class="project-description">Desenvolvimento de um site pessoal moderno e responsivo, projetado para servir como portfólio e currículo online.</p>
+                </li>
+                <li class="project-item">
+                    <strong class="project-title" onclick="toggleDescription(this)">Projeto 2: Desenvolvimento de um site de vendas de semijoias</strong>
+                    <p class="project-description">Desenvolvimento de um site para para ajudar na organização e vendas de semijoias.</p>
+                </li>
+            </ul>
+        </section>
+
+        <!-- Certifications and Achievements Section -->
+        <section id="certificates">
+            <h2>Certificados</h2>
+            <ul class="certifications-list">
+                <li>Aperfeiçoamento em Cabeamento Estruturado – SENAI MG</li>
+                <li>Aperfeiçoamento em Instalação de Redes Wireless – SENAI MG</li>
+                <li>Aperfeiçoamento em Redes de Computadores – SENAI MG</li>
+                <li>Capacitação em Redes e Telefonia VOIP – Exército Brasileiro</li>
+                <li>Estágio Básico do Combatente de Montanha – Exército Brasileiro</li>
+                <li>Estágio de Instrução Preparatória para Oficiais Temporários (EIPOT) – Exército Brasileiro</li>
+                <li>Estágio Setorial de Gestão de Almoxarifado – Exército Brasileiro</li>
+                <li>Estágio Setorial de Gestão de Estoques – Exército Brasileiro</li>
+                <li>Estágio Setorial de Gestão Financeira – Exército Brasileiro</li>
+                <li>Estágio Setorial para Auxiliar de Setor Financeiro – Exército Brasileiro</li>
+                <li>Inglês (avançado) – Cultura Inglesa</li>
+            </ul>
+
+            <h2>Conquistas</h2>
+            <ul class="achievements-list">
+                <li class="achievement-item">
+                    <strong class="achievement-title" onclick="toggleDescription(this)">Referência Elogiosa do Comandante da 4ª CIA COM L MTH – 14 de julho de 2023</strong>
+                    <p class="achievement-description">“É por dever de justiça e com imensa satisfação que consigno a presente referência elogiosa ao 2° Tenente VINICIUS TRINDADE DIAS ABEL, no momento em que se afasta da 4ª Companhia de Comunicações Leve de Montanha, após cerca de um ano e meio de trabalho, em virtude de sua transferência para a Reserva não remunerada.
+                        Oriundo do Centro de Preparação de Oficiais da Reserva de Belo Horizonte (CPOR-BH), ○ então Aspirante-a-Oficial Trindade apresentou-se nesta Companhia em 2 de março de 2022, para a realização do Estágio de Instrução e Preparação de Oficiais Temporários (EIPOT), sendo designado a compor o 2° Pelotão de Comunicações.
+                        Em sua primeira missão de formar os novos militares no Período de Instrução Básica, demonstrou dedicação e adaptabilidade, tanto nas atividades realizadas nas instalações da Companhia quanto as em campo. Demonstrou,ainda, retidão de caráter e seriedade ao influenciar positivamente os soldados recrutas, sendo um exemplo de conduta e disciplina.
+                        Demonstrando, desde o princípio de seu convívio nesta OM, características como inteligência e organização e, ainda, apresentando grande aptidão para a administração, uma caraterística singular em militares tão jovens, foi direcionado, ao longo do EIPOT, para exercer atividades no Setor Financeiro (Tesouraria), chegando a participar do Simpósio de Administração 2022 da Companhia.
+                        Concluiu, no dia 10 de junho de 2022, o EIPOT nesta Cia com a nota de avaliação "9,9" em "10" e foi convocado para o Estágio de Instrução Complementar (EIC) no dia 13 de junho, ocasião a qual foi designado para exercer a função de Chefe do Setor Financeiro.
+                        Dadas as suas capacidades e a natureza de sua formação, cumulativamente com a parte administrativa, também executou diversas missões operacionais e de formação de outros militares. Uma delas foi a Operação DIEDRO 2022, operação da 4ª Brigada de Infantaria Leve de Montanha realizada na região de Guarani e Descoberto, no estado de Minas Gerais, onde, no período de 25 de junho a 1° de julho daquele ano, trabalhou como Comandante do Destacamento de Comunicações responsável por prover os meios e os enlaces do Comando da Brigada, demonstrando esforço e comprometimento. As mesmas características foram demonstradas por ocasião da sua participação da Operação MEMBECA 2022, outra operação da Brigada de Montanha, que foi realizada de 17 a 23 de setembro daquele ano.
+                        Por diversas, ainda em 2022, respondeu pelo Comando do 1° e 2° Pelotões de Comunicações e, em 12 de agosto, foi designado Comandante do Pelotão de Comando e Apoio, função que exerceu de maneira exemplar, cumulativamente com a chefia da Tesouraria.
+                        No mesmo mês de agosto, no dia 31, foi promovido ao posto de 2° Tenente, passando a integrar o quadro de oficiais da 4ª Cia Com L Mth. Tal evento foi fruto de seu trabalho, dedicação e tempo transcorrido no serviço militar. A transição para o novo posto significa, sob certa ótica, a ratificação da admissão do militar às fileiras do Exército Brasileiro, cessando o caráter transitório que a condição de "Aspirante-a-Oficial" sugere. Dessa forma, foram confirmadas as qualidades militares demonstradas pelo 2° Tenente TRINDADE.
+                        Em outubro, concluiu, na modalidade de ensino à distância os Estágios Setoriais de Gestão Financeira, Gestão de Almoxarifado e Gestão de Estoques, demonstrando o comprometimento com a Força e com o seu auto aperfeiçoamento.
+                        Em 2 de março de 2023, passou as suas funções de Chefe do Setor Financeiro e Comandante do Pelotão de Comando e Apoio para ser rocado para a parte operacional da Companhia, assumindo o Comando do 2° Pelotão de Comunicações.
+                        Correspondendo à sua nova função, participou de 1° a 7 de maio de 2023 da Operação PANTHEON, operação da 1ª Divisão de Exército, focada em Garantia da Lei e da Ordem, na cidade do Rio de Janeiro - RJ, demonstrando, mais uma vez, capacidade e empenho.
+                        Demonstrando um excelente preparo físico e caráter militar, obteve a menção "Excelente" em todos os Testes de Aptidão Física (TAF) que realizou. Reforçando as suas capacidades básicas militares, executou, ao longo de seu período nesta Cia, os Tiros de Instrução Básica com o Fuzil IA2, Para-FAL, Espingarda Calibre 12, além da realização do Tiro de Instrução Avançada e Teste de Aptidão de Tiro com a Pistola 9mm. Possuidor de elevado brio pessoal, demonstrou de maneira nítida sua preocupação em estar preparado para servir em situações que lhe fossem exigidas rusticidade e abnegação fisica. Esteve sempre junto à tropa na realização das atividades de treinamento fisico, marchas, competições desportivas, rondas patrimoniais e formaturas, demonstrando integração com as atividades da companhia e com o cotidiano militar.
+                        Apesar de sua pouca idade, recebeu grandes responsabilidades e teve suas qualidades e esforços reconhecidos com gratidão pelo Comandante anterior, que registrou, em referência elogiosa aspectos do militar como capacidade intelectual e dedicação. Ainda, o Cap CANESCHI, antigo Fiscal Administrativo, também registrou caraterísticas como comprometimento, responsabilidade, profissionalismo, adaptação e versatilidade, além de boa educação e serenidade.
+                        Militar leal e competente, assumiu e desempenhou suas atribuições com desprendimento e naturalidade, assessorando de maneira correta e eficaz seus superiores e visando o bom andamento das missões impostas.
+                        Ao despedir-me deste companheiro de elevado valor profissional, não posso deixar de apresentar-lhe os meus sinceros agradecimentos pela lealdade e dedicação que prestou a este Comando, contribuindo de forma marcante para o êxito alcançado no cumprimento da nossa missão. Espero que as experiências vividas entre nossas fileiras tenham sido tão proveitosas para você quanto foram para nós. Tenho a certeza de que os atributos e valores que demonstrou possuir lhe garantirão alcançar objetivos cada vez maiores e sucesso nas escaladas futuras. 
+                        2° Tenente TRINDADE, "'MISSÃO CUMPRIDA"!
+                        Conte sempre com os amigos que fez nesta Companhia. 
+                        Por fim, desejo saúde, sorte e sucesso no prosseguimento de sua carreira profissional e que o Senhor Deus, que também olha pelos Exércitos e seus soldados, continue abençoando você e sua família (INDIVIDUAL).”</p>
+                </li>
+
+                <li class="achievement-item">
+                    <strong class="achievement-title" onclick="toggleDescription(this)">Referência Elogiosa do Fiscal Administrativo da 4ª CIA COM L MTH</strong>
+                    <p class="achievement-description">“Por ocasião de minha passagem para a reserva remunerada, é com grande satisfação que consigno a 
+                        presente referência elogiosa, como forma de expressar os mais sinceros agradecimentos pelo competente 
+                        trabalho realizado pelo 2° Ten TRINDADE, na função de Encarregado do Setor Financeiro. Militar 
+                        extremamente comprometido com o cumprimento da missão, em sua primeira comissão como Oficial 
+                        desta Companhia, não mediu esforços para inteirar-se rapidamente da complexa e extensa legislação que 
+                        rege sua sensível função. Com elevado senso de responsabilidade, dedicação e abnegação aos assuntos 
+                        da caserna, buscou incansavelmente, com invulgar acerto e profissionalismo, assessorar seus superiores 
+                        nas questões atinentes aos procedimentos previstos e legais a serem adotados na Tesouraria. Contribuiu 
+                        sobremaneira para que a Companhia bem cumprisse determinações, prazos e metas estabelecidas pelo 
+                        escalão superior. Apesar de ainda muito jovem e recém egresso de sua formação militar do Centro de 
+                        Preparação de Oficiais da Reserva, o Ten TRINDADE, soube bem conciliar as funções distintas de 
+                        Tesoureiro e Comandante do Pelotão de Comando e Apoio, demonstrando capacidade de adaptação e 
+                        versatilidade. No convívio diário, o Ten TRINDADE demonstrou ser um profissional de fácil trato, 
+                        muito educado, capaz de desempenhar suas funções com serenidade sem abrir mão do dinamismo e da 
+                        eficiência. Ao despedir-me de tão valoroso companheiro, agradeço ao Ten TRINDADE pela importante 
+                        colaboração prestada, concitando-o a prosseguir na perseverança dos valores e das virtudes do nosso 
+                        estamento militar, desejando muita paz, saúde e felicidade. Que o Senhor de Todos os Exércitos os 
+                        acompanhe e guarde. Para frente e para o alto! Montanha! (INDIVIDUAL).”</p>
+                </li>
+
+                <li class="achievement-item">
+                    <strong class="achievement-title" onclick="toggleDescription(this)">Referência Elogiosa do Comandante da 4ª CIA COM L MTH – 12 de janeiro de 2023</strong>
+                    <p class="achievement-description">"No momento em que deixo o Comando da 4ª Companhia de Comunicações Leve de Montanha, é com satisfação e em merecido reconhecimento que formulo a presente referência elogiosa ao 2° Ten Vinicius Trindade Dias Abel.
+                        O 2° Ten Trindade chegou a 4ª Cia Com L Mth no primeiro semestre de 2021 para realização do EIPOT, proveniente do CPOR-BH. Após meses de experiência no estágio e fruto de seu mérito intelectual foi classificado nesta subunidade.
+                        Logo de início recebeu o desafio de assumir o Setor Financeiro da OM. Tal função lhe exigiu preparação intelectual e conseguiu assumir a função sem impactos para os diversos processos administrativos da Companhia.
+                        No segundo semestre do corrente ano assumiu também o Comando do Pelotão de Comando e Apoio, maior efetivo da Companhia. Em tal função participou das Operações Diedro e Membeca lhe exigindo amadurecimento rápido e coordenação das atividades, contribuindo para o desenvolvimento do seu caráter militar e adaptação à caserna.
+                        Agradeço ao 2° Ten Trindade o trabalho realizado. Mesmo com pouco tempo no Exército Brasileiro já demonstrou possuir capacidade intelectual e dedicação necessária para desenvolver atividades operacionais e administrativas. Desejo sucesso e felicidade no prosseguimento de sua carreira militar na certeza de que as virtudes apresentadas na caserna servirão de base para sua vida."</p>
+                </li>
+                
+                <li class="achievement-item">
+                    <strong class="achievement-title" onclick="toggleDescription(this)">Prêmio de melhor gestão financeira da 4ª Brigada de Infantaria Leve de Montanha - 2022</strong>
+                    <p class="achievement-description">Prêmio concedido à Organização Militar subordinada à 4ª Brigada de Infantaria Leve de Montanha com melhor gestão financeira no ano.</p>
+                </li>
+
+                <li class="achievement-item">
+                    <strong class="achievement-title" onclick="toggleDescription(this)">Destaque Geral CPOR-BH 2021</strong>
+                    <p class="achievement-description">Considerado o Destaque Geral da "TURMA GENERAL ARGOLO", por ter obtido o maior grau entre os Alunos primeiros colocados dos cursos do Centro de Preparação de Oficiais da Reserva de Belo Horizonte, somando-se as Disciplinas Comuns, Projetos Interdisciplinares e a Avaliação do Chefe da Divisão de Ensino dos Atributos da Área Afetiva.</p>
+                </li>
+
+                <li class="achievement-item">
+                    <strong class="achievement-title" onclick="toggleDescription(this)">1° colocado do curso de Comunicações CPOR-BH 2021</strong>
+                    <p class="achievement-description">Por ter obtido o maior grau entre os Alunos do curso de Comunicações do Centro de Preparação de Oficiais da Reserva de Belo Horizonte, somando-se as Disciplinas Comuns, Projetos Interdisciplinares e a Avaliação do Chefe da Divisão de Ensino dos Atributos da Área Afetiva.</p>
+                </li>
+
+                <li class="achievement-item">
+                    <strong class="achievement-title" onclick="toggleDescription(this)">Livro de Ouro do Centro de Preparação de Oficiais da Reserva de Belo Horizonte</strong>
+                    <p class="achievement-description">O livro de ouro tem como objetivo registrar a distinção do Aspirante-a-Oficial formado no Centro de Preparação de Oficiais da Reserva. Somente os militares que obtiveram comportamento exemplar durante o curso e não cometeram nenhuma transgressão disciplinar possuem o direito de assinar o livro.</p>
+                </li>
+
+                <li class="achievement-item">
+                    <strong class="achievement-title" onclick="toggleDescription(this)">Medalha Prêmio Correia Lima</strong>
+                    <p class="achievement-description">Medalha concedida por concluir o Curso de Formação de Oficiais da Reserva em 1° lugar no CPOR-BH.</p>
+                </li>
+
+                <li class="achievement-item">
+                    <strong class="achievement-title" onclick="toggleDescription(this)">Honra ao Mérito - Operação FIT</strong>
+                    <p class="achievement-description">Concedido por ser o militar destaque da Operação Fibra, Iniciativa e Tenacidade (Op FIT) do Centro de Preparação de Oficiais da Reserva de Belo Horizonte, no ano de 2021.</p>
+                </li>
+
+                <li class="achievement-item">
+                    <strong class="achievement-title" onclick="toggleDescription(this)">Combatente de melhor aptidão física</strong>
+                    <p class="achievement-description">Concedido o DIPLOMA DE COMBATENTE DE MELHOR APTIDÃO FÍSICA por ter obtido o melhor resultado no Teste de Avaliação Física no CPOR-BH 2021.</p>
+                </li>
+            </ul>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact">
+            <h2>Contato</h2>
+            <p>Email: <a href="mailto:viniciustda@ufmg.br">viniciustda@ufmg.br</a> / <a href="mailto:v.trindade.d.a@gmail.com">v.trindade.d.a@gmail.com</a></p>
+            <p>LinkedIn: <a href="https://linkedin.com/in/v-trindade" target="_blank">linkedin.com/in/v-trindade</a></p>
+            <p>GitHub: <a href="https://github.com/Viniciustda" target="_blank">github.com/Viniciustda</a></p>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Vinicius Trindade. Todos os direitos reservados.</p>
+    </footer>
+
+    <script src="scripts.js"></script> <!-- Link para o arquivo JS externo -->
+
+</body>
+</html>

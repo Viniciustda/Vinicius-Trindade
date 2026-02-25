@@ -1,0 +1,65 @@
+---
+import '../styles/global.css';
+
+type Props = {
+	title: string;
+	description: string;
+	lang: 'pt-BR' | 'en';
+	canonicalPath: string;
+};
+
+const { title, description, lang, canonicalPath } = Astro.props;
+
+const baseUrl = import.meta.env.BASE_URL;
+const canonicalUrl = Astro.site ? new URL(canonicalPath.replace(/^\//, ''), Astro.site).toString() : undefined;
+const faviconSvg = `${baseUrl}favicon.svg`;
+const faviconIco = `${baseUrl}favicon.ico`;
+---
+
+<!doctype html>
+<html lang={lang} class="h-full scroll-smooth">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="generator" content={Astro.generator} />
+		<meta name="description" content={description} />
+		<meta name="theme-color" content="#0a0a0a" />
+
+		<script>
+			(() => {
+				const storageKey = 'theme';
+				const root = document.documentElement;
+
+				const stored = (() => {
+					try {
+						return localStorage.getItem(storageKey);
+					} catch {
+						return null;
+					}
+				})();
+
+				const prefersDark = window.matchMedia?.('(prefers-color-scheme: dark)').matches ?? false;
+				const isDark = stored ? stored === 'dark' : prefersDark;
+				root.classList.toggle('dark', isDark);
+				root.dataset.theme = isDark ? 'dark' : 'light';
+			})();
+		</script>
+
+		<link rel="icon" type="image/svg+xml" href={faviconSvg} />
+		<link rel="icon" href={faviconIco} />
+
+		{canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
+
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:type" content="website" />
+		{canonicalUrl && <meta property="og:url" content={canonicalUrl} />}
+
+		<title>{title}</title>
+	</head>
+	<body class="min-h-full bg-white text-zinc-900 antialiased dark:bg-zinc-950 dark:text-zinc-100">
+		<div class="min-h-screen bg-[radial-gradient(60rem_60rem_at_top,rgba(0,0,0,0.05),transparent)] dark:bg-[radial-gradient(60rem_60rem_at_top,rgba(255,255,255,0.08),transparent)]">
+			<slot />
+		</div>
+	</body>
+</html>

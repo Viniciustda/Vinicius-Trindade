@@ -1,0 +1,18 @@
+{
+  "name": "vinicius-trindade-portfolio",
+  "type": "module",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Bilingual personal portfolio built with Astro + Tailwind, deployed to GitHub Pages.",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@tailwindcss/vite": "^4.2.1",
+    "astro": "^5.17.1",
+    "tailwindcss": "^4.2.1"
+  }
+}

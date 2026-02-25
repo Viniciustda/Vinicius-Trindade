@@ -1,0 +1,363 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { content } from '../../lib/siteContent';
+
+const c = content.pt;
+const baseUrl = import.meta.env.BASE_URL;
+const langHref = `${baseUrl}${c.languageSwitch.href.replace(/^\//, '')}`;
+
+const assetImages = import.meta.glob('/src/assets/images/**/*.{png,jpg,jpeg,webp,avif,svg}', {
+	eager: true,
+	import: 'default',
+});
+
+const toSlug = (value) => {
+	return value
+		.toLowerCase()
+		.normalize('NFD')
+		.replace(/[\u0300-\u036f]/g, '')
+		.replace(/[^a-z0-9]+/g, '-')
+		.replace(/(^-|-$)/g, '')
+		.slice(0, 60);
+};
+
+const makeOverlayId = (prefix, title, index) => {
+	const slug = toSlug(title) || 'item';
+	return `${prefix}-${slug}-${index}`;
+};
+
+const resolveImageUrl = (relativePath) => {
+	const clean = String(relativePath || '').replace(/^\//, '');
+	const key = `/src/assets/images/${clean}`;
+	return assetImages[key] ?? null;
+};
+---
+
+<BaseLayout title={c.meta.title} description={c.meta.description} lang="pt-BR" canonicalPath="pt/">
+	<header class="mx-auto max-w-5xl px-6 pt-10 pb-8">
+		<div class="flex items-start justify-between gap-6">
+			<div>
+				<p class="text-sm text-zinc-600 dark:text-zinc-400">{c.header.tagline}</p>
+				<h1 class="mt-3 text-4xl font-semibold tracking-tight sm:text-5xl">{c.header.name}</h1>
+				<p class="mt-4 max-w-2xl text-base leading-relaxed text-zinc-700 dark:text-zinc-200">{c.header.summary}</p>
+				<div class="mt-6 flex flex-wrap gap-3">
+					<a
+						href={c.header.ctaPrimary.href}
+						class="inline-flex items-center justify-center rounded-lg bg-zinc-900 px-4 py-2 text-sm font-medium text-white hover:bg-zinc-800 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-white"
+					>
+						{c.header.ctaPrimary.label}
+					</a>
+					<a
+						href={c.header.ctaSecondary.href}
+						class="inline-flex items-center justify-center rounded-lg border border-zinc-300 px-4 py-2 text-sm font-medium text-zinc-900 hover:border-zinc-400 dark:border-zinc-700 dark:text-zinc-100 dark:hover:border-zinc-500"
+					>
+						{c.header.ctaSecondary.label}
+					</a>
+				</div>
+			</div>
+			<div class="shrink-0 flex items-center gap-2">
+				<a
+					href={langHref}
+					class="rounded-lg border border-zinc-300 px-3 py-2 text-sm text-zinc-900 hover:border-zinc-400 dark:border-zinc-800 dark:text-zinc-200 dark:hover:border-zinc-600"
+					aria-label="Ver versão em inglês"
+				>
+					{c.languageSwitch.label}
+				</a>
+				<button
+					type="button"
+					data-theme-toggle
+					data-label-light="Claro"
+					data-label-dark="Escuro"
+					class="rounded-lg border border-zinc-300 px-3 py-2 text-sm text-zinc-900 hover:border-zinc-400 dark:border-zinc-800 dark:text-zinc-200 dark:hover:border-zinc-600"
+					aria-label="Alternar tema"
+				></button>
+			</div>
+		</div>
+
+		<nav class="mt-10 flex flex-wrap gap-x-6 gap-y-2 text-sm text-zinc-700 dark:text-zinc-300">
+			{c.sections.nav.map((item) => (
+				<a class="hover:text-zinc-900 dark:hover:text-white" href={item.href}>{item.label}</a>
+			))}
+		</nav>
+	</header>
+
+	<main class="mx-auto max-w-5xl px-6 pb-16">
+		<section id="sobre" class="scroll-mt-20 rounded-2xl border border-zinc-200 bg-white/70 p-6 dark:border-zinc-900 dark:bg-zinc-950/40">
+			<h2 class="text-lg font-semibold">{c.sections.about.title}</h2>
+			<ul class="mt-4 space-y-2 text-zinc-700 dark:text-zinc-200">
+				{c.sections.about.bullets.map((b) => (
+					<li class="flex gap-2">
+						<span class="mt-2 size-1.5 shrink-0 rounded-full bg-zinc-400" />
+						<span>{b}</span>
+					</li>
+				))}
+			</ul>
+		</section>
+
+		<section id="projetos" class="mt-10 scroll-mt-20">
+			<h2 class="text-lg font-semibold">{c.sections.projects.title}</h2>
+			<div class="mt-4 grid gap-4 sm:grid-cols-2">
+				{c.sections.projects.items.map((p) => (
+					<article class="rounded-2xl border border-zinc-200 bg-white/70 p-6 dark:border-zinc-900 dark:bg-zinc-950/40">
+						<h3 class="text-base font-semibold text-zinc-900 dark:text-white">{p.title}</h3>
+						<p class="mt-2 text-sm leading-relaxed text-zinc-700 dark:text-zinc-200">{p.description}</p>
+						<div class="mt-4 flex flex-wrap gap-2">
+							{p.tags.map((t) => (
+								<span class="rounded-full border border-zinc-200 bg-zinc-50 px-2 py-1 text-xs text-zinc-700 dark:border-zinc-800 dark:bg-zinc-950 dark:text-zinc-300">
+									{t}
+								</span>
+							))}
+						</div>
+						{p.links?.length ? (
+							<div class="mt-4 flex flex-wrap gap-3">
+								{p.links.map((l) => (
+									<a class="text-sm text-zinc-700 underline decoration-zinc-300 underline-offset-4 hover:text-zinc-900 dark:text-zinc-200 dark:decoration-zinc-700 dark:hover:text-white" href={l.href} target="_blank" rel="noreferrer">
+										{l.label}
+									</a>
+								))}
+							</div>
+						) : null}
+					</article>
+				))}
+			</div>
+		</section>
+
+		<section id="experiencia" class="mt-10 scroll-mt-20">
+			<h2 class="text-lg font-semibold">{c.sections.experience.title}</h2>
+			<div class="mt-4 space-y-4">
+				{c.sections.experience.items.map((item) => (
+					<div class="rounded-2xl border border-zinc-200 bg-white/70 p-6 dark:border-zinc-900 dark:bg-zinc-950/40">
+						<div class="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
+							<h3 class="text-base font-semibold">{item.role}</h3>
+							<p class="text-sm text-zinc-600 dark:text-zinc-400">{item.period}</p>
+						</div>
+						<p class="mt-1 text-sm text-zinc-700 dark:text-zinc-200">{item.org}</p>
+						<ul class="mt-4 space-y-2 text-sm text-zinc-700 dark:text-zinc-200">
+							{item.highlights.map((h) => (
+								<li class="flex gap-2">
+									<span class="mt-2 size-1.5 shrink-0 rounded-full bg-zinc-400" />
+									<span>{h}</span>
+								</li>
+							))}
+						</ul>
+					</div>
+				))}
+			</div>
+		</section>
+
+		<section id="formacao" class="mt-10 scroll-mt-20">
+			<h2 class="text-lg font-semibold">{c.sections.education.title}</h2>
+			<div class="mt-4 grid gap-4 sm:grid-cols-2">
+				{c.sections.education.items.map((e) => (
+					<div class="rounded-2xl border border-zinc-200 bg-white/70 p-6 dark:border-zinc-900 dark:bg-zinc-950/40">
+						<h3 class="text-base font-semibold">{e.program}</h3>
+						<p class="mt-1 text-sm text-zinc-700 dark:text-zinc-200">{e.school}</p>
+						<p class="mt-2 text-sm text-zinc-600 dark:text-zinc-400">{e.period}</p>
+					</div>
+				))}
+			</div>
+		</section>
+
+		<section id="certificados" class="mt-10 scroll-mt-20">
+			<h2 class="text-lg font-semibold">{c.sections.certificates.title}</h2>
+			<div class="mt-4 grid gap-4 sm:grid-cols-2">
+				{c.sections.certificates.items.map((item, index) => {
+					const overlayId = makeOverlayId('cert', item.title, index);
+					const thumbUrl = item.image ? resolveImageUrl(item.image.thumbSrc ?? item.image.src) : null;
+					const fullUrl = item.image ? resolveImageUrl(item.image.src) : null;
+					return (
+						<>
+							<div class="rounded-2xl border border-zinc-200 bg-white/70 p-6 dark:border-zinc-900 dark:bg-zinc-950/40">
+								<h3 class="text-base font-semibold">{item.title}</h3>
+								{item.detail && <p class="mt-2 text-sm text-zinc-700 dark:text-zinc-200">{item.detail}</p>}
+								{item.image ? (
+									<div class="mt-4">
+										<a
+											href={`#${overlayId}`}
+											class="inline-flex items-center gap-2 text-sm text-zinc-700 underline decoration-zinc-300 underline-offset-4 hover:text-zinc-900 dark:text-zinc-200 dark:decoration-zinc-700 dark:hover:text-white"
+										>
+											<img
+												src={thumbUrl ?? ''}
+												alt={item.image.alt}
+												loading="lazy"
+												class="h-14 w-auto rounded-lg border border-zinc-200 bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-950"
+											/>
+											<span>Ver imagem</span>
+										</a>
+									</div>
+								) : null}
+							</div>
+
+							{item.image ? (
+								<div
+									id={overlayId}
+									class="overlay fixed inset-0 z-50 items-center justify-center p-4"
+									role="dialog"
+									aria-modal="true"
+									aria-label={item.title}
+								>
+									<a
+										href="#certificados"
+										class="absolute inset-0 bg-zinc-950/70 dark:bg-zinc-950/80"
+										aria-label="Fechar"
+									/>
+									<div class="relative w-full max-w-4xl overflow-hidden rounded-2xl border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-950">
+										<div class="flex items-start justify-between gap-4">
+											<p class="text-sm font-medium text-zinc-900 dark:text-zinc-100">{item.title}</p>
+											<a
+												href="#certificados"
+												class="shrink-0 rounded-lg border border-zinc-300 px-3 py-2 text-sm text-zinc-900 hover:border-zinc-400 dark:border-zinc-800 dark:text-zinc-200 dark:hover:border-zinc-600"
+											>
+												Fechar
+											</a>
+										</div>
+										<img
+											src={fullUrl ?? ''}
+											alt={item.image.alt}
+											loading="lazy"
+											class="mt-4 max-h-[75vh] w-full rounded-xl border border-zinc-200 object-contain dark:border-zinc-800"
+										/>
+									</div>
+								</div>
+							) : null}
+						</>
+					);
+				})}
+			</div>
+		</section>
+
+		<section id="conquistas" class="mt-10 scroll-mt-20">
+			<h2 class="text-lg font-semibold">{c.sections.achievements.title}</h2>
+			<div class="mt-4 space-y-8">
+				{c.sections.achievements.groups.map((group, groupIndex) => (
+					<div>
+						<h3 class="text-sm font-semibold text-zinc-600 dark:text-zinc-300">{group.title}</h3>
+						<div class="mt-4 space-y-4">
+							{group.items.map((a, itemIndex) => {
+								const overlayId = makeOverlayId(`ach-${groupIndex}`, a.title, itemIndex);
+								const thumbUrl = a.image ? resolveImageUrl(a.image.thumbSrc ?? a.image.src) : null;
+								const fullUrl = a.image ? resolveImageUrl(a.image.src) : null;
+								return (
+									<>
+										<div class="rounded-2xl border border-zinc-200 bg-white/70 p-6 dark:border-zinc-900 dark:bg-zinc-950/40">
+											<h4 class="text-base font-semibold">{a.title}</h4>
+											{a.detail && <p class="mt-2 text-sm text-zinc-700 dark:text-zinc-200">{a.detail}</p>}
+											{a.fullText && (
+												<details class="mt-3">
+													<summary class="cursor-pointer text-sm text-zinc-600 hover:text-zinc-900 dark:text-zinc-300 dark:hover:text-white">Ler trecho</summary>
+													<p class="mt-3 whitespace-pre-line text-sm leading-relaxed text-zinc-700 dark:text-zinc-200">{a.fullText}</p>
+												</details>
+											)}
+											{a.image ? (
+												<div class="mt-4">
+													<a
+														href={`#${overlayId}`}
+														class="inline-flex items-center gap-2 text-sm text-zinc-700 underline decoration-zinc-300 underline-offset-4 hover:text-zinc-900 dark:text-zinc-200 dark:decoration-zinc-700 dark:hover:text-white"
+													>
+														<img
+															src={thumbUrl ?? ''}
+															alt={a.image.alt}
+															loading="lazy"
+															class="h-14 w-auto rounded-lg border border-zinc-200 bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-950"
+														/>
+														<span>Ver imagem</span>
+													</a>
+												</div>
+											) : null}
+										</div>
+
+										{a.image ? (
+											<div
+												id={overlayId}
+												class="overlay fixed inset-0 z-50 items-center justify-center p-4"
+												role="dialog"
+												aria-modal="true"
+												aria-label={a.title}
+											>
+												<a
+													href="#conquistas"
+													class="absolute inset-0 bg-zinc-950/70 dark:bg-zinc-950/80"
+													aria-label="Fechar"
+												/>
+												<div class="relative w-full max-w-4xl overflow-hidden rounded-2xl border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-950">
+													<div class="flex items-start justify-between gap-4">
+														<p class="text-sm font-medium text-zinc-900 dark:text-zinc-100">{a.title}</p>
+														<a
+															href="#conquistas"
+															class="shrink-0 rounded-lg border border-zinc-300 px-3 py-2 text-sm text-zinc-900 hover:border-zinc-400 dark:border-zinc-800 dark:text-zinc-200 dark:hover:border-zinc-600"
+														>
+															Fechar
+														</a>
+													</div>
+													<img
+														src={fullUrl ?? ''}
+														alt={a.image.alt}
+														loading="lazy"
+														class="mt-4 max-h-[75vh] w-full rounded-xl border border-zinc-200 object-contain dark:border-zinc-800"
+													/>
+												</div>
+											</div>
+										) : null}
+									</>
+								);
+							})}
+						</div>
+					</div>
+				))}
+			</div>
+		</section>
+
+		<section id="contato" class="mt-10 scroll-mt-20 rounded-2xl border border-zinc-200 bg-white/70 p-6 dark:border-zinc-900 dark:bg-zinc-950/40">
+			<h2 class="text-lg font-semibold">{c.sections.contact.title}</h2>
+			<p class="mt-2 text-sm text-zinc-700 dark:text-zinc-200">{c.sections.contact.locationLine}</p>
+			<div class="mt-4 flex flex-wrap gap-3">
+				{c.sections.contact.links.map((l) => (
+					<a class="rounded-lg border border-zinc-300 px-3 py-2 text-sm text-zinc-900 hover:border-zinc-400 dark:border-zinc-800 dark:text-zinc-200 dark:hover:border-zinc-600" href={l.href} target={l.href.startsWith('http') ? '_blank' : undefined} rel={l.href.startsWith('http') ? 'noreferrer' : undefined}>
+						{l.label}
+					</a>
+				))}
+			</div>
+		</section>
+	</main>
+
+	<footer class="mx-auto max-w-5xl px-6 pb-10 text-sm text-zinc-600 dark:text-zinc-500">
+		<p>{c.footer.text}</p>
+	</footer>
+</BaseLayout>
+
+<script>
+	(() => {
+		const storageKey = 'theme';
+		const root = document.documentElement;
+
+		const getIsDark = () => root.classList.contains('dark');
+		const setTheme = (isDark) => {
+			root.classList.toggle('dark', isDark);
+			root.dataset.theme = isDark ? 'dark' : 'light';
+			try {
+				localStorage.setItem(storageKey, isDark ? 'dark' : 'light');
+			} catch {
+				// ignore
+			}
+		};
+
+		const updateLabels = () => {
+			const isDark = getIsDark();
+			for (const btn of document.querySelectorAll('[data-theme-toggle]')) {
+				const labelLight = btn.getAttribute('data-label-light') ?? 'Claro';
+				const labelDark = btn.getAttribute('data-label-dark') ?? 'Escuro';
+				btn.textContent = isDark ? labelLight : labelDark;
+			}
+		};
+
+		updateLabels();
+		document.addEventListener('click', (e) => {
+			const target = e.target;
+			if (!(target instanceof HTMLElement)) return;
+			const btn = target.closest('[data-theme-toggle]');
+			if (!btn) return;
+			setTheme(!getIsDark());
+			updateLabels();
+		});
+	})();
+</script>

@@ -1,0 +1,56 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const baseUrl = import.meta.env.BASE_URL;
+const ptUrl = `${baseUrl}pt/`;
+const enUrl = `${baseUrl}en/`;
+---
+
+<BaseLayout
+	title="Vinicius Trindade"
+	description="Portfolio / Portfólio (PT/EN)."
+	lang="en"
+	canonicalPath=""
+>
+	<main class="mx-auto max-w-3xl px-6 pt-16 pb-20">
+		<h1 class="text-3xl font-semibold tracking-tight">Choose a language</h1>
+		<p class="mt-3 text-zinc-200">Selecione um idioma para continuar.</p>
+
+		<div class="mt-8 flex flex-wrap gap-3">
+			<a
+				href={enUrl}
+				class="inline-flex items-center justify-center rounded-lg bg-zinc-100 px-4 py-2 text-sm font-medium text-zinc-900 hover:bg-white"
+			>
+				English
+			</a>
+			<a
+				href={ptUrl}
+				class="inline-flex items-center justify-center rounded-lg border border-zinc-700 px-4 py-2 text-sm font-medium text-zinc-100 hover:border-zinc-500"
+			>
+				Português
+			</a>
+		</div>
+
+		<p class="mt-10 text-sm text-zinc-400">
+			Tip: this page can auto-redirect based on your browser language.
+		</p>
+	</main>
+
+	<script define:vars={{ ptUrl, enUrl }}>
+		(() => {
+			try {
+				const preferred = (navigator.language || '').toLowerCase();
+				const target = preferred.startsWith('pt') ? ptUrl : enUrl;
+				if (location.pathname.endsWith('/')) {
+					// Avoid redirect loops if already on a localized route.
+					const path = location.pathname;
+					if (!path.includes('/pt/') && !path.includes('/en/')) {
+						location.replace(target);
+					}
+				}
+			} catch {
+				// no-op
+			}
+		})();
+	</script>
+</BaseLayout>

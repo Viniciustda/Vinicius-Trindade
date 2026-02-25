@@ -367,7 +367,7 @@ export const content: Record<Locale, PageContent> = {
 			},
 			contact: {
 				title: 'Contato',
-				locationLine: 'Belo Horizonte, Brasil • Disponível para oportunidades no Brasil e no exterior',
+				locationLine: 'Belo Horizonte, Brasil',
 				links: [
 					{ label: 'Email (UFMG)', href: 'mailto:viniciustda@ufmg.br' },
 					{ label: 'Email (pessoal)', href: 'mailto:v.trindade.d.a@gmail.com' },
@@ -642,7 +642,7 @@ export const content: Record<Locale, PageContent> = {
 			},
 			contact: {
 				title: 'Contact',
-				locationLine: 'Belo Horizonte, Brazil • Open to opportunities in Brazil and abroad',
+				locationLine: 'Belo Horizonte, Brazil',
 				links: [
 					{ label: 'Email (UFMG)', href: 'mailto:viniciustda@ufmg.br' },
 					{ label: 'Email (personal)', href: 'mailto:v.trindade.d.a@gmail.com' },

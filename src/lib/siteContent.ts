@@ -21,15 +21,18 @@ export type EducationItem = {
 	period: string;
 };
 
+export type AwardImage = {
+	src: string;
+	thumbSrc?: string;
+	alt: string;
+};
+
 export type AwardItem = {
 	title: string;
 	detail?: string;
 	fullText?: string;
-	image?: {
-		src: string;
-		thumbSrc?: string;
-		alt: string;
-	};
+	image?: AwardImage;
+	images?: AwardImage[];
 };
 
 export type AchievementGroup = {
@@ -219,15 +222,69 @@ export const content: Record<Locale, PageContent> = {
 			certificates: {
 				title: 'Certificados',
 				items: [
-					{ title: 'Estágio Setorial de Gestão Financeira', detail: 'Exército Brasileiro' },
-					{ title: 'Estágio Setorial para Auxiliar de Setor Financeiro', detail: 'Exército Brasileiro' },
-					{ title: 'Estágio Setorial de Gestão de Almoxarifado', detail: 'Exército Brasileiro' },
-					{ title: 'Estágio Setorial de Gestão de Estoques', detail: 'Exército Brasileiro' },
-					{ title: 'Estágio Básico do Combatente de Montanha', detail: 'Exército Brasileiro' },
-					{ title: 'Capacitação em Redes e Telefonia VOIP', detail: 'Exército Brasileiro' },
-					{ title: 'Aperfeiçoamento em Cabeamento Estruturado', detail: 'SENAI MG' },
-					{ title: 'Aperfeiçoamento em Instalação de Redes Wireless', detail: 'SENAI MG' },
-					{ title: 'Aperfeiçoamento em Redes de Computadores', detail: 'SENAI MG' },
+					{
+						title: 'Estágio Setorial de Gestão Financeira',
+						detail: 'Exército Brasileiro',
+						images: [
+							{ src: 'Certificados/fin_1.jpeg', alt: 'Estágio Setorial de Gestão Financeira — 1' },
+							{ src: 'Certificados/fin_2.jpeg', alt: 'Estágio Setorial de Gestão Financeira — 2' },
+						],
+					},
+					{
+						title: 'Estágio Setorial para Auxiliar de Setor Financeiro',
+						detail: 'Exército Brasileiro',
+						images: [
+							{
+								src: 'Certificados/aux_set_fin_1.jpeg',
+								alt: 'Estágio Setorial para Auxiliar de Setor Financeiro — 1',
+							},
+							{
+								src: 'Certificados/aux_set_fin_2.jpeg',
+								alt: 'Estágio Setorial para Auxiliar de Setor Financeiro — 2',
+							},
+						],
+					},
+					{
+						title: 'Estágio Setorial de Gestão de Almoxarifado',
+						detail: 'Exército Brasileiro',
+						images: [
+							{ src: 'Certificados/almox_1.jpeg', alt: 'Estágio Setorial de Gestão de Almoxarifado — 1' },
+							{ src: 'Certificados/almox_2.jpeg', alt: 'Estágio Setorial de Gestão de Almoxarifado — 2' },
+						],
+					},
+					{
+						title: 'Estágio Setorial de Gestão de Estoques',
+						detail: 'Exército Brasileiro',
+						images: [
+							{ src: 'Certificados/est_1.jpeg', alt: 'Estágio Setorial de Gestão de Estoques — 1' },
+							{ src: 'Certificados/est_2.jpeg', alt: 'Estágio Setorial de Gestão de Estoques — 2' },
+						],
+					},
+					{
+						title: 'Estágio Básico do Combatente de Montanha',
+						detail: 'Exército Brasileiro',
+						image: { src: 'Certificados/mth.jpeg', alt: 'Estágio Básico do Combatente de Montanha' },
+					},
+					{
+						title: 'Capacitação em Redes e Telefonia VOIP',
+						detail: 'Exército Brasileiro',
+						image: { src: 'Certificados/voip.jpeg', alt: 'Capacitação em Redes e Telefonia VOIP' },
+					},
+					{
+						title: 'Aperfeiçoamento em Cabeamento Estruturado',
+						detail: 'SENAI MG',
+						image: { src: 'Certificados/cabeamento.jpeg', alt: 'Aperfeiçoamento em Cabeamento Estruturado' },
+					},
+					{
+						title: 'Aperfeiçoamento em Instalação de Redes Wireless',
+						detail: 'SENAI MG',
+						image: { src: 'Certificados/wireless.jpeg', alt: 'Aperfeiçoamento em Instalação de Redes Wireless' },
+					},
+					{
+						title: 'Aperfeiçoamento em Redes de Computadores',
+						detail: 'SENAI MG',
+						image: { src: 'Certificados/redes.jpeg', alt: 'Aperfeiçoamento em Redes de Computadores' },
+					},
 				],
 			},
 			achievements: {
@@ -236,21 +293,73 @@ export const content: Record<Locale, PageContent> = {
 					{
 						title: 'Exército Brasileiro',
 						items: [
-							{ title: 'Referência elogiosa do Comandante da 4ª Cia Com L Mth', detail: '4ª Companhia de Comunicações Leve de Montanha — 2022' },
+							{
+								title: 'Referência elogiosa do Comandante da 4ª Cia Com L Mth',
+								detail: '4ª Companhia de Comunicações Leve de Montanha — 2022',
+								image: {
+									src: 'Conquistas/re_cmd_22.jpeg',
+									alt: 'Referência elogiosa do Comandante da 4ª Cia Com L Mth (2022)',
+								},
+							},
 							{
 								title: 'Referência elogiosa do Comandante da 4ª Cia Com L Mth',
 								detail: '4ª Companhia de Comunicações Leve de Montanha — 2023',
+							images: [
+								{
+									src: 'Conquistas/re_cmd_23-1.jpeg',
+									alt: 'Referência elogiosa do Comandante da 4ª Cia Com L Mth (2023) — 1',
+								},
+								{
+									src: 'Conquistas/re_cmd_23-2.jpeg',
+									alt: 'Referência elogiosa do Comandante da 4ª Cia Com L Mth (2023) — 2',
+								},
+							],
 							},
-							{ title: 'Referência elogiosa do Fiscal Administrativo da 4ª Cia Com L Mth', detail: '4ª Companhia de Comunicações Leve de Montanha — 2023' },
+						{
+							title: 'Referência elogiosa do Fiscal Administrativo da 4ª Cia Com L Mth',
+							detail: '4ª Companhia de Comunicações Leve de Montanha — 2023',
+							image: {
+								src: 'Conquistas/re_fis.jpeg',
+								alt: 'Referência elogiosa do Fiscal Administrativo da 4ª Cia Com L Mth (2023)',
+							},
+						},
 							{
 								title: 'Prêmio de melhor gestão financeira da 4ª Brigada de Infantaria Leve de Montanha',
 								detail: '4ª Companhia de Comunicações Leve de Montanha — 2022',
 							},
-							{ title: 'Medalha Prêmio Correia Lima', detail: 'CPOR-BH — 2021' },
-							{ title: '1º lugar geral', detail: 'CPOR-BH — 2021' },
+						{
+							title: 'Medalha Prêmio Correia Lima',
+							detail: 'CPOR-BH — 2021',
+							image: {
+								src: 'Conquistas/medalha.jpeg',
+								alt: 'Medalha Prêmio Correia Lima (2021)',
+							},
+						},
+						{
+							title: '1º lugar geral',
+							detail: 'CPOR-BH — 2021',
+							image: {
+								src: 'Conquistas/geral.jpeg',
+								alt: '1º lugar geral (2021)',
+							},
+						},
 							{ title: '1º lugar do curso de Comunicações', detail: 'CPOR-BH — 2021' },
-							{ title: 'Melhor aptidão física', detail: 'CPOR-BH — 2021' },
-							{ title: 'Destaque da Operação FIT (Fibra, Iniciativa e Tenacidade)', detail: 'CPOR-BH — 2021' },
+						{
+							title: 'Melhor aptidão física',
+							detail: 'CPOR-BH — 2021',
+							image: {
+								src: 'Conquistas/apt_fis.jpeg',
+								alt: 'Melhor aptidão física (2021)',
+							},
+						},
+						{
+							title: 'Destaque da Operação FIT (Fibra, Iniciativa e Tenacidade)',
+							detail: 'CPOR-BH — 2021',
+							image: {
+								src: 'Conquistas/fit.jpeg',
+								alt: 'Destaque da Operação FIT (2021)',
+							},
+						},
 							{ title: 'Assinatura do Livro de Ouro', detail: 'CPOR-BH — 2021' },
 						],
 					},
@@ -394,15 +503,63 @@ export const content: Record<Locale, PageContent> = {
 			certificates: {
 				title: 'Certificates',
 				items: [
-					{ title: 'Sector internship in financial management', detail: 'Brazilian Army' },
-					{ title: 'Sector internship for finance assistant', detail: 'Brazilian Army' },
-					{ title: 'Sector internship in warehouse management', detail: 'Brazilian Army' },
-					{ title: 'Sector internship in stock management', detail: 'Brazilian Army' },
-					{ title: 'Basic mountain combatant course', detail: 'Brazilian Army' },
-					{ title: 'Networking and VoIP telephony training', detail: 'Brazilian Army' },
-					{ title: 'Advanced structured cabling', detail: 'SENAI MG' },
-					{ title: 'Advanced wireless network installation', detail: 'SENAI MG' },
-					{ title: 'Advanced computer networks', detail: 'SENAI MG' },
+					{
+						title: 'Sector internship in financial management',
+						detail: 'Brazilian Army',
+						images: [
+							{ src: 'Certificados/fin_1.jpeg', alt: 'Sector internship in financial management — 1' },
+							{ src: 'Certificados/fin_2.jpeg', alt: 'Sector internship in financial management — 2' },
+						],
+					},
+					{
+						title: 'Sector internship for finance assistant',
+						detail: 'Brazilian Army',
+						images: [
+							{ src: 'Certificados/aux_set_fin_1.jpeg', alt: 'Sector internship for finance assistant — 1' },
+							{ src: 'Certificados/aux_set_fin_2.jpeg', alt: 'Sector internship for finance assistant — 2' },
+						],
+					},
+					{
+						title: 'Sector internship in warehouse management',
+						detail: 'Brazilian Army',
+						images: [
+							{ src: 'Certificados/almox_1.jpeg', alt: 'Sector internship in warehouse management — 1' },
+							{ src: 'Certificados/almox_2.jpeg', alt: 'Sector internship in warehouse management — 2' },
+						],
+					},
+					{
+						title: 'Sector internship in stock management',
+						detail: 'Brazilian Army',
+						images: [
+							{ src: 'Certificados/est_1.jpeg', alt: 'Sector internship in stock management — 1' },
+							{ src: 'Certificados/est_2.jpeg', alt: 'Sector internship in stock management — 2' },
+						],
+					},
+					{
+						title: 'Basic mountain combatant course',
+						detail: 'Brazilian Army',
+						image: { src: 'Certificados/mth.jpeg', alt: 'Basic mountain combatant course' },
+					},
+					{
+						title: 'Networking and VoIP telephony training',
+						detail: 'Brazilian Army',
+						image: { src: 'Certificados/voip.jpeg', alt: 'Networking and VoIP telephony training' },
+					},
+					{
+						title: 'Advanced structured cabling',
+						detail: 'SENAI MG',
+						image: { src: 'Certificados/cabeamento.jpeg', alt: 'Advanced structured cabling' },
+					},
+					{
+						title: 'Advanced wireless network installation',
+						detail: 'SENAI MG',
+						image: { src: 'Certificados/wireless.jpeg', alt: 'Advanced wireless network installation' },
+					},
+					{
+						title: 'Advanced computer networks',
+						detail: 'SENAI MG',
+						image: { src: 'Certificados/redes.jpeg', alt: 'Advanced computer networks' },
+					},
 				],
 			},
 			achievements: {
@@ -411,21 +568,73 @@ export const content: Record<Locale, PageContent> = {
 					{
 						title: 'Brazilian Army',
 						items: [
-							{ title: 'Commendation from the Commander of the 4th Light Mountain Signals Company', detail: '4th Light Mountain Signals Company — 2022' },
+							{
+								title: 'Commendation from the Commander of the 4th Light Mountain Signals Company',
+								detail: '4th Light Mountain Signals Company — 2022',
+								image: {
+									src: 'Conquistas/re_cmd_22.jpeg',
+									alt: 'Commendation from the Commander of the 4th Light Mountain Signals Company (2022)',
+								},
+							},
 							{
 								title: 'Commendation from the Commander of the 4th Light Mountain Signals Company',
 								detail: '4th Light Mountain Signals Company — 2023',
+							images: [
+								{
+									src: 'Conquistas/re_cmd_23-1.jpeg',
+									alt: 'Commendation from the Commander of the 4th Light Mountain Signals Company (2023) — 1',
+								},
+								{
+									src: 'Conquistas/re_cmd_23-2.jpeg',
+									alt: 'Commendation from the Commander of the 4th Light Mountain Signals Company (2023) — 2',
+								},
+							],
 							},
-							{ title: 'Commendation from the Administrative Inspector of the 4th Light Mountain Signals Company', detail: '4th Light Mountain Signals Company — 2023' },
+						{
+							title: 'Commendation from the Administrative Inspector of the 4th Light Mountain Signals Company',
+							detail: '4th Light Mountain Signals Company — 2023',
+							image: {
+								src: 'Conquistas/re_fis.jpeg',
+								alt: 'Commendation from the Administrative Inspector of the 4th Light Mountain Signals Company (2023)',
+							},
+						},
 							{
 								title: 'Best financial management award of 4th Light Mountain Infantry Brigade',
 								detail: '4th Light Mountain Signals Company — 2022',
 							},
-							{ title: 'Correia Lima Award Medal', detail: 'CPOR-BH — 2021' },
-							{ title: '1st overall in class', detail: 'CPOR-BH — 2021' },
+						{
+							title: 'Correia Lima Award Medal',
+							detail: 'CPOR-BH — 2021',
+							image: {
+								src: 'Conquistas/medalha.jpeg',
+								alt: 'Correia Lima Award Medal (2021)',
+							},
+						},
+						{
+							title: '1st overall in class',
+							detail: 'CPOR-BH — 2021',
+							image: {
+								src: 'Conquistas/geral.jpeg',
+								alt: '1st overall in class (2021)',
+							},
+						},
 							{ title: '1st place — Communications course', detail: 'CPOR-BH — 2021' },
-							{ title: 'Best physical fitness', detail: 'CPOR-BH — 2021' },
-							{ title: 'FIT Operation distinction (Fiber, Initiative, and Tenacity)', detail: 'CPOR-BH — 2021' },
+						{
+							title: 'Best physical fitness',
+							detail: 'CPOR-BH — 2021',
+							image: {
+								src: 'Conquistas/apt_fis.jpeg',
+								alt: 'Best physical fitness (2021)',
+							},
+						},
+						{
+							title: 'FIT Operation distinction (Fiber, Initiative, and Tenacity)',
+							detail: 'CPOR-BH — 2021',
+							image: {
+								src: 'Conquistas/fit.jpeg',
+								alt: 'FIT Operation distinction (2021)',
+							},
+						},
 							{ title: 'Signed the Golden Book', detail: 'CPOR-BH — 2021' },
 						],
 					},

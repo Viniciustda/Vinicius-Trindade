@@ -4,16 +4,45 @@
 
 :root {
 	color-scheme: light;
+	--font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
 }
 
 .dark {
 	color-scheme: dark;
 }
 
+/* Base font */
+body {
+	font-family: var(--font-sans);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+	width: 6px;
+}
+::-webkit-scrollbar-track {
+	background: transparent;
+}
+::-webkit-scrollbar-thumb {
+	background: #d1d5db;
+	border-radius: 9999px;
+}
+.dark ::-webkit-scrollbar-thumb {
+	background: #3f3f46;
+}
+
+/* Overlay (lightbox) */
 .overlay {
 	display: none;
 }
-
 .overlay:target {
 	display: flex;
+}
+
+/* Smooth card transitions */
+.card-hover {
+	transition: border-color 150ms ease, box-shadow 150ms ease, transform 150ms ease;
+}
+.card-hover:hover {
+	transform: translateY(-1px);
 }

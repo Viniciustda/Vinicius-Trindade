@@ -147,7 +147,7 @@ export const content: Record<Locale, PageContent> = {
 						title: 'Página pessoal (este site)',
 						description:
 							'Portfólio estático com Astro + Tailwind, pensado para ser rápido, acessível e fácil de manter (GitHub Pages).',
-						tags: ['Astro', 'Tailwind', 'GitHub Pages'],
+						tags: ['Astro', 'Tailwind', 'GitHub Pages', 'GitHub Actions'],
 						links: [
 							{ label: 'GitHub', href: 'https://github.com/Viniciustda/Vinicius-Trindade' },
 						],
@@ -162,7 +162,7 @@ export const content: Record<Locale, PageContent> = {
 						title: 'Caixinha',
 						description:
 							'Aplicativo para divisão de despesas em grupo, desenvolvido em dupla. Em desenvolvimento; link ainda não disponível. Arquitetura por componentes: Front-Caixinha (SPA React/Vite, UI/UX e consumo de API), Api-Caixinha (NestJS + TypeScript, Prisma + PostgreSQL, autenticação/autorização e regras de negócio) e Mobile-Caixinha (React Native, UI e consumo da mesma API). Login via Google.',
-						tags: ['React', 'Vite', 'React Native', 'NestJS', 'TypeScript', 'Prisma', 'PostgreSQL', 'OAuth'],
+						tags: ['React', 'Vite', 'React Native', 'NestJS', 'TypeScript', 'Prisma', 'PostgreSQL', 'OAuth', 'GitHub Actions'],
 					},
 				],
 			},
@@ -428,7 +428,7 @@ export const content: Record<Locale, PageContent> = {
 						title: 'Personal website (this site)',
 						description:
 							'Static portfolio built with Astro + Tailwind, designed to be fast, accessible, and easy to maintain (GitHub Pages).',
-						tags: ['Astro', 'Tailwind', 'GitHub Pages'],
+						tags: ['Astro', 'Tailwind', 'GitHub Pages', 'GitHub Actions'],
 						links: [
 							{ label: 'GitHub', href: 'https://github.com/Viniciustda/Vinicius-Trindade' },
 						],
@@ -443,7 +443,7 @@ export const content: Record<Locale, PageContent> = {
 						title: 'Caixinha',
 						description:
 							'Group expense-splitting app developed with a partner. In progress; link not available yet. Component-based setup: Front-Caixinha (React/Vite SPA, UI/UX and API consumption), Api-Caixinha (NestJS + TypeScript, Prisma + PostgreSQL, authentication/authorization and business rules), and Mobile-Caixinha (React Native, mobile UI and consumption of the same API). Google login.',
-						tags: ['React', 'Vite', 'React Native', 'NestJS', 'TypeScript', 'Prisma', 'PostgreSQL', 'OAuth'],
+						tags: ['React', 'Vite', 'React Native', 'NestJS', 'TypeScript', 'Prisma', 'PostgreSQL', 'OAuth', 'GitHub Actions'],
 					},
 				],
 			},

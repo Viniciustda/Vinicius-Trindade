@@ -40,31 +40,19 @@ const resolveImageUrl = (relativePath) => {
 ---
 
 <BaseLayout title={c.meta.title} description={c.meta.description} lang="pt-BR" canonicalPath="pt/">
-	<header class="mx-auto max-w-5xl px-6 pt-10 pb-8">
-		<div class="flex items-start justify-between gap-6">
-			<div>
-				<p class="text-sm text-zinc-600 dark:text-zinc-400">{c.header.tagline}</p>
-				<h1 class="mt-3 text-4xl font-semibold tracking-tight sm:text-5xl">{c.header.name}</h1>
-				<p class="mt-4 max-w-2xl text-base leading-relaxed text-zinc-700 dark:text-zinc-200">{c.header.summary}</p>
-				<div class="mt-6 flex flex-wrap gap-3">
-					<a
-						href={c.header.ctaPrimary.href}
-						class="inline-flex items-center justify-center rounded-lg bg-zinc-900 px-4 py-2 text-sm font-medium text-white hover:bg-zinc-800 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-white"
-					>
-						{c.header.ctaPrimary.label}
-					</a>
-					<a
-						href={c.header.ctaSecondary.href}
-						class="inline-flex items-center justify-center rounded-lg border border-zinc-300 px-4 py-2 text-sm font-medium text-zinc-900 hover:border-zinc-400 dark:border-zinc-700 dark:text-zinc-100 dark:hover:border-zinc-500"
-					>
-						{c.header.ctaSecondary.label}
-					</a>
-				</div>
-			</div>
-			<div class="shrink-0 flex items-center gap-2">
+
+	<!-- ── STICKY NAVBAR ─────────────────────────────────── -->
+	<div class="sticky top-0 z-40 border-b border-zinc-200/80 bg-white/85 backdrop-blur-md dark:border-zinc-800/80 dark:bg-zinc-950/85">
+		<div class="mx-auto flex max-w-5xl items-center justify-between gap-4 px-6 py-3">
+			<nav class="flex flex-wrap gap-x-5 gap-y-1 text-sm font-medium text-zinc-600 dark:text-zinc-400">
+				{c.sections.nav.map((item) => (
+					<a class="transition-colors hover:text-indigo-600 dark:hover:text-indigo-400" href={item.href}>{item.label}</a>
+				))}
+			</nav>
+			<div class="flex shrink-0 items-center gap-2">
 				<a
 					href={langHref}
-					class="rounded-lg border border-zinc-300 px-3 py-2 text-sm text-zinc-900 hover:border-zinc-400 dark:border-zinc-800 dark:text-zinc-200 dark:hover:border-zinc-600"
+					class="rounded-lg border border-zinc-200 px-3 py-1.5 text-xs font-semibold text-zinc-700 transition-colors hover:border-indigo-400 hover:text-indigo-600 dark:border-zinc-700 dark:text-zinc-300 dark:hover:border-indigo-600 dark:hover:text-indigo-400"
 					aria-label="Ver versão em inglês"
 				>
 					{c.languageSwitch.label}
@@ -74,106 +62,186 @@ const resolveImageUrl = (relativePath) => {
 					data-theme-toggle
 					data-label-light="Claro"
 					data-label-dark="Escuro"
-					class="rounded-lg border border-zinc-300 px-3 py-2 text-sm text-zinc-900 hover:border-zinc-400 dark:border-zinc-800 dark:text-zinc-200 dark:hover:border-zinc-600"
+					class="rounded-lg border border-zinc-200 px-3 py-1.5 text-xs font-semibold text-zinc-700 transition-colors hover:border-indigo-400 hover:text-indigo-600 dark:border-zinc-700 dark:text-zinc-300 dark:hover:border-indigo-600 dark:hover:text-indigo-400"
 					aria-label="Alternar tema"
 				></button>
 			</div>
 		</div>
+	</div>
 
-		<nav class="mt-10 flex flex-wrap gap-x-6 gap-y-2 text-sm text-zinc-700 dark:text-zinc-300">
-			{c.sections.nav.map((item) => (
-				<a class="hover:text-zinc-900 dark:hover:text-white" href={item.href}>{item.label}</a>
-			))}
-		</nav>
+	<!-- ── HERO ──────────────────────────────────────────── -->
+	<header class="mx-auto max-w-5xl px-6 pb-10 pt-16">
+		<div class="flex items-start justify-between gap-8">
+			<div class="min-w-0">
+				<div class="inline-flex items-center gap-2 rounded-full border border-indigo-200 bg-indigo-50 px-3 py-1 text-xs font-semibold text-indigo-700 dark:border-indigo-800 dark:bg-indigo-950/60 dark:text-indigo-300">
+					<span class="size-1.5 rounded-full bg-indigo-500"></span>
+					{c.header.tagline}
+				</div>
+				<h1 class="mt-4 text-5xl font-extrabold leading-none tracking-tight sm:text-6xl">
+					<span class="bg-gradient-to-br from-zinc-900 via-zinc-700 to-indigo-800 bg-clip-text text-transparent dark:from-white dark:via-zinc-200 dark:to-indigo-300">
+						{c.header.name}
+					</span>
+				</h1>
+				<p class="mt-5 max-w-2xl text-base leading-relaxed text-zinc-600 dark:text-zinc-300">{c.header.summary}</p>
+				<div class="mt-7 flex flex-wrap gap-3">
+					<a
+						href={c.header.ctaPrimary.href}
+						class="inline-flex items-center gap-2 rounded-xl bg-indigo-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition-all hover:bg-indigo-500 hover:shadow-md hover:shadow-indigo-500/30"
+					>
+						{c.header.ctaPrimary.label} <span aria-hidden="true">→</span>
+					</a>
+					<a
+						href={c.header.ctaSecondary.href}
+						class="inline-flex items-center gap-2 rounded-xl border border-zinc-300 px-5 py-2.5 text-sm font-semibold text-zinc-800 transition-all hover:border-indigo-400 hover:text-indigo-700 dark:border-zinc-700 dark:text-zinc-200 dark:hover:border-indigo-600 dark:hover:text-indigo-300"
+					>
+						{c.header.ctaSecondary.label}
+					</a>
+				</div>
+			</div>
+			<div class="hidden shrink-0 sm:flex">
+				<div class="flex size-20 items-center justify-center rounded-2xl bg-gradient-to-br from-indigo-500 to-violet-600 text-2xl font-bold text-white shadow-lg shadow-indigo-500/30">
+					VT
+				</div>
+			</div>
+		</div>
 	</header>
 
-	<main class="mx-auto max-w-5xl px-6 pb-16">
-		<section id="sobre" class="scroll-mt-20 rounded-2xl border border-zinc-200 bg-white/70 p-6 dark:border-zinc-900 dark:bg-zinc-950/40">
-			<h2 class="text-lg font-semibold">{c.sections.about.title}</h2>
-			<ul class="mt-4 space-y-2 text-zinc-700 dark:text-zinc-200">
-				{c.sections.about.bullets.map((b) => (
-					<li class="flex gap-2">
-						<span class="mt-2 size-1.5 shrink-0 rounded-full bg-zinc-400" />
-						<span>{b}</span>
-					</li>
-				))}
-			</ul>
+	<main class="mx-auto max-w-5xl space-y-14 px-6 pb-20">
+
+		<!-- ── SOBRE ─────────────────────────────────────── -->
+		<section id="sobre" class="scroll-mt-24">
+			<h2 class="flex items-center gap-3 text-xl font-bold tracking-tight text-zinc-900 dark:text-white">
+				<span class="block h-6 w-1 rounded-full bg-indigo-500"></span>
+				{c.sections.about.title}
+			</h2>
+			<div class="mt-5 rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
+				<ul class="space-y-3 text-zinc-700 dark:text-zinc-300">
+					{c.sections.about.bullets.map((b) => (
+						<li class="flex gap-3">
+							<span class="mt-1 shrink-0 text-indigo-500" aria-hidden="true">✦</span>
+							<span class="leading-relaxed">{b}</span>
+						</li>
+					))}
+				</ul>
+			</div>
 		</section>
 
-		<section id="projetos" class="mt-10 scroll-mt-20">
-			<h2 class="text-lg font-semibold">{c.sections.projects.title}</h2>
-			<div class="mt-4 grid gap-4 sm:grid-cols-2">
-				{c.sections.projects.items.map((p) => (
-					<article class="rounded-2xl border border-zinc-200 bg-white/70 p-6 dark:border-zinc-900 dark:bg-zinc-950/40">
-						<h3 class="text-base font-semibold text-zinc-900 dark:text-white">{p.title}</h3>
-						<p class="mt-2 text-sm leading-relaxed text-zinc-700 dark:text-zinc-200">{p.description}</p>
-						<div class="mt-4 flex flex-wrap gap-2">
-							{p.tags.map((t) => (
-								<span class="rounded-full border border-zinc-200 bg-zinc-50 px-2 py-1 text-xs text-zinc-700 dark:border-zinc-800 dark:bg-zinc-950 dark:text-zinc-300">
-									{t}
+		<!-- ── PROJETOS ──────────────────────────────────── -->
+		<section id="projetos" class="scroll-mt-24">
+			<h2 class="flex items-center gap-3 text-xl font-bold tracking-tight text-zinc-900 dark:text-white">
+				<span class="block h-6 w-1 rounded-full bg-indigo-500"></span>
+				{c.sections.projects.title}
+			</h2>
+			<div class="mt-5 grid gap-5 sm:grid-cols-2">
+				{c.sections.projects.items.map((p, i) => (
+					<article class="group relative flex flex-col overflow-hidden rounded-2xl border border-zinc-200 bg-white shadow-sm transition-all hover:border-indigo-300 hover:shadow-md hover:shadow-indigo-500/10 dark:border-zinc-800 dark:bg-zinc-900 dark:hover:border-indigo-700">
+						<div class="h-1 w-full bg-gradient-to-r from-indigo-500 to-violet-500"></div>
+						<div class="flex flex-1 flex-col p-6">
+							{i === 0 && (
+								<span class="mb-3 inline-flex w-fit items-center gap-1 rounded-full bg-indigo-100 px-2.5 py-0.5 text-xs font-semibold text-indigo-700 dark:bg-indigo-950/60 dark:text-indigo-300">
+									★ Destaque
 								</span>
-							))}
-						</div>
-						{p.links?.length ? (
-							<div class="mt-4 flex flex-wrap gap-3">
-								{p.links.map((l) => (
-									<a class="text-sm text-zinc-700 underline decoration-zinc-300 underline-offset-4 hover:text-zinc-900 dark:text-zinc-200 dark:decoration-zinc-700 dark:hover:text-white" href={l.href} target="_blank" rel="noreferrer">
-										{l.label}
-									</a>
+							)}
+							<h3 class="text-sm font-bold text-zinc-900 dark:text-white">{p.title}</h3>
+							<p class="mt-2 flex-1 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">{p.description}</p>
+							<div class="mt-4 flex flex-wrap gap-1.5">
+								{p.tags.map((t) => (
+									<span class="rounded-full bg-zinc-100 px-2.5 py-0.5 text-xs font-medium text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300">
+										{t}
+									</span>
 								))}
 							</div>
-						) : null}
+							{p.links?.length ? (
+								<div class="mt-4 flex flex-wrap gap-3 border-t border-zinc-100 pt-4 dark:border-zinc-800">
+									{p.links.map((l) => (
+										<a
+											class="text-xs font-semibold text-indigo-600 transition-colors hover:underline hover:underline-offset-4 dark:text-indigo-400"
+											href={l.href}
+											target="_blank"
+											rel="noreferrer"
+										>
+											{l.label} ↗
+										</a>
+									))}
+								</div>
+							) : null}
+						</div>
 					</article>
 				))}
 			</div>
 		</section>
 
-		<section id="experiencia" class="mt-10 scroll-mt-20">
-			<h2 class="text-lg font-semibold">{c.sections.experience.title}</h2>
-			<div class="mt-4 space-y-4">
-				{c.sections.experience.items.map((item) => (
-					<div class="rounded-2xl border border-zinc-200 bg-white/70 p-6 dark:border-zinc-900 dark:bg-zinc-950/40">
-						<div class="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
-							<h3 class="text-base font-semibold">{item.role}</h3>
-							<p class="text-sm text-zinc-600 dark:text-zinc-400">{item.period}</p>
+		<!-- ── EXPERIÊNCIA ───────────────────────────────── -->
+		<section id="experiencia" class="scroll-mt-24">
+			<h2 class="flex items-center gap-3 text-xl font-bold tracking-tight text-zinc-900 dark:text-white">
+				<span class="block h-6 w-1 rounded-full bg-indigo-500"></span>
+				{c.sections.experience.title}
+			</h2>
+			<div class="mt-5">
+				{c.sections.experience.items.map((item, idx) => (
+					<div class="relative flex gap-5 pb-8 last:pb-0">
+						<div class="relative flex flex-col items-center">
+							<div class="z-10 flex size-8 shrink-0 items-center justify-center rounded-full border-2 border-indigo-400 bg-white shadow-md dark:bg-zinc-950">
+								<span class="size-2.5 rounded-full bg-indigo-500"></span>
+							</div>
+							{idx < c.sections.experience.items.length - 1 && (
+								<div class="mt-1 w-0.5 flex-1 bg-zinc-200 dark:bg-zinc-800"></div>
+							)}
 						</div>
-						<p class="mt-1 text-sm text-zinc-700 dark:text-zinc-200">{item.org}</p>
-						<ul class="mt-4 space-y-2 text-sm text-zinc-700 dark:text-zinc-200">
-							{item.highlights.map((h) => (
-								<li class="flex gap-2">
-									<span class="mt-2 size-1.5 shrink-0 rounded-full bg-zinc-400" />
-									<span>{h}</span>
-								</li>
-							))}
-						</ul>
+						<div class="min-w-0 flex-1 rounded-2xl border border-zinc-200 bg-white p-5 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
+							<div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+								<h3 class="text-sm font-bold text-zinc-900 dark:text-white">{item.role}</h3>
+								<span class="shrink-0 rounded-full bg-zinc-100 px-2.5 py-0.5 text-xs font-medium text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400">{item.period}</span>
+							</div>
+							<p class="mt-1 text-sm font-semibold text-indigo-600 dark:text-indigo-400">{item.org}</p>
+							<ul class="mt-3 space-y-1.5 text-sm text-zinc-600 dark:text-zinc-400">
+								{item.highlights.map((h) => (
+									<li class="flex gap-2">
+										<span class="mt-1.5 size-1.5 shrink-0 rounded-full bg-zinc-300 dark:bg-zinc-600"></span>
+										<span>{h}</span>
+									</li>
+								))}
+							</ul>
+						</div>
 					</div>
 				))}
 			</div>
 		</section>
 
-		<section id="formacao" class="mt-10 scroll-mt-20">
-			<h2 class="text-lg font-semibold">{c.sections.education.title}</h2>
-			<div class="mt-4 grid gap-4 sm:grid-cols-2">
+		<!-- ── FORMAÇÃO ──────────────────────────────────── -->
+		<section id="formacao" class="scroll-mt-24">
+			<h2 class="flex items-center gap-3 text-xl font-bold tracking-tight text-zinc-900 dark:text-white">
+				<span class="block h-6 w-1 rounded-full bg-indigo-500"></span>
+				{c.sections.education.title}
+			</h2>
+			<div class="mt-5 grid gap-4 sm:grid-cols-2">
 				{c.sections.education.items.map((e) => (
-					<div class="rounded-2xl border border-zinc-200 bg-white/70 p-6 dark:border-zinc-900 dark:bg-zinc-950/40">
-						<h3 class="text-base font-semibold">{e.program}</h3>
-						<p class="mt-1 text-sm text-zinc-700 dark:text-zinc-200">{e.school}</p>
-						<p class="mt-2 text-sm text-zinc-600 dark:text-zinc-400">{e.period}</p>
+					<div class="rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
+						<div class="mb-3 flex size-10 items-center justify-center rounded-xl bg-indigo-100 text-lg dark:bg-indigo-950/50">
+							🎓
+						</div>
+						<h3 class="text-sm font-bold text-zinc-900 dark:text-white">{e.program}</h3>
+						<p class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">{e.school}</p>
+						<p class="mt-3 inline-flex items-center rounded-full bg-zinc-100 px-2.5 py-0.5 text-xs font-medium text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400">{e.period}</p>
 					</div>
 				))}
 			</div>
 		</section>
 
-		<section id="certificados" class="mt-10 scroll-mt-20">
-			<h2 class="text-lg font-semibold">{c.sections.certificates.title}</h2>
-			<div class="mt-4 grid gap-4 sm:grid-cols-2">
+		<!-- ── CERTIFICADOS ──────────────────────────────── -->
+		<section id="certificados" class="scroll-mt-24">
+			<h2 class="flex items-center gap-3 text-xl font-bold tracking-tight text-zinc-900 dark:text-white">
+				<span class="block h-6 w-1 rounded-full bg-indigo-500"></span>
+				{c.sections.certificates.title}
+			</h2>
+			<div class="mt-5 grid gap-4 sm:grid-cols-2">
 				{c.sections.certificates.items.map((item, index) => {
 					const images = item.images ?? (item.image ? [item.image] : []);
 					return (
 						<>
-							<div class="rounded-2xl border border-zinc-200 bg-white/70 p-6 dark:border-zinc-900 dark:bg-zinc-950/40">
-								<h3 class="text-base font-semibold">{item.title}</h3>
-								{item.detail && <p class="mt-2 text-sm text-zinc-700 dark:text-zinc-200">{item.detail}</p>}
+							<div class="rounded-2xl border border-zinc-200 bg-white p-5 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
+								<h3 class="text-sm font-bold text-zinc-900 dark:text-white">{item.title}</h3>
+								{item.detail && <p class="mt-1 text-xs font-semibold text-indigo-600 dark:text-indigo-400">{item.detail}</p>}
 								{images.length ? (
 									<div class="mt-4 flex flex-wrap gap-3">
 										{images.map((img, imgIndex) => {
@@ -182,16 +250,16 @@ const resolveImageUrl = (relativePath) => {
 											return (
 												<a
 													href={`#${overlayId}`}
-													class="inline-flex items-center gap-2 text-sm text-zinc-700 underline decoration-zinc-300 underline-offset-4 hover:text-zinc-900 dark:text-zinc-200 dark:decoration-zinc-700 dark:hover:text-white"
+													class="group inline-flex flex-col items-center gap-1.5 text-xs"
 												>
 													<img
 														src={thumbUrl ?? ''}
 														alt={img.alt}
 														loading="lazy"
-														class="h-14 w-auto rounded-lg border border-zinc-200 bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-950"
+														class="h-16 w-auto rounded-xl border border-zinc-200 bg-zinc-50 shadow-sm transition-all group-hover:border-indigo-300 group-hover:shadow-md dark:border-zinc-700 dark:bg-zinc-800"
 													/>
-													<span>
-														{images.length > 1 ? `Ver imagem ${imgIndex + 1}` : 'Ver imagem'}
+													<span class="font-medium text-indigo-600 dark:text-indigo-400">
+														{images.length > 1 ? `Ver ${imgIndex + 1}` : 'Ver'}
 													</span>
 												</a>
 											);
@@ -210,56 +278,89 @@ const resolveImageUrl = (relativePath) => {
 										role="dialog"
 										aria-modal="true"
 										aria-label={item.title}
+										data-gallery-group={images.length > 1 ? `cert-${index}` : undefined}
+										data-gallery-index={images.length > 1 ? imgIndex : undefined}
 									>
 										<a
 											href="#certificados"
-											class="absolute inset-0 bg-zinc-950/70 dark:bg-zinc-950/80"
+											class="absolute inset-0 bg-zinc-950/70 backdrop-blur-sm dark:bg-zinc-950/80"
 											aria-label="Fechar"
 										/>
-										<div class="relative w-full max-w-4xl overflow-hidden rounded-2xl border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-950">
-											<div class="flex items-start justify-between gap-4">
-												<p class="text-sm font-medium text-zinc-900 dark:text-zinc-100">{item.title}</p>
-												<a
-													href="#certificados"
-													class="shrink-0 rounded-lg border border-zinc-300 px-3 py-2 text-sm text-zinc-900 hover:border-zinc-400 dark:border-zinc-800 dark:text-zinc-200 dark:hover:border-zinc-600"
-												>
-													Fechar
-												</a>
+										<div class="relative w-full max-w-4xl overflow-hidden rounded-2xl border border-zinc-200 bg-white p-4 shadow-2xl dark:border-zinc-800 dark:bg-zinc-950">
+											<div class="flex items-center justify-between gap-4">
+												<p class="text-sm font-semibold text-zinc-900 dark:text-zinc-100">{item.title}</p>
+												<div class="flex shrink-0 items-center gap-2">
+													{images.length > 1 && <span class="gallery-counter text-xs text-zinc-500 dark:text-zinc-400">{imgIndex + 1} / {images.length}</span>}
+													<a
+														href="#certificados"
+														class="shrink-0 rounded-lg border border-zinc-200 px-3 py-1.5 text-xs font-medium text-zinc-700 transition-colors hover:border-zinc-400 dark:border-zinc-700 dark:text-zinc-300"
+													>
+														✕ Fechar
+													</a>
+												</div>
 											</div>
-											<img
-												src={fullUrl ?? ''}
-												alt={img.alt}
-												loading="lazy"
-												class="mt-4 max-h-[75vh] w-full rounded-xl border border-zinc-200 object-contain dark:border-zinc-800"
-											/>
+											<div class="relative mt-4">
+												<img
+													src={fullUrl ?? ''}
+													alt={img.alt}
+													loading="lazy"
+													class="max-h-[75vh] w-full rounded-xl border border-zinc-200 object-contain dark:border-zinc-800"
+												/>
+												{images.length > 1 && (
+													<>
+														<a
+															href="#"
+															class="gallery-prev-btn absolute left-2 top-1/2 z-10 flex size-9 -translate-y-1/2 items-center justify-center rounded-full border border-zinc-200 bg-white/90 text-xl text-zinc-600 shadow-md transition-colors hover:border-indigo-300 hover:text-indigo-600 dark:border-zinc-700 dark:bg-zinc-900/90 dark:text-zinc-300"
+															aria-label="Anterior"
+														>‹</a>
+														<a
+															href="#"
+															class="gallery-next-btn absolute right-2 top-1/2 z-10 flex size-9 -translate-y-1/2 items-center justify-center rounded-full border border-zinc-200 bg-white/90 text-xl text-zinc-600 shadow-md transition-colors hover:border-indigo-300 hover:text-indigo-600 dark:border-zinc-700 dark:bg-zinc-900/90 dark:text-zinc-300"
+															aria-label="Próxima"
+														>›</a>
+													</>
+												)}
+											</div>
+										</div>
 									</div>
-								</div>
-							);
-						})}
+								);
+							})}
 						</>
 					);
 				})}
 			</div>
 		</section>
 
-		<section id="conquistas" class="mt-10 scroll-mt-20">
-			<h2 class="text-lg font-semibold">{c.sections.achievements.title}</h2>
-			<div class="mt-4 space-y-8">
+		<!-- ── CONQUISTAS ────────────────────────────────── -->
+		<section id="conquistas" class="scroll-mt-24">
+			<h2 class="flex items-center gap-3 text-xl font-bold tracking-tight text-zinc-900 dark:text-white">
+				<span class="block h-6 w-1 rounded-full bg-indigo-500"></span>
+				{c.sections.achievements.title}
+			</h2>
+			<div class="mt-5 space-y-10">
 				{c.sections.achievements.groups.map((group, groupIndex) => (
 					<div>
-						<h3 class="text-sm font-semibold text-zinc-600 dark:text-zinc-300">{group.title}</h3>
-						<div class="mt-4 space-y-4">
+						<div class="mb-5 flex items-center gap-3">
+							<span class="text-sm font-bold text-zinc-800 dark:text-zinc-200">{group.title}</span>
+							<div class="h-px flex-1 bg-zinc-200 dark:bg-zinc-800"></div>
+						</div>
+						<div class="grid gap-4 sm:grid-cols-2">
 							{group.items.map((a, itemIndex) => {
 								const images = a.images ?? (a.image ? [a.image] : []);
 								return (
 									<>
-										<div class="rounded-2xl border border-zinc-200 bg-white/70 p-6 dark:border-zinc-900 dark:bg-zinc-950/40">
-											<h4 class="text-base font-semibold">{a.title}</h4>
-											{a.detail && <p class="mt-2 text-sm text-zinc-700 dark:text-zinc-200">{a.detail}</p>}
+										<div class="rounded-2xl border border-zinc-200 bg-white p-5 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
+											<div class="flex items-start gap-3">
+												<span class="mt-0.5 shrink-0 text-lg" aria-hidden="true">🏅</span>
+												<div class="min-w-0 flex-1">
+													<h4 class="text-sm font-bold text-zinc-900 dark:text-white">{a.title}</h4>
+													{a.detail && <p class="mt-0.5 text-xs text-zinc-500 dark:text-zinc-500">{a.detail}</p>}
+												</div>
+											</div>
 											{a.fullText && (
 												<details class="mt-3">
-													<summary class="cursor-pointer text-sm text-zinc-600 hover:text-zinc-900 dark:text-zinc-300 dark:hover:text-white">Ler trecho</summary>
-													<p class="mt-3 whitespace-pre-line text-sm leading-relaxed text-zinc-700 dark:text-zinc-200">{a.fullText}</p>
+													<summary class="cursor-pointer text-xs font-semibold text-indigo-600 hover:text-indigo-500 dark:text-indigo-400">Ler trecho ▸</summary>
+													<p class="mt-3 whitespace-pre-line text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">{a.fullText}</p>
 												</details>
 											)}
 											{images.length ? (
@@ -270,16 +371,16 @@ const resolveImageUrl = (relativePath) => {
 														return (
 															<a
 																href={`#${overlayId}`}
-																class="inline-flex items-center gap-2 text-sm text-zinc-700 underline decoration-zinc-300 underline-offset-4 hover:text-zinc-900 dark:text-zinc-200 dark:decoration-zinc-700 dark:hover:text-white"
+																class="group inline-flex flex-col items-center gap-1.5 text-xs"
 															>
 																<img
-																src={thumbUrl ?? ''}
-																alt={img.alt}
-																loading="lazy"
-																class="h-14 w-auto rounded-lg border border-zinc-200 bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-950"
-															/>
-																<span>
-																	{images.length > 1 ? `Ver imagem ${imgIndex + 1}` : 'Ver imagem'}
+																	src={thumbUrl ?? ''}
+																	alt={img.alt}
+																	loading="lazy"
+																	class="h-16 w-auto rounded-xl border border-zinc-200 bg-zinc-50 shadow-sm transition-all group-hover:border-indigo-300 group-hover:shadow-md dark:border-zinc-700 dark:bg-zinc-800"
+																/>
+																<span class="font-medium text-indigo-600 dark:text-indigo-400">
+																	{images.length > 1 ? `Ver ${imgIndex + 1}` : 'Ver'}
 																</span>
 															</a>
 														);
@@ -298,32 +399,53 @@ const resolveImageUrl = (relativePath) => {
 													role="dialog"
 													aria-modal="true"
 													aria-label={a.title}
+													data-gallery-group={images.length > 1 ? `ach-${groupIndex}` : undefined}
+													data-gallery-index={images.length > 1 ? imgIndex : undefined}
 												>
 													<a
 														href="#conquistas"
-														class="absolute inset-0 bg-zinc-950/70 dark:bg-zinc-950/80"
+														class="absolute inset-0 bg-zinc-950/70 backdrop-blur-sm dark:bg-zinc-950/80"
 														aria-label="Fechar"
 													/>
-													<div class="relative w-full max-w-4xl overflow-hidden rounded-2xl border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-950">
-														<div class="flex items-start justify-between gap-4">
-															<p class="text-sm font-medium text-zinc-900 dark:text-zinc-100">{a.title}</p>
-															<a
-																href="#conquistas"
-																class="shrink-0 rounded-lg border border-zinc-300 px-3 py-2 text-sm text-zinc-900 hover:border-zinc-400 dark:border-zinc-800 dark:text-zinc-200 dark:hover:border-zinc-600"
-															>
-																Fechar
-															</a>
+													<div class="relative w-full max-w-4xl overflow-hidden rounded-2xl border border-zinc-200 bg-white p-4 shadow-2xl dark:border-zinc-800 dark:bg-zinc-950">
+														<div class="flex items-center justify-between gap-4">
+															<p class="text-sm font-semibold text-zinc-900 dark:text-zinc-100">{a.title}</p>
+															<div class="flex shrink-0 items-center gap-2">
+																{images.length > 1 && <span class="gallery-counter text-xs text-zinc-500 dark:text-zinc-400">{imgIndex + 1} / {images.length}</span>}
+																<a
+																	href="#conquistas"
+																	class="shrink-0 rounded-lg border border-zinc-200 px-3 py-1.5 text-xs font-medium text-zinc-700 transition-colors hover:border-zinc-400 dark:border-zinc-700 dark:text-zinc-300"
+																>
+																	✕ Fechar
+																</a>
+															</div>
 														</div>
-														<img
-														src={fullUrl ?? ''}
-														alt={img.alt}
-														loading="lazy"
-														class="mt-4 max-h-[75vh] w-full rounded-xl border border-zinc-200 object-contain dark:border-zinc-800"
-													/>
+														<div class="relative mt-4">
+															<img
+																src={fullUrl ?? ''}
+																alt={img.alt}
+																loading="lazy"
+																class="max-h-[75vh] w-full rounded-xl border border-zinc-200 object-contain dark:border-zinc-800"
+															/>
+															{images.length > 1 && (
+																<>
+																	<a
+																		href="#"
+																		class="gallery-prev-btn absolute left-2 top-1/2 z-10 flex size-9 -translate-y-1/2 items-center justify-center rounded-full border border-zinc-200 bg-white/90 text-xl text-zinc-600 shadow-md transition-colors hover:border-indigo-300 hover:text-indigo-600 dark:border-zinc-700 dark:bg-zinc-900/90 dark:text-zinc-300"
+																		aria-label="Anterior"
+																	>‹</a>
+																	<a
+																		href="#"
+																		class="gallery-next-btn absolute right-2 top-1/2 z-10 flex size-9 -translate-y-1/2 items-center justify-center rounded-full border border-zinc-200 bg-white/90 text-xl text-zinc-600 shadow-md transition-colors hover:border-indigo-300 hover:text-indigo-600 dark:border-zinc-700 dark:bg-zinc-900/90 dark:text-zinc-300"
+																		aria-label="Próxima"
+																	>›</a>
+																</>
+															)}
+														</div>
+													</div>
 												</div>
-											</div>
-										);
-									})}
+											);
+										})}
 									</>
 								);
 							})}
@@ -333,12 +455,21 @@ const resolveImageUrl = (relativePath) => {
 			</div>
 		</section>
 
-		<section id="contato" class="mt-10 scroll-mt-20 rounded-2xl border border-zinc-200 bg-white/70 p-6 dark:border-zinc-900 dark:bg-zinc-950/40">
-			<h2 class="text-lg font-semibold">{c.sections.contact.title}</h2>
-			<p class="mt-2 text-sm text-zinc-700 dark:text-zinc-200">{c.sections.contact.locationLine}</p>
-			<div class="mt-4 flex flex-wrap gap-3">
+		<!-- ── CONTATO ───────────────────────────────────── -->
+		<section id="contato" class="scroll-mt-24 rounded-2xl border border-indigo-100 bg-gradient-to-br from-indigo-50 to-white p-8 shadow-sm dark:border-indigo-900/40 dark:from-indigo-950/30 dark:to-zinc-900">
+			<h2 class="flex items-center gap-3 text-xl font-bold tracking-tight text-zinc-900 dark:text-white">
+				<span class="block h-6 w-1 rounded-full bg-indigo-500"></span>
+				{c.sections.contact.title}
+			</h2>
+			<p class="mt-2 text-sm text-zinc-600 dark:text-zinc-400">📍 {c.sections.contact.locationLine}</p>
+			<div class="mt-5 flex flex-wrap gap-3">
 				{c.sections.contact.links.map((l) => (
-					<a class="rounded-lg border border-zinc-300 px-3 py-2 text-sm text-zinc-900 hover:border-zinc-400 dark:border-zinc-800 dark:text-zinc-200 dark:hover:border-zinc-600" href={l.href} target={l.href.startsWith('http') ? '_blank' : undefined} rel={l.href.startsWith('http') ? 'noreferrer' : undefined}>
+					<a
+						class="inline-flex items-center gap-2 rounded-xl border border-zinc-200 bg-white px-4 py-2.5 text-sm font-semibold text-zinc-800 shadow-sm transition-all hover:border-indigo-400 hover:text-indigo-700 hover:shadow-md hover:shadow-indigo-500/10 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-200 dark:hover:border-indigo-600 dark:hover:text-indigo-300"
+						href={l.href}
+						target={l.href.startsWith('http') ? '_blank' : undefined}
+						rel={l.href.startsWith('http') ? 'noreferrer' : undefined}
+					>
 						{l.label}
 					</a>
 				))}
@@ -346,8 +477,8 @@ const resolveImageUrl = (relativePath) => {
 		</section>
 	</main>
 
-	<footer class="mx-auto max-w-5xl px-6 pb-10 text-sm text-zinc-600 dark:text-zinc-500">
-		<p>{c.footer.text}</p>
+	<footer class="mx-auto max-w-5xl border-t border-zinc-200 px-6 py-8 dark:border-zinc-800">
+		<p class="text-center text-xs text-zinc-500 dark:text-zinc-600">{c.footer.text}</p>
 	</footer>
 </BaseLayout>
 
@@ -386,4 +517,22 @@ const resolveImageUrl = (relativePath) => {
 			updateLabels();
 		});
 	})();
+	// Gallery navigation
+	window.addEventListener('hashchange', () => {
+		const id = location.hash.slice(1);
+		if (!id) return;
+		const el = document.getElementById(id);
+		if (!el?.dataset.galleryGroup) return;
+		const group = el.dataset.galleryGroup;
+		const siblings = Array.from(document.querySelectorAll(`[data-gallery-group="${group}"]`))
+			.sort((a, b) => Number(a.dataset.galleryIndex) - Number(b.dataset.galleryIndex));
+		const idx = siblings.indexOf(el);
+		const total = siblings.length;
+		const prev = siblings[(idx - 1 + total) % total];
+		const next = siblings[(idx + 1) % total];
+		el.querySelector('.gallery-prev-btn')?.setAttribute('href', `#${prev.id}`);
+		el.querySelector('.gallery-next-btn')?.setAttribute('href', `#${next.id}`);
+		const counter = el.querySelector('.gallery-counter');
+		if (counter) counter.textContent = `${idx + 1} / ${total}`;
+	});
 </script>

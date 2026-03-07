@@ -60,9 +60,9 @@ const resolveImageUrl = (relativePath) => {
 				<button
 					type="button"
 					data-theme-toggle
-					data-label-light="Light"
-					data-label-dark="Dark"
-					class="rounded-lg border border-zinc-200 px-3 py-1.5 text-xs font-semibold text-zinc-700 transition-colors hover:border-indigo-400 hover:text-indigo-600 dark:border-zinc-700 dark:text-zinc-300 dark:hover:border-indigo-600 dark:hover:text-indigo-400"
+					data-label-light="☀️"
+					data-label-dark="🌙"
+					class="rounded-lg border border-zinc-200 px-3 py-1.5 text-sm transition-colors hover:border-indigo-400 dark:border-zinc-700 dark:hover:border-indigo-600"
 					aria-label="Toggle theme"
 				></button>
 			</div>
@@ -71,7 +71,7 @@ const resolveImageUrl = (relativePath) => {
 
 	<!-- ── HERO ────────────────────────────────────────── -->
 	<header class="mx-auto max-w-5xl px-6 pb-10 pt-16">
-		<div class="flex items-start justify-between gap-8">
+		<div class="flex items-start justify-between gap-8 reveal" data-reveal>
 			<div class="min-w-0">
 				<div class="inline-flex items-center gap-2 rounded-full border border-indigo-200 bg-indigo-50 px-3 py-1 text-xs font-semibold text-indigo-700 dark:border-indigo-800 dark:bg-indigo-950/60 dark:text-indigo-300">
 					<span class="size-1.5 rounded-full bg-indigo-500"></span>
@@ -109,13 +109,13 @@ const resolveImageUrl = (relativePath) => {
 	<main class="mx-auto max-w-5xl space-y-14 px-6 pb-20">
 
 		<!-- ── ABOUT ──────────────────────────────────────── -->
-		<section id="about" class="scroll-mt-24">
+		<section id="about" class="scroll-mt-24 reveal" data-reveal>
 			<h2 class="flex items-center gap-3 text-xl font-bold tracking-tight text-zinc-900 dark:text-white">
 				<span class="block h-6 w-1 rounded-full bg-indigo-500"></span>
 				{c.sections.about.title}
 			</h2>
 			<div class="mt-5 rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
-				<ul class="space-y-3 text-zinc-700 dark:text-zinc-300">
+				<ul class="space-y-3 text-zinc-700 dark:text-zinc-300 reveal-stagger" data-reveal>
 					{c.sections.about.bullets.map((b) => (
 						<li class="flex gap-3">
 							<span class="mt-1 shrink-0 text-indigo-500" aria-hidden="true">✦</span>
@@ -126,97 +126,134 @@ const resolveImageUrl = (relativePath) => {
 			</div>
 		</section>
 
-		<!-- ── PROJECTS ──────────────────────────────────── -->
-		<section id="projects" class="scroll-mt-24">
-			<h2 class="flex items-center gap-3 text-xl font-bold tracking-tight text-zinc-900 dark:text-white">
-				<span class="block h-6 w-1 rounded-full bg-indigo-500"></span>
-				{c.sections.projects.title}
-			</h2>
-			<div class="mt-5 grid gap-5 sm:grid-cols-2">
-				{c.sections.projects.items.map((p, i) => (
-					<article class="group relative flex flex-col overflow-hidden rounded-2xl border border-zinc-200 bg-white shadow-sm transition-all hover:border-indigo-300 hover:shadow-md hover:shadow-indigo-500/10 dark:border-zinc-800 dark:bg-zinc-900 dark:hover:border-indigo-700">
-						<div class="h-1 w-full bg-gradient-to-r from-indigo-500 to-violet-500"></div>
-						<div class="flex flex-1 flex-col p-6">
-							{i === 0 && (
-								<span class="mb-3 inline-flex w-fit items-center gap-1 rounded-full bg-indigo-100 px-2.5 py-0.5 text-xs font-semibold text-indigo-700 dark:bg-indigo-950/60 dark:text-indigo-300">
-									★ Featured
-								</span>
-							)}
-							<h3 class="text-sm font-bold text-zinc-900 dark:text-white">{p.title}</h3>
-							<p class="mt-2 flex-1 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">{p.description}</p>
-							<div class="mt-4 flex flex-wrap gap-1.5">
-								{p.tags.map((t) => (
-									<span class="rounded-full bg-zinc-100 px-2.5 py-0.5 text-xs font-medium text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300">
-										{t}
+		<!-- ── PROJECTS (pinned scroll carousel) ──────────── -->
+		<section id="projects" class="scroll-mt-24 projects-pin-section" data-pin-carousel>
+			<!-- sticky viewport -->
+			<div class="projects-pin-inner px-0">
+				<div class="reveal mb-6" data-reveal>
+					<h2 class="flex items-center gap-3 text-xl font-bold tracking-tight text-zinc-900 dark:text-white">
+						<span class="block h-6 w-1 rounded-full bg-indigo-500"></span>
+						{c.sections.projects.title}
+					</h2>
+					<p class="mt-1 text-xs text-zinc-500 dark:text-zinc-500">Scroll to explore →</p>
+				</div>
+
+				<div class="projects-track" id="projects-track">
+					{c.sections.projects.items.map((p, i) => (
+						<article class="project-card group flex flex-col overflow-hidden rounded-2xl border border-zinc-200 bg-white shadow-sm transition-all hover:border-indigo-300 hover:shadow-lg hover:shadow-indigo-500/10 dark:border-zinc-800 dark:bg-zinc-900 dark:hover:border-indigo-700">
+							<div class="h-1 w-full bg-gradient-to-r from-indigo-500 to-violet-500"></div>
+							<div class="flex flex-1 flex-col p-6">
+								{i === 0 && (
+									<span class="mb-3 inline-flex w-fit items-center gap-1 rounded-full bg-indigo-100 px-2.5 py-0.5 text-xs font-semibold text-indigo-700 dark:bg-indigo-950/60 dark:text-indigo-300">
+										★ Featured
 									</span>
-								))}
-							</div>
-							{p.links?.length ? (
-								<div class="mt-4 flex flex-wrap gap-3 border-t border-zinc-100 pt-4 dark:border-zinc-800">
-									{p.links.map((l) => (
-										<a
-											class="text-xs font-semibold text-indigo-600 transition-colors hover:underline hover:underline-offset-4 dark:text-indigo-400"
-											href={l.href}
-											target="_blank"
-											rel="noreferrer"
-										>
-											{l.label} ↗
-										</a>
+								)}
+								<h3 class="text-base font-bold text-zinc-900 dark:text-white">{p.title}</h3>
+								<p class="mt-2 flex-1 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">{p.description}</p>
+								<div class="mt-4 flex flex-wrap gap-1.5">
+									{p.tags.map((t) => (
+										<span class="rounded-full bg-zinc-100 px-2.5 py-0.5 text-xs font-medium text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300">{t}</span>
 									))}
 								</div>
-							) : null}
-						</div>
-					</article>
-				))}
+								{p.links?.length ? (
+									<div class="mt-4 flex flex-wrap gap-3 border-t border-zinc-100 pt-4 dark:border-zinc-800">
+										{p.links.map((l) => (
+											<a class="text-xs font-semibold text-indigo-600 transition-colors hover:underline hover:underline-offset-4 dark:text-indigo-400" href={l.href} target="_blank" rel="noreferrer">
+												{l.label} ↗
+											</a>
+										))}
+									</div>
+								) : null}
+							</div>
+						</article>
+					))}
+				</div>
+
+				<!-- progress bar -->
+				<div class="relative mt-5 h-0.5 w-full rounded-full bg-zinc-200 dark:bg-zinc-800">
+					<div class="projects-progress-bar" id="proj-progress"></div>
+				</div>
+				<!-- counter -->
+				<p class="mt-2 text-right text-xs text-zinc-400 dark:text-zinc-600">
+					<span id="proj-counter">1</span> / {c.sections.projects.items.length}
+				</p>
 			</div>
 		</section>
 
 		<!-- ── EXPERIENCE ────────────────────────────────── -->
 		<section id="experience" class="scroll-mt-24">
-			<h2 class="flex items-center gap-3 text-xl font-bold tracking-tight text-zinc-900 dark:text-white">
-				<span class="block h-6 w-1 rounded-full bg-indigo-500"></span>
-				{c.sections.experience.title}
-			</h2>
-			<div class="mt-5">
-				{c.sections.experience.items.map((item, idx) => (
-					<div class="relative flex gap-5 pb-8 last:pb-0">
-						<div class="relative flex flex-col items-center">
-							<div class="z-10 flex size-8 shrink-0 items-center justify-center rounded-full border-2 border-indigo-400 bg-white shadow-md dark:bg-zinc-950">
-								<span class="size-2.5 rounded-full bg-indigo-500"></span>
+			<div class="reveal" data-reveal>
+				<h2 class="flex items-center gap-3 text-xl font-bold tracking-tight text-zinc-900 dark:text-white">
+					<span class="block h-6 w-1 rounded-full bg-indigo-500"></span>
+					{c.sections.experience.title}
+				</h2>
+			</div>
+			<div class="mt-5 two-col-layout">
+				<!-- Sidebar -->
+				<aside class="sticky-sidebar hidden lg:block reveal-left" data-reveal>
+					<p class="section-title-pill">Timeline</p>
+					<ul class="mt-2 space-y-2">
+						{c.sections.experience.items.map((item) => (
+							<li>
+								<a
+									href={`#exp-${item.role.toLowerCase().replace(/\s+/g, '-').slice(0, 20)}`}
+									class="block rounded-lg px-3 py-2 text-xs font-medium text-zinc-500 transition-colors hover:bg-indigo-50 hover:text-indigo-700 dark:hover:bg-indigo-950/40 dark:hover:text-indigo-300"
+								>
+									<span class="block font-semibold text-zinc-700 dark:text-zinc-300">{item.role.split(' ').slice(0, 3).join(' ')}</span>
+									<span class="text-zinc-400 dark:text-zinc-600">{item.period.split('—')[0].trim()}</span>
+								</a>
+							</li>
+						))}
+					</ul>
+				</aside>
+				<!-- Main timeline -->
+				<div>
+					{c.sections.experience.items.map((item, idx) => (
+						<div
+							id={`exp-${item.role.toLowerCase().replace(/\s+/g, '-').slice(0, 20)}`}
+							class="relative flex gap-5 pb-8 last:pb-0 reveal"
+							data-reveal
+						>
+							<div class="relative flex flex-col items-center">
+								<div class="z-10 flex size-8 shrink-0 items-center justify-center rounded-full border-2 border-indigo-400 bg-white shadow-md dark:bg-zinc-950">
+									<span class="size-2.5 rounded-full bg-indigo-500"></span>
+								</div>
+								{idx < c.sections.experience.items.length - 1 && (
+									<div class="timeline-line mt-1 w-0.5 flex-1 bg-zinc-200 dark:bg-zinc-800" data-timeline-line></div>
+								)}
 							</div>
-							{idx < c.sections.experience.items.length - 1 && (
-								<div class="mt-1 w-0.5 flex-1 bg-zinc-200 dark:bg-zinc-800"></div>
-							)}
-						</div>
-						<div class="min-w-0 flex-1 rounded-2xl border border-zinc-200 bg-white p-5 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
-							<div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-								<h3 class="text-sm font-bold text-zinc-900 dark:text-white">{item.role}</h3>
-								<span class="shrink-0 rounded-full bg-zinc-100 px-2.5 py-0.5 text-xs font-medium text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400">{item.period}</span>
+							<div class="min-w-0 flex-1 rounded-2xl border border-zinc-200 bg-white p-5 shadow-sm transition-shadow hover:shadow-md dark:border-zinc-800 dark:bg-zinc-900">
+								<div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+									<h3 class="text-sm font-bold text-zinc-900 dark:text-white">{item.role}</h3>
+									<span class="shrink-0 rounded-full bg-zinc-100 px-2.5 py-0.5 text-xs font-medium text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400">{item.period}</span>
+								</div>
+								<p class="mt-1 text-sm font-semibold text-indigo-600 dark:text-indigo-400">{item.org}</p>
+								<ul class="mt-3 space-y-1.5 text-sm text-zinc-600 dark:text-zinc-400">
+									{item.highlights.map((h) => (
+										<li class="flex gap-2">
+											<span class="mt-1.5 size-1.5 shrink-0 rounded-full bg-zinc-300 dark:bg-zinc-600"></span>
+											<span>{h}</span>
+										</li>
+									))}
+								</ul>
 							</div>
-							<p class="mt-1 text-sm font-semibold text-indigo-600 dark:text-indigo-400">{item.org}</p>
-							<ul class="mt-3 space-y-1.5 text-sm text-zinc-600 dark:text-zinc-400">
-								{item.highlights.map((h) => (
-									<li class="flex gap-2">
-										<span class="mt-1.5 size-1.5 shrink-0 rounded-full bg-zinc-300 dark:bg-zinc-600"></span>
-										<span>{h}</span>
-									</li>
-								))}
-							</ul>
 						</div>
-					</div>
-				))}
+					))}
+				</div>
 			</div>
 		</section>
 
 		<!-- ── EDUCATION ────────────────────────────────── -->
 		<section id="education" class="scroll-mt-24">
-			<h2 class="flex items-center gap-3 text-xl font-bold tracking-tight text-zinc-900 dark:text-white">
-				<span class="block h-6 w-1 rounded-full bg-indigo-500"></span>
-				{c.sections.education.title}
-			</h2>
-			<div class="mt-5 grid gap-4 sm:grid-cols-2">
+			<div class="reveal" data-reveal>
+				<h2 class="flex items-center gap-3 text-xl font-bold tracking-tight text-zinc-900 dark:text-white">
+					<span class="block h-6 w-1 rounded-full bg-indigo-500"></span>
+					{c.sections.education.title}
+				</h2>
+			</div>
+			<div class="mt-5 grid gap-4 sm:grid-cols-2 reveal-stagger" data-reveal>
 				{c.sections.education.items.map((e) => (
-					<div class="rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
+					<div class="rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm transition-shadow hover:shadow-md dark:border-zinc-800 dark:bg-zinc-900">
 						<div class="mb-3 flex size-10 items-center justify-center rounded-xl bg-indigo-100 text-lg dark:bg-indigo-950/50">
 							🎓
 						</div>
@@ -230,227 +267,174 @@ const resolveImageUrl = (relativePath) => {
 
 <!-- ── CERTIFICATES ─────────────────────────────── -->
 		<section id="certificates" class="scroll-mt-24">
-			<h2 class="flex items-center gap-3 text-xl font-bold tracking-tight text-zinc-900 dark:text-white">
-				<span class="block h-6 w-1 rounded-full bg-indigo-500"></span>
-				{c.sections.certificates.title}
-			</h2>
-			<div class="mt-5 grid gap-4 sm:grid-cols-2">
-				{c.sections.certificates.items.map((item, index) => {
-					const images = item.images ?? (item.image ? [item.image] : []);
-					return (
-						<>
-							<div class="rounded-2xl border border-zinc-200 bg-white p-5 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
-								<h3 class="text-sm font-bold text-zinc-900 dark:text-white">{item.title}</h3>
-								{item.detail && <p class="mt-1 text-xs font-semibold text-indigo-600 dark:text-indigo-400">{item.detail}</p>}
-								{images.length ? (
-									<div class="mt-4 flex flex-wrap gap-3">
-										{images.map((img, imgIndex) => {
-											const overlayId = makeOverlayId('cert', item.title, `${index}-${imgIndex}`);
-											const thumbUrl = resolveImageUrl(img.thumbSrc ?? img.src);
-											return (
-												<a
-													href={`#${overlayId}`}
-													class="group inline-flex flex-col items-center gap-1.5 text-xs"
-												>
-													<img
-														src={thumbUrl ?? ''}
-														alt={img.alt}
-														loading="lazy"
-														class="h-16 w-auto rounded-xl border border-zinc-200 bg-zinc-50 shadow-sm transition-all group-hover:border-indigo-300 group-hover:shadow-md dark:border-zinc-700 dark:bg-zinc-800"
-													/>
-													<span class="font-medium text-indigo-600 dark:text-indigo-400">
-														{images.length > 1 ? `View ${imgIndex + 1}` : 'View'}
-													</span>
-												</a>
-											);
-										})}
-									</div>
-								) : null}
-							</div>
+			<div class="reveal" data-reveal>
+				<h2 class="flex items-center gap-3 text-xl font-bold tracking-tight text-zinc-900 dark:text-white">
+					<span class="block h-6 w-1 rounded-full bg-indigo-500"></span>
+					{c.sections.certificates.title}
+				</h2>
+				<p class="mt-1 text-xs text-zinc-500 dark:text-zinc-500">Swipe or drag → click any card to view</p>
+			</div>
 
-							{images.map((img, imgIndex) => {
-								const overlayId = makeOverlayId('cert', item.title, `${index}-${imgIndex}`);
+			<div class="h-carousel-wrap mt-5">
+				<div class="h-carousel-track" data-hcarousel="certs">
+					{c.sections.certificates.items.map((item, index) => {
+						const images = item.images ?? (item.image ? [item.image] : []);
+						const firstImg = images[0];
+						const overlayId = firstImg ? makeOverlayId('cert', item.title, `${index}-0`) : null;
+						const thumbUrl = firstImg ? resolveImageUrl(firstImg.thumbSrc ?? firstImg.src) : null;
+						return (
+							<div class="h-carousel-card">
+								<div class="flex h-full flex-col rounded-2xl border border-zinc-200 bg-white shadow-sm transition-all hover:border-indigo-300 hover:shadow-md dark:border-zinc-800 dark:bg-zinc-900 dark:hover:border-indigo-700 overflow-hidden">
+									{thumbUrl ? (
+										<a href={`#${overlayId}`} class="block overflow-hidden bg-zinc-50 dark:bg-zinc-800">
+											<img
+												src={thumbUrl}
+												alt={firstImg!.alt}
+												loading="lazy"
+												class="h-36 w-full object-cover transition-transform duration-300 hover:scale-105"
+											/>
+										</a>
+									) : (
+										<div class="flex h-20 items-center justify-center bg-gradient-to-br from-indigo-50 to-violet-50 dark:from-indigo-950/30 dark:to-violet-950/30 text-3xl">🎓</div>
+									)}
+									<div class="flex flex-1 flex-col p-4">
+										<h3 class="text-xs font-bold leading-snug text-zinc-900 dark:text-white">{item.title}</h3>
+										{item.detail && <p class="mt-1 text-xs font-semibold text-indigo-600 dark:text-indigo-400">{item.detail}</p>}
+										{images.length > 1 && (
+											<p class="mt-auto pt-3 text-xs text-zinc-400 dark:text-zinc-600">{images.length} images</p>
+										)}
+										{overlayId && (
+											<a href={`#${overlayId}`} class="mt-2 inline-flex items-center gap-1 text-xs font-semibold text-indigo-600 hover:underline dark:text-indigo-400">
+												View ↗
+											</a>
+										)}
+									</div>
+								</div>
+							</div>
+						);
+					})}
+				</div>
+			</div>
+
+			<!-- overlays (lightbox) — unchanged -->
+			{c.sections.certificates.items.map((item, index) => {
+				const images = item.images ?? (item.image ? [item.image] : []);
+				return images.map((img, imgIndex) => {
+					const overlayId = makeOverlayId('cert', item.title, `${index}-${imgIndex}`);
+					const fullUrl = resolveImageUrl(img.src);
+					return (
+						<div id={overlayId} class="overlay fixed inset-0 z-50 items-center justify-center p-4" role="dialog" aria-modal="true" aria-label={item.title} data-gallery-group={images.length > 1 ? `cert-${index}` : undefined} data-gallery-index={images.length > 1 ? imgIndex : undefined}>
+							<a href="#certificates" class="absolute inset-0 bg-zinc-950/70 backdrop-blur-sm dark:bg-zinc-950/80" aria-label="Close" />
+							<div class="relative w-full max-w-4xl overflow-hidden rounded-2xl border border-zinc-200 bg-white p-4 shadow-2xl dark:border-zinc-800 dark:bg-zinc-950">
+								<div class="flex items-center justify-between gap-4">
+									<p class="text-sm font-semibold text-zinc-900 dark:text-zinc-100">{item.title}</p>
+									<div class="flex shrink-0 items-center gap-2">
+										{images.length > 1 && <span class="gallery-counter text-xs text-zinc-500 dark:text-zinc-400">{imgIndex + 1} / {images.length}</span>}
+										<a href="#certificates" class="shrink-0 rounded-lg border border-zinc-200 px-3 py-1.5 text-xs font-medium text-zinc-700 transition-colors hover:border-zinc-400 dark:border-zinc-700 dark:text-zinc-300">✕ Close</a>
+									</div>
+								</div>
+								<div class="relative mt-4">
+									<img src={fullUrl ?? ''} alt={img.alt} loading="lazy" class="max-h-[75vh] w-full rounded-xl border border-zinc-200 object-contain dark:border-zinc-800" />
+									{images.length > 1 && (
+										<>
+											<a href="#" class="gallery-prev-btn absolute left-2 top-1/2 z-10 flex size-9 -translate-y-1/2 items-center justify-center rounded-full border border-zinc-200 bg-white/90 text-xl text-zinc-600 shadow-md transition-colors hover:border-indigo-300 hover:text-indigo-600 dark:border-zinc-700 dark:bg-zinc-900/90 dark:text-zinc-300" aria-label="Previous">‹</a>
+											<a href="#" class="gallery-next-btn absolute right-2 top-1/2 z-10 flex size-9 -translate-y-1/2 items-center justify-center rounded-full border border-zinc-200 bg-white/90 text-xl text-zinc-600 shadow-md transition-colors hover:border-indigo-300 hover:text-indigo-600 dark:border-zinc-700 dark:bg-zinc-900/90 dark:text-zinc-300" aria-label="Next">›</a>
+										</>
+									)}
+								</div>
+							</div>
+						</div>
+					);
+				});
+			})}
+		</section>
+
+		<!-- ── ACHIEVEMENTS ────────────────────────────── -->
+		<section id="achievements" class="scroll-mt-24">
+			<div class="reveal" data-reveal>
+				<h2 class="flex items-center gap-3 text-xl font-bold tracking-tight text-zinc-900 dark:text-white">
+					<span class="block h-6 w-1 rounded-full bg-indigo-500"></span>
+					{c.sections.achievements.title}
+				</h2>
+			</div>
+			<div class="mt-5 space-y-6">
+				{c.sections.achievements.groups.map((group, groupIndex) => (
+					<details class="group/ach rounded-2xl border border-zinc-200 bg-white shadow-sm dark:border-zinc-800 dark:bg-zinc-900 reveal" data-reveal open={groupIndex === 0}>
+						<summary class="flex cursor-pointer items-center justify-between gap-4 px-5 py-4 marker:hidden list-none">
+							<span class="text-sm font-bold text-zinc-800 dark:text-zinc-200">{group.title}</span>
+							<span class="shrink-0 text-xs text-zinc-400 transition-transform group-open/ach:rotate-180 dark:text-zinc-600">▼</span>
+						</summary>
+
+						<div class="border-t border-zinc-100 px-5 pb-5 pt-4 dark:border-zinc-800">
+							<!-- horizontal carousel of achievement cards -->
+							<div class="h-carousel-wrap">
+								<div class="h-carousel-track" data-hcarousel={`ach-${groupIndex}`}>
+									{group.items.map((a, itemIndex) => {
+										const images = a.images ?? (a.image ? [a.image] : []);
+										const firstImg = images[0];
+										const overlayId = firstImg ? makeOverlayId(`ach-${groupIndex}`, a.title, `${itemIndex}-0`) : null;
+										const thumbUrl = firstImg ? resolveImageUrl(firstImg.thumbSrc ?? firstImg.src) : null;
+										return (
+											<div class="h-carousel-card">
+												<div class="flex h-full flex-col rounded-xl border border-zinc-100 bg-zinc-50 p-4 dark:border-zinc-700 dark:bg-zinc-800">
+													<div class="flex items-start gap-2">
+														<span class="shrink-0 text-base">🏅</span>
+														<div class="min-w-0">
+															<h4 class="text-xs font-bold leading-snug text-zinc-900 dark:text-white">{a.title}</h4>
+															{a.detail && <p class="mt-0.5 text-xs text-zinc-500">{a.detail}</p>}
+														</div>
+													</div>
+													{thumbUrl && overlayId && (
+														<a href={`#${overlayId}`} class="mt-3 block overflow-hidden rounded-lg border border-zinc-200 dark:border-zinc-700">
+															<img src={thumbUrl} alt={firstImg!.alt} loading="lazy" class="h-24 w-full object-cover transition-transform duration-300 hover:scale-105" />
+														</a>
+													)}
+													{a.fullText && (
+														<details class="mt-3">
+															<summary class="cursor-pointer text-xs font-semibold text-indigo-600 hover:text-indigo-500 dark:text-indigo-400">Read ▸</summary>
+															<p class="mt-2 whitespace-pre-line text-xs leading-relaxed text-zinc-600 dark:text-zinc-400">{a.fullText}</p>
+														</details>
+													)}
+												</div>
+											</div>
+										);
+									})}
+								</div>
+							</div>
+						</div>
+
+						<!-- overlays for this group -->
+						{group.items.map((a, itemIndex) => {
+							const images = a.images ?? (a.image ? [a.image] : []);
+							return images.map((img, imgIndex) => {
+								const overlayId = makeOverlayId(`ach-${groupIndex}`, a.title, `${itemIndex}-${imgIndex}`);
 								const fullUrl = resolveImageUrl(img.src);
 								return (
-									<div
-										id={overlayId}
-										class="overlay fixed inset-0 z-50 items-center justify-center p-4"
-										role="dialog"
-										aria-modal="true"
-										aria-label={item.title}
-										data-gallery-group={images.length > 1 ? `cert-${index}` : undefined}
-										data-gallery-index={images.length > 1 ? imgIndex : undefined}
-									>
-										<a
-											href="#certificates"
-											class="absolute inset-0 bg-zinc-950/70 backdrop-blur-sm dark:bg-zinc-950/80"
-											aria-label="Close"
-										/>
+									<div id={overlayId} class="overlay fixed inset-0 z-50 items-center justify-center p-4" role="dialog" aria-modal="true" aria-label={a.title} data-gallery-group={images.length > 1 ? `ach-${groupIndex}` : undefined} data-gallery-index={images.length > 1 ? imgIndex : undefined}>
+										<a href="#achievements" class="absolute inset-0 bg-zinc-950/70 backdrop-blur-sm dark:bg-zinc-950/80" aria-label="Close" />
 										<div class="relative w-full max-w-4xl overflow-hidden rounded-2xl border border-zinc-200 bg-white p-4 shadow-2xl dark:border-zinc-800 dark:bg-zinc-950">
 											<div class="flex items-center justify-between gap-4">
-												<p class="text-sm font-semibold text-zinc-900 dark:text-zinc-100">{item.title}</p>
+												<p class="text-sm font-semibold text-zinc-900 dark:text-zinc-100">{a.title}</p>
 												<div class="flex shrink-0 items-center gap-2">
 													{images.length > 1 && <span class="gallery-counter text-xs text-zinc-500 dark:text-zinc-400">{imgIndex + 1} / {images.length}</span>}
-													<a
-														href="#certificates"
-														class="shrink-0 rounded-lg border border-zinc-200 px-3 py-1.5 text-xs font-medium text-zinc-700 transition-colors hover:border-zinc-400 dark:border-zinc-700 dark:text-zinc-300"
-													>
-														✕ Close
-													</a>
+													<a href="#achievements" class="shrink-0 rounded-lg border border-zinc-200 px-3 py-1.5 text-xs font-medium text-zinc-700 transition-colors hover:border-zinc-400 dark:border-zinc-700 dark:text-zinc-300">✕ Close</a>
 												</div>
 											</div>
 											<div class="relative mt-4">
-												<img
-													src={fullUrl ?? ''}
-													alt={img.alt}
-													loading="lazy"
-													class="max-h-[75vh] w-full rounded-xl border border-zinc-200 object-contain dark:border-zinc-800"
-												/>
+												<img src={fullUrl ?? ''} alt={img.alt} loading="lazy" class="max-h-[75vh] w-full rounded-xl border border-zinc-200 object-contain dark:border-zinc-800" />
 												{images.length > 1 && (
 													<>
-														<a
-															href="#"
-															class="gallery-prev-btn absolute left-2 top-1/2 z-10 flex size-9 -translate-y-1/2 items-center justify-center rounded-full border border-zinc-200 bg-white/90 text-xl text-zinc-600 shadow-md transition-colors hover:border-indigo-300 hover:text-indigo-600 dark:border-zinc-700 dark:bg-zinc-900/90 dark:text-zinc-300"
-															aria-label="Previous"
-														>‹</a>
-														<a
-															href="#"
-															class="gallery-next-btn absolute right-2 top-1/2 z-10 flex size-9 -translate-y-1/2 items-center justify-center rounded-full border border-zinc-200 bg-white/90 text-xl text-zinc-600 shadow-md transition-colors hover:border-indigo-300 hover:text-indigo-600 dark:border-zinc-700 dark:bg-zinc-900/90 dark:text-zinc-300"
-															aria-label="Next"
-														>›</a>
+														<a href="#" class="gallery-prev-btn absolute left-2 top-1/2 z-10 flex size-9 -translate-y-1/2 items-center justify-center rounded-full border border-zinc-200 bg-white/90 text-xl text-zinc-600 shadow-md transition-colors hover:border-indigo-300 hover:text-indigo-600 dark:border-zinc-700 dark:bg-zinc-900/90 dark:text-zinc-300" aria-label="Previous">‹</a>
+														<a href="#" class="gallery-next-btn absolute right-2 top-1/2 z-10 flex size-9 -translate-y-1/2 items-center justify-center rounded-full border border-zinc-200 bg-white/90 text-xl text-zinc-600 shadow-md transition-colors hover:border-indigo-300 hover:text-indigo-600 dark:border-zinc-700 dark:bg-zinc-900/90 dark:text-zinc-300" aria-label="Next">›</a>
 													</>
 												)}
 											</div>
 										</div>
 									</div>
 								);
-							})}
-						</>
-					);
-				})}
-			</div>
-		</section>
-
-		<!-- ── ACHIEVEMENTS ────────────────────────────── -->
-		<section id="achievements" class="scroll-mt-24">
-			<h2 class="flex items-center gap-3 text-xl font-bold tracking-tight text-zinc-900 dark:text-white">
-				<span class="block h-6 w-1 rounded-full bg-indigo-500"></span>
-				{c.sections.achievements.title}
-			</h2>
-			<div class="mt-5 space-y-10">
-				{c.sections.achievements.groups.map((group, groupIndex) => (
-					<div>
-						<div class="mb-5 flex items-center gap-3">
-							<span class="text-sm font-bold text-zinc-800 dark:text-zinc-200">{group.title}</span>
-							<div class="h-px flex-1 bg-zinc-200 dark:bg-zinc-800"></div>
-						</div>
-						<div class="grid gap-4 sm:grid-cols-2">
-							{group.items.map((a, itemIndex) => {
-								const images = a.images ?? (a.image ? [a.image] : []);
-								return (
-									<>
-										<div class="rounded-2xl border border-zinc-200 bg-white p-5 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
-											<div class="flex items-start gap-3">
-												<span class="mt-0.5 shrink-0 text-lg" aria-hidden="true">🏅</span>
-												<div class="min-w-0 flex-1">
-													<h4 class="text-sm font-bold text-zinc-900 dark:text-white">{a.title}</h4>
-													{a.detail && <p class="mt-0.5 text-xs text-zinc-500 dark:text-zinc-500">{a.detail}</p>}
-												</div>
-											</div>
-											{a.fullText && (
-												<details class="mt-3">
-													<summary class="cursor-pointer text-xs font-semibold text-indigo-600 hover:text-indigo-500 dark:text-indigo-400">Read excerpt ▸</summary>
-													<p class="mt-3 whitespace-pre-line text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">{a.fullText}</p>
-												</details>
-											)}
-											{images.length ? (
-												<div class="mt-4 flex flex-wrap gap-3">
-													{images.map((img, imgIndex) => {
-														const overlayId = makeOverlayId(`ach-${groupIndex}`, a.title, `${itemIndex}-${imgIndex}`);
-														const thumbUrl = resolveImageUrl(img.thumbSrc ?? img.src);
-														return (
-															<a
-																href={`#${overlayId}`}
-																class="group inline-flex flex-col items-center gap-1.5 text-xs"
-															>
-																<img
-																	src={thumbUrl ?? ''}
-																	alt={img.alt}
-																	loading="lazy"
-																	class="h-16 w-auto rounded-xl border border-zinc-200 bg-zinc-50 shadow-sm transition-all group-hover:border-indigo-300 group-hover:shadow-md dark:border-zinc-700 dark:bg-zinc-800"
-																/>
-																<span class="font-medium text-indigo-600 dark:text-indigo-400">
-																	{images.length > 1 ? `View ${imgIndex + 1}` : 'View'}
-																</span>
-															</a>
-														);
-													})}
-												</div>
-											) : null}
-										</div>
-
-										{images.map((img, imgIndex) => {
-											const overlayId = makeOverlayId(`ach-${groupIndex}`, a.title, `${itemIndex}-${imgIndex}`);
-											const fullUrl = resolveImageUrl(img.src);
-											return (
-												<div
-													id={overlayId}
-													class="overlay fixed inset-0 z-50 items-center justify-center p-4"
-													role="dialog"
-													aria-modal="true"
-													aria-label={a.title}
-													data-gallery-group={images.length > 1 ? `ach-${groupIndex}` : undefined}
-													data-gallery-index={images.length > 1 ? imgIndex : undefined}
-												>
-													<a
-														href="#achievements"
-														class="absolute inset-0 bg-zinc-950/70 backdrop-blur-sm dark:bg-zinc-950/80"
-														aria-label="Close"
-													/>
-													<div class="relative w-full max-w-4xl overflow-hidden rounded-2xl border border-zinc-200 bg-white p-4 shadow-2xl dark:border-zinc-800 dark:bg-zinc-950">
-														<div class="flex items-center justify-between gap-4">
-															<p class="text-sm font-semibold text-zinc-900 dark:text-zinc-100">{a.title}</p>
-															<div class="flex shrink-0 items-center gap-2">
-																{images.length > 1 && <span class="gallery-counter text-xs text-zinc-500 dark:text-zinc-400">{imgIndex + 1} / {images.length}</span>}
-																<a
-																	href="#achievements"
-																	class="shrink-0 rounded-lg border border-zinc-200 px-3 py-1.5 text-xs font-medium text-zinc-700 transition-colors hover:border-zinc-400 dark:border-zinc-700 dark:text-zinc-300"
-																>
-																	✕ Close
-																</a>
-															</div>
-														</div>
-														<div class="relative mt-4">
-															<img
-																src={fullUrl ?? ''}
-																alt={img.alt}
-																loading="lazy"
-																class="max-h-[75vh] w-full rounded-xl border border-zinc-200 object-contain dark:border-zinc-800"
-															/>
-															{images.length > 1 && (
-																<>
-																	<a
-																		href="#"
-																		class="gallery-prev-btn absolute left-2 top-1/2 z-10 flex size-9 -translate-y-1/2 items-center justify-center rounded-full border border-zinc-200 bg-white/90 text-xl text-zinc-600 shadow-md transition-colors hover:border-indigo-300 hover:text-indigo-600 dark:border-zinc-700 dark:bg-zinc-900/90 dark:text-zinc-300"
-																		aria-label="Previous"
-																	>‹</a>
-																	<a
-																		href="#"
-																		class="gallery-next-btn absolute right-2 top-1/2 z-10 flex size-9 -translate-y-1/2 items-center justify-center rounded-full border border-zinc-200 bg-white/90 text-xl text-zinc-600 shadow-md transition-colors hover:border-indigo-300 hover:text-indigo-600 dark:border-zinc-700 dark:bg-zinc-900/90 dark:text-zinc-300"
-																		aria-label="Next"
-																	>›</a>
-																</>
-															)}
-														</div>
-													</div>
-												</div>
-											);
-										})}
-									</>
-								);
-							})}
-						</div>
-					</div>
+							});
+						})}
+					</details>
 				))}
 			</div>
 		</section>
@@ -501,8 +485,8 @@ const resolveImageUrl = (relativePath) => {
 		const updateLabels = () => {
 			const isDark = getIsDark();
 			for (const btn of document.querySelectorAll('[data-theme-toggle]')) {
-				const labelLight = btn.getAttribute('data-label-light') ?? 'Light';
-				const labelDark = btn.getAttribute('data-label-dark') ?? 'Dark';
+				const labelLight = btn.getAttribute('data-label-light') ?? '☀️';
+				const labelDark = btn.getAttribute('data-label-dark') ?? '🌙';
 				btn.textContent = isDark ? labelLight : labelDark;
 			}
 		};
@@ -535,4 +519,135 @@ const resolveImageUrl = (relativePath) => {
 		const counter = el.querySelector('.gallery-counter');
 		if (counter) counter.textContent = `${idx + 1} / ${total}`;
 	});
+
+	// ── Scroll-reveal (Intersection Observer) ──────────────
+	(() => {
+		const io = new IntersectionObserver(
+			(entries) => {
+				entries.forEach((entry) => {
+					if (entry.isIntersecting) {
+						entry.target.classList.add('is-visible');
+						io.unobserve(entry.target);
+					}
+				});
+			},
+			{ threshold: 0.12 }
+		);
+		document.querySelectorAll('[data-reveal]').forEach((el) => io.observe(el));
+
+		// Animate timeline lines
+		const lineIo = new IntersectionObserver(
+			(entries) => {
+				entries.forEach((entry) => {
+					if (entry.isIntersecting) {
+						entry.target.classList.add('is-visible');
+						lineIo.unobserve(entry.target);
+					}
+				});
+			},
+			{ threshold: 0.3 }
+		);
+		document.querySelectorAll('[data-timeline-line]').forEach((el) => lineIo.observe(el));
+	})();
+
+	// ── Pinned scroll carousel (Projects) ──────────────────
+	(() => {
+		const section  = document.querySelector<HTMLElement>('[data-pin-carousel]');
+		const inner    = section?.querySelector<HTMLElement>('.projects-pin-inner');
+		const track    = document.getElementById('projects-track') as HTMLElement | null;
+		const progress = document.getElementById('proj-progress') as HTMLElement | null;
+		const counter  = document.getElementById('proj-counter') as HTMLElement | null;
+		if (!section || !inner || !track) return;
+
+		const cards = Array.from(track.querySelectorAll<HTMLElement>('.project-card'));
+		const totalCards = cards.length;
+		if (!totalCards) return;
+
+		let offset = 0;        // how far we have scrolled the track (px)
+		let maxOffset = 0;     // recalculated on resize
+		let isLocked = false;  // are we currently hijacking scroll?
+
+		function getMaxOffset() {
+			const gap = 24; // 1.5rem
+			const cardW = cards[0].getBoundingClientRect().width + gap;
+			return Math.max(0, cardW * totalCards - inner!.getBoundingClientRect().width + gap);
+		}
+
+		function applyOffset(px: number) {
+			offset = Math.max(0, Math.min(px, maxOffset));
+			track.style.transform = `translateX(-${offset}px)`;
+			const frac = maxOffset > 0 ? offset / maxOffset : 0;
+			if (progress) progress.style.width = `${frac * 100}%`;
+			if (counter) {
+				const cardW = cards[0].getBoundingClientRect().width + 24;
+				const idx = Math.min(Math.floor(offset / cardW), totalCards - 1) + 1;
+				counter.textContent = String(idx);
+			}
+		}
+
+		function isSectionInViewport() {
+			const r = section.getBoundingClientRect();
+			const navH = 56;
+			// section is "active" when its top is at/above navbar and bottom is still below viewport
+			return r.top <= navH + 2 && r.bottom >= window.innerHeight - 2;
+		}
+
+		function onWheel(e: WheelEvent) {
+			maxOffset = getMaxOffset();
+
+			// Only hijack if section is centered in viewport (sticky)
+			if (!isSectionInViewport()) return;
+
+			const dir = e.deltaY !== 0 ? e.deltaY : e.deltaX;
+
+			// If scrolling UP and already at start → let page scroll naturally
+			if (dir < 0 && offset <= 0) return;
+			// If scrolling DOWN and already at end → let page scroll naturally
+			if (dir > 0 && offset >= maxOffset) return;
+
+			// Otherwise intercept and translate the track
+			e.preventDefault();
+			applyOffset(offset + dir);
+		}
+
+		// Touch support
+		let touchStartY = 0;
+		function onTouchStart(e: TouchEvent) { touchStartY = e.touches[0].clientY; }
+		function onTouchMove(e: TouchEvent) {
+			maxOffset = getMaxOffset();
+			if (!isSectionInViewport()) return;
+			const dy = touchStartY - e.touches[0].clientY;
+			touchStartY = e.touches[0].clientY;
+			if (dy < 0 && offset <= 0) return;
+			if (dy > 0 && offset >= maxOffset) return;
+			e.preventDefault();
+			applyOffset(offset + dy * 1.5);
+		}
+
+		// Setup
+		maxOffset = getMaxOffset();
+		applyOffset(0);
+
+		window.addEventListener('wheel', onWheel, { passive: false });
+		window.addEventListener('touchstart', onTouchStart, { passive: true });
+		window.addEventListener('touchmove', onTouchMove, { passive: false });
+		window.addEventListener('resize', () => { maxOffset = getMaxOffset(); applyOffset(offset); });
+	})();
+
+	// ── Drag-to-scroll on all .h-carousel-track ─────────────
+	(() => {
+		document.querySelectorAll<HTMLElement>('.h-carousel-track').forEach((track) => {
+			let isDown = false, startX = 0, scrollLeft = 0;
+			track.addEventListener('mousedown', (e) => {
+				isDown = true; startX = e.pageX - track.offsetLeft; scrollLeft = track.scrollLeft;
+			});
+			track.addEventListener('mouseleave', () => { isDown = false; });
+			track.addEventListener('mouseup', () => { isDown = false; });
+			track.addEventListener('mousemove', (e) => {
+				if (!isDown) return;
+				e.preventDefault();
+				track.scrollLeft = scrollLeft - (e.pageX - track.offsetLeft - startX) * 1.5;
+			});
+		});
+	})();
 </script>

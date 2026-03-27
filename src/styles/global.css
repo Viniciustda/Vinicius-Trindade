@@ -225,3 +225,33 @@ body {
 	border: 1px solid rgb(99 102 241 / 0.25);
 	margin-bottom: 0.75rem;
 }
+
+/* ── REDUCED MOTION ───────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+	.reveal,
+	.reveal-left,
+	.reveal-fade,
+	.reveal-stagger > * {
+		opacity: 1 !important;
+		animation: none !important;
+		transform: none !important;
+		transition: none !important;
+	}
+	.reveal.is-visible,
+	.reveal-left.is-visible,
+	.reveal-fade.is-visible,
+	.reveal-stagger.is-visible > * {
+		animation: none !important;
+		opacity: 1 !important;
+	}
+	.timeline-line {
+		transform: scaleY(1) !important;
+		transition: none !important;
+	}
+	.card-hover {
+		transition: none !important;
+	}
+	.card-hover:hover {
+		transform: none !important;
+	}
+}

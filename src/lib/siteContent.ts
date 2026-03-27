@@ -40,6 +40,35 @@ export type AchievementGroup = {
 	items: AwardItem[];
 };
 
+export type ResearchAdvisor = {
+	name: string;
+	role: string;
+	href?: string;
+};
+
+export type ResearchPaper = {
+	title: string;
+	venue: string;
+	venueFullName: string;
+	venueDescription: string;
+	year: number;
+	language: string;
+	doi?: string;
+	note?: string;
+};
+
+export type ResearchItem = {
+	title: string;
+	project: string;
+	labs: Array<{ name: string; href: string }>;
+	period: string;
+	advisors: ResearchAdvisor[];
+	description: string;
+	scheme?: string;
+	papers: ResearchPaper[];
+	tags: string[];
+};
+
 export type ContactLink = {
 	label: string;
 	href: string;
@@ -62,6 +91,10 @@ export type PageContent = {
 		about: {
 			title: string;
 			bullets: string[];
+		};
+		research: {
+			title: string;
+			items: ResearchItem[];
 		};
 		projects: {
 			title: string;
@@ -107,15 +140,16 @@ export const content: Record<Locale, PageContent> = {
 		},
 		header: {
 			name: 'Vinicius Trindade',
-			tagline: 'Ciência da Computação @ UFMG • Segurança • IA • Redes',
+			tagline: 'Ciência da Computação @ UFMG • Cibersegurança • IA • Redes',
 			summary:
-				'Graduando em Ciência da Computação (UFMG) e pesquisador de Iniciação Científica no Wireless Networks Lab (WiNet/UFMG) e no CCSC Research Lab (UFMG), com foco em segurança, inteligência artificial e redes. Experiência como oficial do Exército Brasileiro (Segundo Tenente): comandei pelotões em rotinas e atividades operacionais e liderei seções administrativas, com atuação por mais tempo no setor financeiro.',
+				'Graduando em Ciência da Computação (UFMG) e pesquisador de Iniciação Científica no Wireless Networks Lab (WiNet/UFMG) e no CCSC Research Lab (UFMG), com foco em cibersegurança, inteligência artificial (aprendizado por reforço) e redes. Experiência como oficial do Exército Brasileiro (Segundo Tenente): comandei pelotões em rotinas e atividades operacionais e liderei seções administrativas, com atuação por mais tempo no setor financeiro.',
 			ctaPrimary: { label: 'Ver projetos', href: '#projetos' },
 			ctaSecondary: { label: 'Contato', href: '#contato' },
 		},
 		sections: {
 			nav: [
 				{ label: 'Sobre', href: '#sobre' },
+				{ label: 'Pesquisa', href: '#pesquisa' },
 				{ label: 'Projetos', href: '#projetos' },
 				{ label: 'Experiência', href: '#experiencia' },
 				{ label: 'Formação', href: '#formacao' },
@@ -126,22 +160,60 @@ export const content: Record<Locale, PageContent> = {
 			about: {
 				title: 'Sobre',
 				bullets: [
-					'Atuo e estudo nas áreas de cibersegurança, inteligência artificial e redes de computadores, buscando aplicar esses temas em projetos e pesquisa.',
+					'Atuo e pesquiso nas áreas de cibersegurança, inteligência artificial (aprendizado por reforço) e redes de computadores.',
 					'Experiência prática com C/C++, Python, SQL e Git/GitHub; familiaridade com desenvolvimento web.',
 					'Metodologias: conhecimento de Scrum e Kanban para organização e acompanhamento de trabalho.',
 					'Arquitetura: conhecimento de microsserviços, monolítico e MVC.',
-					'Tenho interesse em projetos pessoais e, quando possível, desenvolvo iniciativas próprias para consolidar aprendizados e explorar ideias.',
+					'Interesse em desenvolvimento de jogos e robótica, explorando essas áreas em projetos pessoais.',
 					'Soft skills: liderança, disciplina, organização, responsabilidade, abnegação e trabalho em grupo.',
 				],
 			},
-			projects: {
-				title: 'Projetos em destaque',
+			research: {
+				title: 'Pesquisa',
 				items: [
 					{
-						title: 'Iniciação Científica — Redes de UAVs Resilientes a Ataques Homem do Meio às Informações de Localização',
+						title: 'Iniciação Científica (IC)',
+						project: 'Redes de UAVs Resilientes a Ataques Homem do Meio às Informações de Localização',
+						labs: [
+							{ name: 'Wireless Networks Lab (WiNet)', href: 'https://www.winet.dcc.ufmg.br/' },
+							{ name: 'CCSC Research Lab', href: 'https://ccsc.dcc.ufmg.br/' },
+						],
+						period: 'Out 2024 — Mai 2026 (voluntário: Out 2024 — Abr 2025 • bolsista CNPq: Mai 2025 — Mai 2026)',
+						advisors: [
+							{ name: 'Prof. Dr. Aldri Luiz dos Santos', role: 'Orientador (UFMG)', href: 'https://dcc.ufmg.br/professor/aldri-luiz-dos-santos/' },
+							{ name: 'Dr. Agnaldo de Souza Batista', role: 'Coorientador (UFPR)' },
+						],
+						description: 'Redes de VANTs (FANETs) dependem do compartilhamento de localização para coordenação de voo, porém canais sem fio expõem esses dados a ataques Homem-do-Meio. Para resolver esse problema, desenvolvemos o KEYSUAV, um esquema de troca oportunística de chaves com criptografia leve (ECC + ASCON-128) e detecção de anomalias. Implementado em C++ no simulador ns-3 sobre o serviço FlySafe, o esquema alcançou 100% de detecção de mensagens comprometidas.',
+						scheme: 'KEYSUAV',
+						papers: [
+							{
+								title: 'An Opportunistic Key Exchange Scheme for Location Information Sharing on UAV Networks Resilient to MiM Attacks',
+								venue: 'SBRC 2026',
+								venueFullName: 'Simpósio Brasileiro de Redes de Computadores e Sistemas Distribuídos',
+								venueDescription: 'Principal evento científico de redes e sistemas distribuídos do Brasil.',
+								year: 2026,
+								language: 'Inglês',
+								note: 'Primeiro artigo escrito — aceito na primeira submissão.',
+							},
+						],
+						tags: ['Redes de UAVs', 'Cibersegurança', 'Ataque MiM', 'ns-3', 'CNPq'],
+					},
+				],
+			},
+			projects: {
+				title: 'Projetos',
+				items: [
+					{
+						title: 'Caixinha',
 						description:
-							'Pesquisa no Wireless Networks Lab (WiNet/UFMG) e no CCSC Research Lab (UFMG) sobre resiliência a ataques Homem-do-Meio nas informações de localização em redes de UAVs. Trabalho com simulação em ns-3 e avaliação experimental. Esquema proposto: KEYSUAV. Artigo submetido ao SBRC (em avaliação): “An Opportunistic Key Exchange Scheme for Location Information Sharing on UAV Networks Resilient to MiM Attacks”.',
-						tags: ['Pesquisa', 'Redes de UAVs', 'Segurança', 'ns-3', 'CNPq'],
+							'Aplicativo para divisão de despesas em grupo, desenvolvido em dupla. Em desenvolvimento; link ainda não disponível. Arquitetura por componentes: Front-Caixinha (SPA React/Vite, UI/UX e consumo de API), Api-Caixinha (NestJS + TypeScript, Prisma + PostgreSQL, autenticação/autorização e regras de negócio) e Mobile-Caixinha (React Native, UI e consumo da mesma API). Login via Google.',
+						tags: ['React', 'Vite', 'React Native', 'NestJS', 'TypeScript', 'Prisma', 'PostgreSQL', 'OAuth', 'GitHub Actions'],
+					},
+					{
+						title: 'Animae',
+						description:
+							'Jogo 2D estilo Metroidvania, desenvolvido individualmente, com foco em conexão com a natureza e reconstrução de um mundo devastado. Em desenvolvimento; link ainda não disponível.',
+						tags: ['C++', 'SDL2', 'OpenGL', 'Game Dev', '2D'],
 					},
 					{
 						title: 'Página pessoal (este site)',
@@ -152,18 +224,6 @@ export const content: Record<Locale, PageContent> = {
 							{ label: 'GitHub', href: 'https://github.com/Viniciustda/Vinicius-Trindade' },
 						],
 					},
-					{
-						title: 'Animae',
-						description:
-							'Jogo 2D estilo Metroidvania, desenvolvido individualmente, com foco em conexão com a natureza e reconstrução de um mundo devastado. Em desenvolvimento; link ainda não disponível.',
-						tags: ['C++', 'SDL2', 'OpenGL', 'Game Dev', '2D'],
-					},
-					{
-						title: 'Caixinha',
-						description:
-							'Aplicativo para divisão de despesas em grupo, desenvolvido em dupla. Em desenvolvimento; link ainda não disponível. Arquitetura por componentes: Front-Caixinha (SPA React/Vite, UI/UX e consumo de API), Api-Caixinha (NestJS + TypeScript, Prisma + PostgreSQL, autenticação/autorização e regras de negócio) e Mobile-Caixinha (React Native, UI e consumo da mesma API). Login via Google.',
-						tags: ['React', 'Vite', 'React Native', 'NestJS', 'TypeScript', 'Prisma', 'PostgreSQL', 'OAuth', 'GitHub Actions'],
-					},
 				],
 			},
 			experience: {
@@ -171,13 +231,13 @@ export const content: Record<Locale, PageContent> = {
 				items: [
 					{
 						role: 'Pesquisador de Iniciação Científica (IC)',
-						org: 'Wireless Networks Lab (WiNet) & CCSC Research Lab — UFMG • Orientação: Prof. Aldri Luiz dos Santos',
-						period: 'Out 2024 — Atual (voluntário: Out 2024 — Abr 2025 • bolsista CNPq: Mai 2025 — Atual)',
+						org: 'Wireless Networks Lab (WiNet) & CCSC Research Lab — UFMG • Orientação: Prof. Dr. Aldri Luiz dos Santos',
+						period: 'Out 2024 — Mai 2026 (voluntário: Out 2024 — Abr 2025 • bolsista CNPq: Mai 2025 — Mai 2026)',
 						highlights: [
 							'Projeto: “Redes de UAVs Resilientes a Ataques Homem do Meio às Informações de Localização”.',
-							'Pesquisa aplicada em segurança de redes e avaliação por simulação (ns-3.34).',
+							'Pesquisa aplicada em segurança de redes com simulação no ns-3.',
 							'Esquema proposto (produto da pesquisa): KEYSUAV.',
-							'Artigo submetido ao SBRC (em avaliação): “An Opportunistic Key Exchange Scheme for Location Information Sharing on UAV Networks Resilient to MiM Attacks”.',
+							'Artigo aceito no SBRC 2026: “An Opportunistic Key Exchange Scheme for Location Information Sharing on UAV Networks Resilient to MiM Attacks”.',
 						],
 					},
 					{
@@ -388,15 +448,16 @@ export const content: Record<Locale, PageContent> = {
 		},
 		header: {
 			name: 'Vinicius Trindade',
-			tagline: 'Computer Science @ UFMG • Security • AI • Networks',
+			tagline: 'Computer Science @ UFMG • Cybersecurity • AI • Networks',
 			summary:
-				'Computer Science student (UFMG) and undergraduate researcher at the Wireless Networks Lab (WiNet/UFMG) and the CCSC Research Lab (UFMG), focused on security, AI, and computer networks. Former Brazilian Army officer (Second Lieutenant): commanded platoon-level units in operational routines and led administrative sections, spending more time in the finance section.',
+				'Computer Science student (UFMG) and undergraduate researcher at the Wireless Networks Lab (WiNet/UFMG) and the CCSC Research Lab (UFMG), focused on cybersecurity, AI (reinforcement learning), and computer networks. Former Brazilian Army officer (Second Lieutenant): commanded platoon-level units in operational routines and led administrative sections, spending more time in the finance section.',
 			ctaPrimary: { label: 'View projects', href: '#projects' },
 			ctaSecondary: { label: 'Contact', href: '#contact' },
 		},
 		sections: {
 			nav: [
 				{ label: 'About', href: '#about' },
+				{ label: 'Research', href: '#research' },
 				{ label: 'Projects', href: '#projects' },
 				{ label: 'Experience', href: '#experience' },
 				{ label: 'Education', href: '#education' },
@@ -407,22 +468,60 @@ export const content: Record<Locale, PageContent> = {
 			about: {
 				title: 'About',
 				bullets: [
-					'I work and study across cybersecurity, AI, and computer networks, aiming to apply these areas in projects and research.',
+					'I work and research in cybersecurity, AI (reinforcement learning), and computer networks.',
 					'Hands-on experience with C/C++, Python, SQL, and Git/GitHub; familiar with web development.',
 					'Methodologies: knowledge of Scrum and Kanban for organizing and tracking work.',
 					'Architecture: knowledge of microservices, monolithic applications, and MVC.',
-					'I am interested in personal projects and, when possible, I build side initiatives to consolidate learning and explore new ideas.',
+					'Interested in game development and robotics, exploring these areas through personal projects.',
 					'Soft skills: leadership, discipline, organization, responsibility, selflessness, and teamwork.',
 				],
 			},
-			projects: {
-				title: 'Featured projects',
+			research: {
+				title: 'Research',
 				items: [
 					{
-						title: 'Undergraduate research — UAV Networks Resilient to Man-in-the-Middle Attacks on Location Information',
+						title: 'Undergraduate Research (IC)',
+						project: 'UAV Networks Resilient to Man-in-the-Middle Attacks on Location Information',
+						labs: [
+							{ name: 'Wireless Networks Lab (WiNet)', href: 'https://www.winet.dcc.ufmg.br/' },
+							{ name: 'CCSC Research Lab', href: 'https://ccsc.dcc.ufmg.br/' },
+						],
+						period: 'Oct 2024 — May 2026 (volunteer: Oct 2024 — Apr 2025 • CNPq scholar: May 2025 — May 2026)',
+						advisors: [
+							{ name: 'Prof. PhD Aldri Luiz dos Santos', role: 'Advisor (UFMG)', href: 'https://dcc.ufmg.br/professor/aldri-luiz-dos-santos/' },
+							{ name: 'PhD Agnaldo de Souza Batista', role: 'Co-advisor (UFPR)' },
+						],
+						description: 'UAV networks (FANETs) rely on location sharing for flight coordination, but wireless channels expose this data to Man-in-the-Middle attacks. To address this, we developed KEYSUAV, an opportunistic key exchange scheme with lightweight cryptography (ECC + ASCON-128) and anomaly detection. Implemented in C++ on the ns-3 simulator over the FlySafe service, the scheme achieved 100% detection of compromised messages.',
+						scheme: 'KEYSUAV',
+						papers: [
+							{
+								title: 'An Opportunistic Key Exchange Scheme for Location Information Sharing on UAV Networks Resilient to MiM Attacks',
+								venue: 'SBRC 2026',
+								venueFullName: 'Simpósio Brasileiro de Redes de Computadores e Sistemas Distribuídos',
+								venueDescription: 'The most important scientific event on computer networks and distributed systems in Brazil.',
+								year: 2026,
+								language: 'English',
+								note: 'First paper written — accepted on first submission.',
+							},
+						],
+						tags: ['UAV Networks', 'Cybersecurity', 'MiM Attack', 'ns-3', 'CNPq'],
+					},
+				],
+			},
+			projects: {
+				title: 'Projects',
+				items: [
+					{
+						title: 'Caixinha',
 						description:
-							'Research at the Wireless Networks Lab (WiNet/UFMG) and the CCSC Research Lab (UFMG) on resilience to Man-in-the-Middle attacks targeting location information in UAV networks. Work includes ns-3 simulation and experimental evaluation. Proposed scheme: KEYSUAV. Submitted to SBRC (under review): “An Opportunistic Key Exchange Scheme for Location Information Sharing on UAV Networks Resilient to MiM Attacks”.',
-						tags: ['Undergraduate Research', 'UAV Networks', 'Security', 'ns-3', 'CNPq'],
+							'Group expense-splitting app developed with a partner. In progress; link not available yet. Component-based setup: Front-Caixinha (React/Vite SPA, UI/UX and API consumption), Api-Caixinha (NestJS + TypeScript, Prisma + PostgreSQL, authentication/authorization and business rules), and Mobile-Caixinha (React Native, mobile UI and consumption of the same API). Google login.',
+						tags: ['React', 'Vite', 'React Native', 'NestJS', 'TypeScript', 'Prisma', 'PostgreSQL', 'OAuth', 'GitHub Actions'],
+					},
+					{
+						title: 'Animae',
+						description:
+							'Indie 2D Metroidvania game developed solo, focused on connection with nature and rebuilding a devastated world. In progress; link not available yet.',
+						tags: ['C++', 'SDL2', 'OpenGL', 'Game Dev', '2D'],
 					},
 					{
 						title: 'Personal website (this site)',
@@ -433,18 +532,6 @@ export const content: Record<Locale, PageContent> = {
 							{ label: 'GitHub', href: 'https://github.com/Viniciustda/Vinicius-Trindade' },
 						],
 					},
-					{
-						title: 'Animae',
-						description:
-							'Indie 2D Metroidvania game developed solo, focused on connection with nature and rebuilding a devastated world. In progress; link not available yet.',
-						tags: ['C++', 'SDL2', 'OpenGL', 'Game Dev', '2D'],
-					},
-					{
-						title: 'Caixinha',
-						description:
-							'Group expense-splitting app developed with a partner. In progress; link not available yet. Component-based setup: Front-Caixinha (React/Vite SPA, UI/UX and API consumption), Api-Caixinha (NestJS + TypeScript, Prisma + PostgreSQL, authentication/authorization and business rules), and Mobile-Caixinha (React Native, mobile UI and consumption of the same API). Google login.',
-						tags: ['React', 'Vite', 'React Native', 'NestJS', 'TypeScript', 'Prisma', 'PostgreSQL', 'OAuth', 'GitHub Actions'],
-					},
 				],
 			},
 			experience: {
@@ -452,13 +539,13 @@ export const content: Record<Locale, PageContent> = {
 				items: [
 					{
 						role: 'Undergraduate Researcher',
-						org: 'Wireless Networks Lab (WiNet) & CCSC Research Lab — UFMG • Advisor: Prof. Aldri Luiz dos Santos',
-						period: 'Oct 2024 — Present (volunteer: Oct 2024 — Apr 2025 • CNPq scholarship: May 2025 — Present)',
+						org: 'Wireless Networks Lab (WiNet) & CCSC Research Lab — UFMG • Advisor: Prof. PhD Aldri Luiz dos Santos',
+						period: 'Oct 2024 — May 2026 (volunteer: Oct 2024 — Apr 2025 • CNPq scholarship: May 2025 — May 2026)',
 						highlights: [
 							'Project: “UAV Networks Resilient to Man-in-the-Middle Attacks on Location Information”.',
-							'Applied research in network security with simulation (ns-3.34).',
+							'Applied research in network security with simulation in ns-3.',
 							'Proposed scheme (research output): KEYSUAV.',
-							'Submitted to SBRC (under review): “An Opportunistic Key Exchange Scheme for Location Information Sharing on UAV Networks Resilient to MiM Attacks”.',
+							'Paper accepted at SBRC 2026: “An Opportunistic Key Exchange Scheme for Location Information Sharing on UAV Networks Resilient to MiM Attacks”.',
 						],
 					},
 					{

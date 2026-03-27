@@ -45,12 +45,14 @@ const resolveImageUrl = (relativePath) => {
 		Skip to content
 	</a>
 
+	<div class="scroll-progress" id="scroll-progress" aria-hidden="true"></div>
+
 	<!-- ── STICKY NAVBAR ────────────────────────────────────── -->
 	<div class="sticky top-0 z-40 border-b border-zinc-200/80 bg-white/85 backdrop-blur-md dark:border-zinc-800/80 dark:bg-zinc-950/85">
 		<div class="mx-auto flex max-w-5xl items-center justify-between gap-2 px-4 py-2.5 sm:px-6 sm:py-3">
 			<nav class="flex flex-wrap gap-x-3 gap-y-1 text-xs font-medium text-zinc-600 sm:gap-x-5 sm:text-sm dark:text-zinc-400">
 				{c.sections.nav.map((item) => (
-					<a class="transition-colors hover:text-indigo-600 dark:hover:text-indigo-400" href={item.href}>{item.label}</a>
+					<a class="link-underline transition-colors hover:text-indigo-600 dark:hover:text-indigo-400" href={item.href}>{item.label}</a>
 				))}
 			</nav>
 			<div class="flex shrink-0 items-center gap-1.5 sm:gap-2">
@@ -79,10 +81,10 @@ const resolveImageUrl = (relativePath) => {
 			<div class="min-w-0">
 				<div class="inline-flex items-center gap-2 rounded-full border border-indigo-200 bg-indigo-50 px-3 py-1 text-xs font-semibold text-indigo-700 dark:border-indigo-800 dark:bg-indigo-950/60 dark:text-indigo-300">
 					<span class="size-1.5 rounded-full bg-indigo-500"></span>
-					{c.header.tagline}
+					<span data-typing>{c.header.tagline}</span>
 				</div>
 				<h1 class="mt-4 text-4xl font-extrabold leading-none tracking-tight sm:text-5xl lg:text-6xl">
-					<span class="bg-gradient-to-br from-zinc-900 via-zinc-700 to-indigo-800 bg-clip-text text-transparent dark:from-white dark:via-zinc-200 dark:to-indigo-300">
+					<span class="hero-gradient bg-gradient-to-br from-zinc-900 via-zinc-700 to-indigo-800 bg-clip-text text-transparent dark:from-white dark:via-zinc-200 dark:to-indigo-300">
 						{c.header.name}
 					</span>
 				</h1>
@@ -90,7 +92,7 @@ const resolveImageUrl = (relativePath) => {
 				<div class="mt-5 flex flex-wrap gap-2 sm:mt-7 sm:gap-3">
 					<a
 						href={c.header.ctaPrimary.href}
-						class="inline-flex items-center gap-2 rounded-xl bg-indigo-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition-all hover:bg-indigo-500 hover:shadow-md hover:shadow-indigo-500/30 sm:px-5 sm:py-2.5"
+						class="cta-glow inline-flex items-center gap-2 rounded-xl bg-indigo-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition-all hover:bg-indigo-500 hover:shadow-md hover:shadow-indigo-500/30 sm:px-5 sm:py-2.5"
 					>
 						{c.header.ctaPrimary.label} <span aria-hidden="true">→</span>
 					</a>
@@ -133,9 +135,109 @@ const resolveImageUrl = (relativePath) => {
 			</div>
 		</section>
 
-		<!-- ── PROJECTS (pinned scroll carousel) ──────────── -->
+		<div class="section-divider" aria-hidden="true"></div>
+
+		<!-- ── RESEARCH ─────────────────────────────────── -->
+		<section id="research" class="scroll-mt-24">
+			<div class="reveal" data-reveal>
+				<h2 class="flex items-center gap-3 text-xl font-bold tracking-tight text-zinc-900 dark:text-white">
+					<span class="block h-6 w-1 rounded-full bg-indigo-500"></span>
+					{c.sections.research.title}
+				</h2>
+			</div>
+			<div class="mt-5">
+			{c.sections.research.items.map((r, idx) => (
+				<div class="relative flex gap-5 pb-8 last:pb-0 reveal" data-reveal>
+					<div class="relative flex flex-col items-center">
+						<div class="z-10 flex size-8 shrink-0 items-center justify-center rounded-full border-2 border-indigo-400 bg-white shadow-md dark:bg-zinc-950">
+							<span class="size-2.5 rounded-full bg-indigo-500"></span>
+						</div>
+						{idx < c.sections.research.items.length - 1 && (
+							<div class="timeline-line mt-1 w-0.5 flex-1 bg-zinc-200 dark:bg-zinc-800" data-timeline-line></div>
+						)}
+					</div>
+					<div class="card-hover min-w-0 flex-1 rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
+					<div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+						<h3 class="text-base font-bold text-zinc-900 dark:text-white">{r.title}</h3>
+						<span class="rounded-full bg-zinc-100 px-2.5 py-0.5 text-xs font-medium break-words text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400">{r.period}</span>
+					</div>
+					<p class="mt-1 text-sm font-semibold text-indigo-600 dark:text-indigo-400">{r.project}</p>
+
+					<p class="mt-3 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">{r.description}</p>
+
+					{r.scheme && (
+						<p class="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
+							<span class="font-semibold text-zinc-900 dark:text-white">Proposed scheme:</span> {r.scheme}
+						</p>
+					)}
+
+					<div class="mt-4 space-y-2">
+						<p class="text-xs font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-500">Labs</p>
+						{r.labs.map((lab) => (
+							<div class="flex items-center text-sm">
+								<a href={lab.href} target="_blank" rel="noreferrer" class="link-underline font-medium text-indigo-600 transition-colors hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300">
+									{lab.name} ↗
+								</a>
+							</div>
+						))}
+					</div>
+
+					<div class="mt-4 space-y-2">
+						<p class="text-xs font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-500">Advisors</p>
+						{r.advisors.map((a) => (
+							<div class="flex flex-wrap items-center gap-x-2 text-sm">
+								{a.href ? (
+									<a href={a.href} target="_blank" rel="noreferrer" class="link-underline font-medium text-indigo-600 transition-colors hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300">
+										{a.name} ↗
+									</a>
+								) : (
+									<span class="font-medium text-zinc-900 dark:text-white">{a.name}</span>
+								)}
+								<span class="text-zinc-500 dark:text-zinc-500">— {a.role}</span>
+							</div>
+						))}
+					</div>
+
+					{r.papers.length > 0 && (
+						<div class="mt-5 rounded-xl border border-indigo-100 bg-indigo-50/50 p-4 dark:border-indigo-900/40 dark:bg-indigo-950/20">
+							<p class="text-xs font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">Publications</p>
+							{r.papers.map((p) => (
+								<div class="mt-2">
+									<p class="text-sm font-semibold text-zinc-900 dark:text-white">"{p.title}"</p>
+									<div class="mt-1 flex flex-wrap gap-x-3 gap-y-1 text-xs text-zinc-600 dark:text-zinc-400">
+										<span class="font-semibold text-indigo-600 dark:text-indigo-400">{p.venue}</span>
+										<span>— {p.venueFullName}</span>
+									</div>
+									<p class="mt-1 text-xs text-zinc-500 dark:text-zinc-500">{p.venueDescription}</p>
+									<div class="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-xs text-zinc-600 dark:text-zinc-400">
+										<span>Language: {p.language}</span>
+										{p.note && <span class="font-medium text-emerald-600 dark:text-emerald-400">{p.note}</span>}
+									</div>
+									{p.doi && (
+										<a href={`https://doi.org/${p.doi}`} target="_blank" rel="noreferrer" class="mt-2 inline-flex items-center gap-1 text-xs font-semibold text-indigo-600 transition-colors hover:text-indigo-500 dark:text-indigo-400">
+											DOI: {p.doi} ↗
+										</a>
+									)}
+								</div>
+							))}
+						</div>
+					)}
+
+					<div class="mt-4 flex flex-wrap gap-1.5">
+						{r.tags.map((t) => (
+							<span class="tag-interactive rounded-full bg-zinc-100 px-2.5 py-0.5 text-xs font-medium text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300">{t}</span>
+						))}
+					</div>
+					</div>
+				</div>
+			))}
+		</div>
+		</section>
+
+		<div class="section-divider" aria-hidden="true"></div>
+
+		<!-- ── PROJECTS (horizontal carousel) ────────────────── -->
 		<section id="projects" class="scroll-mt-24 projects-pin-section" data-pin-carousel>
-			<!-- sticky viewport -->
 			<div class="projects-pin-inner px-0">
 				<div class="reveal mb-6" data-reveal>
 					<h2 class="flex items-center gap-3 text-xl font-bold tracking-tight text-zinc-900 dark:text-white">
@@ -146,20 +248,15 @@ const resolveImageUrl = (relativePath) => {
 				</div>
 
 				<div class="projects-track" id="projects-track">
-					{c.sections.projects.items.map((p, i) => (
-						<article class="project-card group flex flex-col overflow-hidden rounded-2xl border border-zinc-200 bg-white shadow-sm transition-all hover:border-indigo-300 hover:shadow-lg hover:shadow-indigo-500/10 dark:border-zinc-800 dark:bg-zinc-900 dark:hover:border-indigo-700">
+					{c.sections.projects.items.map((p) => (
+						<article class="project-card tilt-card group flex flex-col overflow-hidden rounded-2xl border border-zinc-200 bg-white shadow-sm transition-all hover:border-indigo-300 hover:shadow-indigo-500/10 dark:border-zinc-800 dark:bg-zinc-900 dark:hover:border-indigo-700">
 							<div class="h-1 w-full bg-gradient-to-r from-indigo-500 to-violet-500"></div>
 							<div class="flex flex-1 flex-col p-6">
-								{i === 0 && (
-									<span class="mb-3 inline-flex w-fit items-center gap-1 rounded-full bg-indigo-100 px-2.5 py-0.5 text-xs font-semibold text-indigo-700 dark:bg-indigo-950/60 dark:text-indigo-300">
-										★ Featured
-									</span>
-								)}
 								<h3 class="text-base font-bold text-zinc-900 dark:text-white">{p.title}</h3>
 								<p class="mt-2 flex-1 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">{p.description}</p>
 								<div class="mt-4 flex flex-wrap gap-1.5">
 									{p.tags.map((t) => (
-										<span class="rounded-full bg-zinc-100 px-2.5 py-0.5 text-xs font-medium text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300">{t}</span>
+										<span class="tag-interactive rounded-full bg-zinc-100 px-2.5 py-0.5 text-xs font-medium text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300">{t}</span>
 									))}
 								</div>
 								{p.links?.length ? (
@@ -176,16 +273,24 @@ const resolveImageUrl = (relativePath) => {
 					))}
 				</div>
 
-				<!-- progress bar -->
-				<div class="relative mt-5 h-0.5 w-full rounded-full bg-zinc-200 dark:bg-zinc-800">
-					<div class="projects-progress-bar" id="proj-progress"></div>
+				<div class="mt-5 flex items-center gap-3">
+					<button type="button" id="proj-prev" aria-label="Previous project" class="flex size-8 shrink-0 items-center justify-center rounded-full border border-zinc-200 bg-white text-zinc-500 transition-colors hover:border-indigo-300 hover:text-indigo-600 disabled:opacity-30 disabled:cursor-not-allowed dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-400 dark:hover:border-indigo-600 dark:hover:text-indigo-400">
+						<svg class="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+					</button>
+					<div class="relative h-0.5 flex-1 rounded-full bg-zinc-200 dark:bg-zinc-800">
+						<div class="projects-progress-bar" id="proj-progress"></div>
+					</div>
+					<button type="button" id="proj-next" aria-label="Next project" class="flex size-8 shrink-0 items-center justify-center rounded-full border border-zinc-200 bg-white text-zinc-500 transition-colors hover:border-indigo-300 hover:text-indigo-600 disabled:opacity-30 disabled:cursor-not-allowed dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-400 dark:hover:border-indigo-600 dark:hover:text-indigo-400">
+						<svg class="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+					</button>
 				</div>
-				<!-- counter -->
-				<p class="mt-2 text-right text-xs text-zinc-400 dark:text-zinc-600">
+				<p class="mt-2 text-center text-xs text-zinc-400 dark:text-zinc-600">
 					<span id="proj-counter">1</span> / {c.sections.projects.items.length}
 				</p>
 			</div>
 		</section>
+
+		<div class="section-divider" aria-hidden="true"></div>
 
 		<!-- ── EXPERIENCE ────────────────────────────────── -->
 		<section id="experience" class="scroll-mt-24">
@@ -229,7 +334,7 @@ const resolveImageUrl = (relativePath) => {
 									<div class="timeline-line mt-1 w-0.5 flex-1 bg-zinc-200 dark:bg-zinc-800" data-timeline-line></div>
 								)}
 							</div>
-							<div class="min-w-0 flex-1 rounded-2xl border border-zinc-200 bg-white p-5 shadow-sm transition-shadow hover:shadow-md dark:border-zinc-800 dark:bg-zinc-900">
+							<div class="card-hover min-w-0 flex-1 rounded-2xl border border-zinc-200 bg-white p-5 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
 								<div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
 									<h3 class="text-sm font-bold text-zinc-900 dark:text-white">{item.role}</h3>
 									<span class="rounded-full bg-zinc-100 px-2.5 py-0.5 text-xs font-medium break-words text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400">{item.period}</span>
@@ -250,6 +355,8 @@ const resolveImageUrl = (relativePath) => {
 			</div>
 		</section>
 
+		<div class="section-divider" aria-hidden="true"></div>
+
 		<!-- ── EDUCATION ────────────────────────────────── -->
 		<section id="education" class="scroll-mt-24">
 			<div class="reveal" data-reveal>
@@ -260,7 +367,7 @@ const resolveImageUrl = (relativePath) => {
 			</div>
 			<div class="mt-5 grid gap-4 sm:grid-cols-2 reveal-stagger" data-reveal>
 				{c.sections.education.items.map((e) => (
-					<div class="rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm transition-shadow hover:shadow-md dark:border-zinc-800 dark:bg-zinc-900">
+					<div class="card-hover rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
 						<div class="mb-3 flex size-10 items-center justify-center rounded-xl bg-indigo-100 text-lg dark:bg-indigo-950/50">
 							🎓
 						</div>
@@ -271,6 +378,8 @@ const resolveImageUrl = (relativePath) => {
 				))}
 			</div>
 		</section>
+
+		<div class="section-divider" aria-hidden="true"></div>
 
 <!-- ── CERTIFICATES ─────────────────────────────── -->
 		<section id="certificates" class="scroll-mt-24">
@@ -355,6 +464,8 @@ const resolveImageUrl = (relativePath) => {
 				});
 			})}
 		</section>
+
+		<div class="section-divider" aria-hidden="true"></div>
 
 		<!-- ── ACHIEVEMENTS ────────────────────────────── -->
 		<section id="achievements" class="scroll-mt-24">
@@ -445,6 +556,8 @@ const resolveImageUrl = (relativePath) => {
 				))}
 			</div>
 		</section>
+
+		<div class="section-divider" aria-hidden="true"></div>
 
 		<!-- ── CONTACT ──────────────────────────────────── -->
 		<section id="contact" class="scroll-mt-24 rounded-2xl border border-indigo-100 bg-gradient-to-br from-indigo-50 to-white p-8 shadow-sm dark:border-indigo-900/40 dark:from-indigo-950/30 dark:to-zinc-900">
@@ -557,63 +670,122 @@ const resolveImageUrl = (relativePath) => {
 		document.querySelectorAll('[data-timeline-line]').forEach((el) => lineIo.observe(el));
 	})();
 
-	// ── Pinned scroll carousel (Projects) ──────────────────
+	// ── Horizontal carousel (Projects) ─────────────────────
 	(() => {
 		const section  = document.querySelector<HTMLElement>('[data-pin-carousel]');
 		const inner    = section?.querySelector<HTMLElement>('.projects-pin-inner');
 		const track    = document.getElementById('projects-track') as HTMLElement | null;
 		const progress = document.getElementById('proj-progress') as HTMLElement | null;
 		const counter  = document.getElementById('proj-counter') as HTMLElement | null;
+		const btnPrev  = document.getElementById('proj-prev') as HTMLButtonElement | null;
+		const btnNext  = document.getElementById('proj-next') as HTMLButtonElement | null;
 		if (!section || !inner || !track) return;
 
 		const cards = Array.from(track.querySelectorAll<HTMLElement>('.project-card'));
 		const totalCards = cards.length;
 		if (!totalCards) return;
 
-		let offset = 0;
+		let activeIndex = 0;
+		let targetOffset = 0;
+		let currentOffset = 0;
 		let maxOffset = 0;
+		let animFrame: number | null = null;
+		const DAMPING = 0.12;
 
-		function getMaxOffset() {
-			const gap = 20;
-			const cardW = cards[0].getBoundingClientRect().width + gap;
-			return Math.max(0, cardW * totalCards - inner!.getBoundingClientRect().width + gap);
+		function getCardWidth() {
+			return cards[0].getBoundingClientRect().width + 20;
 		}
 
-		function applyOffset(px: number) {
-			offset = Math.max(0, Math.min(px, maxOffset));
-			track.style.transform = `translateX(-${offset}px)`;
-			const frac = maxOffset > 0 ? offset / maxOffset : 0;
-			if (progress) progress.style.width = `${frac * 100}%`;
-			if (counter) {
-				const cardW = cards[0].getBoundingClientRect().width + 20;
-				const idx = Math.min(Math.floor(offset / cardW), totalCards - 1) + 1;
-				counter.textContent = String(idx);
+		function getMaxOffset() {
+			return Math.max(0, getCardWidth() * totalCards - inner!.getBoundingClientRect().width + 20);
+		}
+
+		function updateActiveCard() {
+			const frac = maxOffset > 0 ? currentOffset / maxOffset : 0;
+			const newIdx = Math.min(Math.floor(frac * totalCards), totalCards - 1);
+			if (newIdx !== activeIndex) {
+				cards[activeIndex]?.classList.remove('is-active');
+				activeIndex = newIdx;
+				cards[activeIndex]?.classList.add('is-active');
 			}
+			if (counter) counter.textContent = String(activeIndex + 1);
+		}
+
+		function updateButtons() {
+			if (btnPrev) btnPrev.disabled = targetOffset <= 0;
+			if (btnNext) btnNext.disabled = targetOffset >= maxOffset;
+		}
+
+		function renderFrame() {
+			const diff = targetOffset - currentOffset;
+			if (Math.abs(diff) < 0.5) {
+				currentOffset = targetOffset;
+				animFrame = null;
+			} else {
+				currentOffset += diff * DAMPING;
+				animFrame = requestAnimationFrame(renderFrame);
+			}
+			track.style.transform = `translateX(-${currentOffset}px)`;
+			const frac = maxOffset > 0 ? currentOffset / maxOffset : 0;
+			if (progress) progress.style.width = `${frac * 100}%`;
+			updateActiveCard();
+		}
+
+		function setTarget(px: number) {
+			targetOffset = Math.max(0, Math.min(px, maxOffset));
+			updateButtons();
+			if (!animFrame) animFrame = requestAnimationFrame(renderFrame);
+		}
+
+		function snapToCard(idx: number) {
+			maxOffset = getMaxOffset();
+			const clamped = Math.max(0, Math.min(idx, totalCards - 1));
+			setTarget(clamped * getCardWidth());
+		}
+
+		function jumpByCard(direction: number) {
+			maxOffset = getMaxOffset();
+			const cardW = getCardWidth();
+			const currentIdx = Math.round(targetOffset / cardW);
+			snapToCard(currentIdx + direction);
+		}
+
+		// ── Section centered in viewport ──────────────────
+		function isSectionCentered() {
+			const r = inner!.getBoundingClientRect();
+			const vh = window.innerHeight;
+			const sectionMid = (r.top + r.bottom) / 2;
+			return sectionMid > vh * 0.35 && sectionMid < vh * 0.65;
 		}
 
 		// ── Desktop: wheel hijack ──────────────────────────
 		const isMobile = () => window.matchMedia('(pointer: coarse)').matches;
 
-		function isSectionActive() {
-			const r = section.getBoundingClientRect();
-			const navH = 48;
-			return r.top <= navH + 4 && r.bottom >= window.innerHeight - 4;
-		}
-
 		function onWheel(e: WheelEvent) {
-			if (isMobile()) return; // skip on touch devices
+			if (isMobile()) return;
 			maxOffset = getMaxOffset();
-			if (!isSectionActive()) return;
+			if (!isSectionCentered()) return;
 			const dir = e.deltaY !== 0 ? e.deltaY : e.deltaX;
-			if (dir < 0 && offset <= 0) return;
-			if (dir > 0 && offset >= maxOffset) return;
+			if (dir < 0 && targetOffset <= 0) return;
+			if (dir > 0 && targetOffset >= maxOffset) return;
 			e.preventDefault();
-			applyOffset(offset + dir);
+			setTarget(targetOffset + dir * 0.5);
 		}
 
 		window.addEventListener('wheel', onWheel, { passive: false });
 
-		// ── Mobile: horizontal swipe directly on the inner container ──
+		// ── Arrow buttons ─────────────────────────────────
+		btnPrev?.addEventListener('click', () => jumpByCard(-1));
+		btnNext?.addEventListener('click', () => jumpByCard(1));
+
+		// ── Keyboard: left / right arrows ─────────────────
+		window.addEventListener('keydown', (e: KeyboardEvent) => {
+			if (!isSectionCentered()) return;
+			if (e.key === 'ArrowLeft') { e.preventDefault(); jumpByCard(-1); }
+			if (e.key === 'ArrowRight') { e.preventDefault(); jumpByCard(1); }
+		});
+
+		// ── Mobile: horizontal swipe ──────────────────────
 		let touchStartX = 0;
 		let touchStartY = 0;
 		let swipeAxis: 'h' | 'v' | null = null;
@@ -629,7 +801,6 @@ const resolveImageUrl = (relativePath) => {
 			const dx = touchStartX - e.touches[0].clientX;
 			const dy = touchStartY - e.touches[0].clientY;
 
-			// Determine axis on first significant move
 			if (!swipeAxis) {
 				if (Math.abs(dx) > Math.abs(dy) + 3) swipeAxis = 'h';
 				else if (Math.abs(dy) > Math.abs(dx) + 3) swipeAxis = 'v';
@@ -639,27 +810,94 @@ const resolveImageUrl = (relativePath) => {
 			if (swipeAxis === 'h') {
 				e.preventDefault();
 				touchStartX = e.touches[0].clientX;
-				applyOffset(offset + dx * 1.2);
+				setTarget(targetOffset + dx * 1.2);
 			}
 		}, { passive: false });
 
 		// ── Mouse drag on desktop ──────────────────────────
-		let mouseDown = false, mouseStartX = 0, mouseOffset = 0;
+		let mouseDown = false, mouseStartX = 0, mouseStartOffset = 0;
 		inner.addEventListener('mousedown', (e) => {
-			mouseDown = true; mouseStartX = e.clientX; mouseOffset = offset;
+			mouseDown = true; mouseStartX = e.clientX; mouseStartOffset = targetOffset;
 			inner!.style.cursor = 'grabbing';
 		});
-		window.addEventListener('mouseup', () => { mouseDown = false; inner!.style.cursor = ''; });
+		window.addEventListener('mouseup', () => {
+			if (mouseDown) {
+				mouseDown = false;
+				inner!.style.cursor = '';
+				snapToCard(Math.round(targetOffset / getCardWidth()));
+			}
+		});
 		window.addEventListener('mousemove', (e) => {
 			if (!mouseDown) return;
-			applyOffset(mouseOffset - (e.clientX - mouseStartX));
+			maxOffset = getMaxOffset();
+			setTarget(mouseStartOffset - (e.clientX - mouseStartX));
 		});
 
 		// ── Init ──────────────────────────────────────────
 		maxOffset = getMaxOffset();
-		applyOffset(0);
+		currentOffset = 0;
+		targetOffset = 0;
+		cards[0]?.classList.add('is-active');
+		updateButtons();
 		inner.style.cursor = 'grab';
-		window.addEventListener('resize', () => { maxOffset = getMaxOffset(); applyOffset(Math.min(offset, maxOffset)); });
+		window.addEventListener('resize', () => {
+			maxOffset = getMaxOffset();
+			setTarget(Math.min(targetOffset, maxOffset));
+		});
+	})();
+
+	// ── Scroll progress bar ─────────────────────────────
+	(() => {
+		const bar = document.getElementById('scroll-progress');
+		if (!bar) return;
+		const onScroll = () => {
+			const h = document.documentElement.scrollHeight - window.innerHeight;
+			bar.style.width = h > 0 ? `${(window.scrollY / h) * 100}%` : '0%';
+		};
+		window.addEventListener('scroll', onScroll, { passive: true });
+		onScroll();
+	})();
+
+	// ── 3D Tilt on project cards ────────────────────────
+	(() => {
+		if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+		if (window.matchMedia('(pointer: coarse)').matches) return;
+		document.querySelectorAll<HTMLElement>('.tilt-card').forEach((card) => {
+			card.addEventListener('mousemove', (e) => {
+				const rect = card.getBoundingClientRect();
+				const x = e.clientX - rect.left;
+				const y = e.clientY - rect.top;
+				const midX = rect.width / 2;
+				const midY = rect.height / 2;
+				const rotateY = ((x - midX) / midX) * 6;
+				const rotateX = ((midY - y) / midY) * 6;
+				card.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+			});
+			card.addEventListener('mouseleave', () => {
+				card.style.transform = '';
+			});
+		});
+	})();
+
+	// ── Typing animation ────────────────────────────────
+	(() => {
+		if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+		const el = document.querySelector('[data-typing]');
+		if (!el) return;
+		const text = el.textContent || '';
+		el.textContent = '';
+		el.classList.add('typing-cursor');
+		let i = 0;
+		const type = () => {
+			if (i < text.length) {
+				el.textContent += text[i];
+				i++;
+				setTimeout(type, 40 + Math.random() * 30);
+			} else {
+				setTimeout(() => el.classList.replace('typing-cursor', 'typing-done'), 1500);
+			}
+		};
+		setTimeout(type, 600);
 	})();
 
 	// ── Drag-to-scroll & keyboard nav on all .h-carousel-track ─────────────

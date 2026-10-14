@@ -13,6 +13,7 @@ export type TimelineItem = {
 	period: string;
 	location?: string;
 	highlights: string[];
+	link?: { label: string; href: string };
 };
 
 export type EducationItem = {
@@ -46,32 +47,39 @@ export type ResearchAdvisor = {
 	href?: string;
 };
 
-export type ResearchPaper = {
+export type ResearchLab = {
+	name: string;
+	href: string;
+};
+
+/** Rendered as an IEEE-style reference; `doi` is the bare identifier (no https://doi.org/). */
+export type Citation = {
+	authors: string;
 	title: string;
-	venue: string;
-	venueFullName: string;
-	venueDescription: string;
+	proceedings: string;
+	location: string;
 	year: number;
-	language: string;
-	doi?: string;
-	note?: string;
+	pages: string;
+	doi: string;
 };
 
 export type ResearchItem = {
 	title: string;
 	project: string;
-	labs: Array<{ name: string; href: string }>;
+	labs: ResearchLab[];
 	period: string;
 	advisors: ResearchAdvisor[];
 	description: string;
-	scheme?: string;
-	papers: ResearchPaper[];
+	citation?: Citation;
 	tags: string[];
 };
+
+export type ContactIcon = 'mail' | 'gmail' | 'linkedin' | 'github' | 'youtube' | 'lattes' | 'orcid';
 
 export type ContactLink = {
 	label: string;
 	href: string;
+	icon: ContactIcon;
 };
 
 export type PageContent = {
@@ -86,41 +94,71 @@ export type PageContent = {
 		ctaPrimary: { label: string; href: string };
 		ctaSecondary: { label: string; href: string };
 	};
+	/** Each section's `id` is its anchor; the navbar is built from `id` + `title`. */
 	sections: {
-		nav: Array<{ label: string; href: string }>;
 		about: {
+			id: string;
 			title: string;
 			bullets: string[];
 		};
 		research: {
+			id: string;
 			title: string;
 			items: ResearchItem[];
 		};
 		projects: {
+			id: string;
 			title: string;
 			items: Project[];
 		};
 		experience: {
+			id: string;
 			title: string;
 			items: TimelineItem[];
 		};
 		education: {
+			id: string;
 			title: string;
 			items: EducationItem[];
 		};
 		certificates: {
+			id: string;
 			title: string;
 			items: AwardItem[];
 		};
 		achievements: {
+			id: string;
 			title: string;
 			groups: AchievementGroup[];
 		};
 		contact: {
+			id: string;
 			title: string;
 			locationLine: string;
 			links: ContactLink[];
 		};
+	};
+	/** Interface labels that are not tied to a specific piece of content. */
+	ui: {
+		skipToContent: string;
+		languageSwitchLabel: string;
+		themeToggleLabel: string;
+		photoAlt: string;
+		labs: string;
+		advisors: string;
+		publication: string;
+		projectsHint: string;
+		previousProject: string;
+		nextProject: string;
+		timeline: string;
+		certificatesHint: string;
+		images: string;
+		read: string;
+		close: string;
+		previous: string;
+		next: string;
+		previousImage: string;
+		nextImage: string;
 	};
 	languageSwitch: {
 		label: string;
@@ -129,6 +167,32 @@ export type PageContent = {
 	footer: {
 		text: string;
 	};
+};
+
+const icLabs: ResearchLab[] = [
+	{ name: 'Wireless Networks Lab (WiNet)', href: 'https://www.winet.dcc.ufmg.br/' },
+	{ name: 'CCSC Research Lab', href: 'https://ccsc.dcc.ufmg.br/' },
+];
+
+const icAdvisors: Record<Locale, ResearchAdvisor[]> = {
+	pt: [
+		{ name: 'Prof. Dr. Aldri Luiz dos Santos', role: 'Orientador (UFMG)', href: 'https://dcc.ufmg.br/professor/aldri-luiz-dos-santos/' },
+		{ name: 'Dr. Agnaldo de Souza Batista', role: 'Coorientador (UFPR)' },
+	],
+	en: [
+		{ name: 'Prof. PhD Aldri Luiz dos Santos', role: 'Advisor (UFMG)', href: 'https://dcc.ufmg.br/professor/aldri-luiz-dos-santos/' },
+		{ name: 'PhD Agnaldo de Souza Batista', role: 'Co-advisor (UFPR)' },
+	],
+};
+
+const keysuavPaper: Citation = {
+	authors: 'A. Batista, V. Trindade, and A. Santos',
+	title: 'An Opportunistic Key Exchange Scheme for Location Information Sharing on UAV Networks Resilient to MiM Attacks',
+	proceedings: 'Anais do XLIV Simpósio Brasileiro de Redes de Computadores e Sistemas Distribuídos',
+	location: 'Praia do Forte/BA',
+	year: 2026,
+	pages: '141–154',
+	doi: '10.5753/sbrc.2026.19890',
 };
 
 export const content: Record<Locale, PageContent> = {
@@ -147,17 +211,8 @@ export const content: Record<Locale, PageContent> = {
 			ctaSecondary: { label: 'Contato', href: '#contato' },
 		},
 		sections: {
-			nav: [
-				{ label: 'Sobre', href: '#sobre' },
-				{ label: 'Pesquisa', href: '#pesquisa' },
-				{ label: 'Projetos', href: '#projetos' },
-				{ label: 'Experiência', href: '#experiencia' },
-				{ label: 'Formação', href: '#formacao' },
-				{ label: 'Certificados', href: '#certificados' },
-				{ label: 'Conquistas', href: '#conquistas' },
-				{ label: 'Contato', href: '#contato' },
-			],
 			about: {
+				id: 'sobre',
 				title: 'Sobre',
 				bullets: [
 					'Atuo e pesquiso nas áreas de cibersegurança, inteligência artificial (aprendizado por reforço) e redes de computadores.',
@@ -169,38 +224,34 @@ export const content: Record<Locale, PageContent> = {
 				],
 			},
 			research: {
+				id: 'pesquisa',
 				title: 'Pesquisa',
 				items: [
 					{
 						title: 'Iniciação Científica (IC)',
-						project: 'Redes de UAVs Resilientes a Ataques Homem do Meio às Informações de Localização',
-						labs: [
-							{ name: 'Wireless Networks Lab (WiNet)', href: 'https://www.winet.dcc.ufmg.br/' },
-							{ name: 'CCSC Research Lab', href: 'https://ccsc.dcc.ufmg.br/' },
-						],
-						period: 'Out 2024 — Mai 2026 (voluntário: Out 2024 — Abr 2025 • bolsista CNPq: Mai 2025 — Mai 2026)',
-						advisors: [
-							{ name: 'Prof. Dr. Aldri Luiz dos Santos', role: 'Orientador (UFMG)', href: 'https://dcc.ufmg.br/professor/aldri-luiz-dos-santos/' },
-							{ name: 'Dr. Agnaldo de Souza Batista', role: 'Coorientador (UFPR)' },
-						],
-						description: 'Redes de VANTs (FANETs) dependem do compartilhamento de localização para coordenação de voo, porém canais sem fio expõem esses dados a ataques Homem-do-Meio. Para resolver esse problema, desenvolvemos o KEYSUAV, um esquema de troca oportunística de chaves com criptografia leve (ECC + ASCON-128) e detecção de anomalias. Implementado em C++ no simulador ns-3 sobre o serviço FlySafe, o esquema alcançou 100% de detecção de mensagens comprometidas.',
-						scheme: 'KEYSUAV',
-						papers: [
-							{
-								title: 'An Opportunistic Key Exchange Scheme for Location Information Sharing on UAV Networks Resilient to MiM Attacks',
-								venue: 'SBRC 2026',
-								venueFullName: 'Simpósio Brasileiro de Redes de Computadores e Sistemas Distribuídos',
-								venueDescription: 'Principal evento científico de redes e sistemas distribuídos do Brasil.',
-								year: 2026,
-								language: 'Inglês',
-								note: 'Primeiro artigo escrito — aceito na primeira submissão.',
-							},
-						],
+						project: keysuavPaper.title,
+						labs: icLabs,
+						period: 'Out 2024 — Abr 2026 (voluntário: Out 2024 — Abr 2025 • bolsista CNPq: Mai 2025 — Abr 2026)',
+						advisors: icAdvisors.pt,
+						description:
+							'Como os veículos aéreos não tripulados (UAVs) demandam tecnologias sem fio para sua comunicação, eles se tornam suscetíveis a sérias ameaças de segurança que visam comprometer a integridade e a confidencialidade dos dados de controle trocados, destacando-se os ataques homem do meio (MiM) como um dos mais danosos. Além disso, as redes de UAVs requerem serviços críticos essenciais para sua operação regular, como o serviço de localização de UAVs. A troca de chaves é uma forma de proteger as comunicações dos UAVs contra ataques MiM. Este artigo propõe o KEYSUAV, um esquema de troca de chaves que viabiliza um compartilhamento de informações de localização resiliente a ataques MiM em redes de UAVs. O KEYSUAV se baseia em abordagens oportunísticas e no padrão de criptografia leve ASCON, um algoritmo projetado para dispositivos com recursos limitados, como os UAVs. Resultados de simulação mostram que o KEYSUAV, sobre o sistema FlySafe, detectou 100% das mensagens comprometidas enviadas por um atacante MiM, com uma leve redução na consciência espacial dos UAVs, em torno de 4,5%, favorecendo assim a resiliência do serviço de localização para redes de UAVs.',
+						citation: keysuavPaper,
 						tags: ['Redes de UAVs', 'Cibersegurança', 'Ataque MiM', 'ns-3', 'CNPq'],
+					},
+					{
+						title: 'Iniciação Científica (IC)',
+						project: 'Detecção e Identificação de Ataques MiM no Serviço de Compartilhamento de Localização para FANETs com MARL',
+						labs: icLabs,
+						period: 'Mai 2026 — Abr 2027',
+						advisors: icAdvisors.pt,
+						description:
+							'A operação segura de redes de UAVs depende de sistemas de infraestrutura crítica com altos níveis de robustez, confiabilidade e segurança durante sua operação. O serviço de compartilhamento de localização é fundamental para que os UAVs tenham consciência espacial da rede, apoiando assim a execução de diversos sistemas críticos. No entanto, esse serviço está sujeito a ataques homem do meio (MiM) que visam interromper sua operação. Este artigo apresenta o CIRRUS, um mecanismo distribuído no qual o aprendizado por reforço multiagente (MARL), sob treinamento centralizado e execução descentralizada (CTDE), detecta tais ataques e identifica o atacante por trás da identidade de suas vítimas, e um consenso entre vizinhos corrobora cada identificação. Sobre o FlySafe, o CIRRUS detectou 99,67% das mensagens de localização forjadas, identificou o MiM em todas as simulações com 0,36% de alarmes falsos e manteve o erro de localização em 0,50 m, contra 3,55 m sob ataque.',
+						tags: ['FANETs', 'Cibersegurança', 'Ataque MiM', 'MARL', 'CTDE'],
 					},
 				],
 			},
 			projects: {
+				id: 'projetos',
 				title: 'Projetos',
 				items: [
 					{
@@ -227,18 +278,18 @@ export const content: Record<Locale, PageContent> = {
 				],
 			},
 			experience: {
+				id: 'experiencia',
 				title: 'Experiência',
 				items: [
 					{
 						role: 'Pesquisador de Iniciação Científica (IC)',
 						org: 'Wireless Networks Lab (WiNet) & CCSC Research Lab — UFMG • Orientação: Prof. Dr. Aldri Luiz dos Santos',
-						period: 'Out 2024 — Mai 2026 (voluntário: Out 2024 — Abr 2025 • bolsista CNPq: Mai 2025 — Mai 2026)',
+						period: 'Out 2024 — Abr 2027 (voluntário: Out 2024 — Abr 2025 • bolsista CNPq: Mai 2025 — Abr 2027)',
 						highlights: [
-							'Projeto: “Redes de UAVs Resilientes a Ataques Homem do Meio às Informações de Localização”.',
+							'Projeto: “CiberComUAV — Cibersegurança nas Comunicações de Redes Aéreas de UAVs”.',
 							'Pesquisa aplicada em segurança de redes com simulação no ns-3.',
-							'Esquema proposto (produto da pesquisa): KEYSUAV.',
-							'Artigo aceito no SBRC 2026: “An Opportunistic Key Exchange Scheme for Location Information Sharing on UAV Networks Resilient to MiM Attacks”.',
 						],
+						link: { label: 'Ver detalhes', href: '#pesquisa' },
 					},
 					{
 						role: 'Segundo Tenente',
@@ -265,6 +316,7 @@ export const content: Record<Locale, PageContent> = {
 				],
 			},
 			education: {
+				id: 'formacao',
 				title: 'Formação',
 				items: [
 					{
@@ -280,6 +332,7 @@ export const content: Record<Locale, PageContent> = {
 				],
 			},
 			certificates: {
+				id: 'certificados',
 				title: 'Certificados',
 				items: [
 					{
@@ -348,6 +401,7 @@ export const content: Record<Locale, PageContent> = {
 				],
 			},
 			achievements: {
+				id: 'conquistas',
 				title: 'Conquistas',
 				groups: [
 					{
@@ -426,16 +480,40 @@ export const content: Record<Locale, PageContent> = {
 				],
 			},
 			contact: {
+				id: 'contato',
 				title: 'Contato',
 				locationLine: 'Belo Horizonte, Brasil',
 				links: [
-					{ label: 'Email (UFMG)', href: 'mailto:viniciustda@ufmg.br' },
-					{ label: 'Email (pessoal)', href: 'mailto:v.trindade.d.a@gmail.com' },
-					{ label: 'LinkedIn', href: 'https://linkedin.com/in/v-trindade' },
-					{ label: 'GitHub', href: 'https://github.com/Viniciustda' },
-					{ label: 'Lattes', href: 'http://lattes.cnpq.br/3991476030874999' },
+					{ label: 'Email (UFMG)', href: 'mailto:viniciustda@ufmg.br', icon: 'mail' },
+					{ label: 'Email (pessoal)', href: 'mailto:v.trindade.d.a@gmail.com', icon: 'gmail' },
+					{ label: 'LinkedIn', href: 'https://linkedin.com/in/v-trindade', icon: 'linkedin' },
+					{ label: 'GitHub', href: 'https://github.com/Viniciustda', icon: 'github' },
+					{ label: 'YouTube', href: 'https://www.youtube.com/@Viniciustda', icon: 'youtube' },
+					{ label: 'Lattes', href: 'http://lattes.cnpq.br/3991476030874999', icon: 'lattes' },
+					{ label: 'ORCID', href: 'https://orcid.org/0009-0007-9208-8634', icon: 'orcid' },
 				],
 			},
+		},
+		ui: {
+			skipToContent: 'Ir para o conteúdo',
+			languageSwitchLabel: 'Ver versão em inglês',
+			themeToggleLabel: 'Alternar tema',
+			photoAlt: 'Foto de Vinicius Trindade',
+			labs: 'Laboratórios',
+			advisors: 'Orientação',
+			publication: 'Publicação',
+			projectsHint: 'Role para explorar →',
+			previousProject: 'Projeto anterior',
+			nextProject: 'Próximo projeto',
+			timeline: 'Linha do tempo',
+			certificatesHint: 'Deslize → clique para ver',
+			images: 'imagens',
+			read: 'Ler',
+			close: 'Fechar',
+			previous: 'Anterior',
+			next: 'Próximo',
+			previousImage: 'Imagem anterior',
+			nextImage: 'Próxima imagem',
 		},
 		languageSwitch: { label: 'EN', href: '/en/' },
 		footer: { text: `© ${new Date().getFullYear()} Vinicius Trindade. All rights reserved.` },
@@ -455,17 +533,8 @@ export const content: Record<Locale, PageContent> = {
 			ctaSecondary: { label: 'Contact', href: '#contact' },
 		},
 		sections: {
-			nav: [
-				{ label: 'About', href: '#about' },
-				{ label: 'Research', href: '#research' },
-				{ label: 'Projects', href: '#projects' },
-				{ label: 'Experience', href: '#experience' },
-				{ label: 'Education', href: '#education' },
-				{ label: 'Certificates', href: '#certificates' },
-				{ label: 'Achievements', href: '#achievements' },
-				{ label: 'Contact', href: '#contact' },
-			],
 			about: {
+				id: 'about',
 				title: 'About',
 				bullets: [
 					'I work and research in cybersecurity, AI (reinforcement learning), and computer networks.',
@@ -477,38 +546,34 @@ export const content: Record<Locale, PageContent> = {
 				],
 			},
 			research: {
+				id: 'research',
 				title: 'Research',
 				items: [
 					{
 						title: 'Undergraduate Research (IC)',
-						project: 'UAV Networks Resilient to Man-in-the-Middle Attacks on Location Information',
-						labs: [
-							{ name: 'Wireless Networks Lab (WiNet)', href: 'https://www.winet.dcc.ufmg.br/' },
-							{ name: 'CCSC Research Lab', href: 'https://ccsc.dcc.ufmg.br/' },
-						],
-						period: 'Oct 2024 — May 2026 (volunteer: Oct 2024 — Apr 2025 • CNPq scholar: May 2025 — May 2026)',
-						advisors: [
-							{ name: 'Prof. PhD Aldri Luiz dos Santos', role: 'Advisor (UFMG)', href: 'https://dcc.ufmg.br/professor/aldri-luiz-dos-santos/' },
-							{ name: 'PhD Agnaldo de Souza Batista', role: 'Co-advisor (UFPR)' },
-						],
-						description: 'UAV networks (FANETs) rely on location sharing for flight coordination, but wireless channels expose this data to Man-in-the-Middle attacks. To address this, we developed KEYSUAV, an opportunistic key exchange scheme with lightweight cryptography (ECC + ASCON-128) and anomaly detection. Implemented in C++ on the ns-3 simulator over the FlySafe service, the scheme achieved 100% detection of compromised messages.',
-						scheme: 'KEYSUAV',
-						papers: [
-							{
-								title: 'An Opportunistic Key Exchange Scheme for Location Information Sharing on UAV Networks Resilient to MiM Attacks',
-								venue: 'SBRC 2026',
-								venueFullName: 'Simpósio Brasileiro de Redes de Computadores e Sistemas Distribuídos',
-								venueDescription: 'The most important scientific event on computer networks and distributed systems in Brazil.',
-								year: 2026,
-								language: 'English',
-								note: 'First paper written — accepted on first submission.',
-							},
-						],
+						project: keysuavPaper.title,
+						labs: icLabs,
+						period: 'Oct 2024 — Apr 2026 (volunteer: Oct 2024 — Apr 2025 • CNPq scholar: May 2025 — Apr 2026)',
+						advisors: icAdvisors.en,
+						description:
+							'As unmanned aerial vehicles (UAVs) demand wireless technologies for their communication, they become prone to serious security threats that aim to compromise the integrity and confidentiality of the exchanged control data, standing out man-in-the-middle (MiM) attacks as one of the most damaging. Besides, UAV networks require essential critical services for their regular operation, like the UAV location service. Key exchange is one way to protect UAV communications against MiM attacks. This paper proposes KEYSUAV, a key exchange scheme to enable a resilient location information sharing on UAV networks against MiM attacks. KEYSUAV relies on opportunistic approaches and on the lightweight cryptographic standard ASCON, an algorithm designed for resource-constrained devices like UAVs. Simulation results show that KEYSUAV over the FlySafe system detected 100% of compromised messages sent by a MiM attacker with a slight reduction in UAVs’ spatial awareness, around 4.5%, thus fostering the resilience of the location service for UAV networks.',
+						citation: keysuavPaper,
 						tags: ['UAV Networks', 'Cybersecurity', 'MiM Attack', 'ns-3', 'CNPq'],
+					},
+					{
+						title: 'Undergraduate Research (IC)',
+						project: 'MiM Attack Detection and Identification in Location Sharing Service for FANETs with MARL',
+						labs: icLabs,
+						period: 'May 2026 — Apr 2027',
+						advisors: icAdvisors.en,
+						description:
+							'The safe operation of UAV networks depends on critical infrastructure systems with high levels of robustness, reliability, and security during their operation. The location sharing service is pivotal to UAVs have spatial awareness of the network, thus supporting the execution of various critical systems. However, this service is subject to man-in-the-middle (MiM) attacks that aim to disrupt its operation. This paper presents CIRRUS, a distributed mechanism in which multi-agent reinforcement learning (MARL) under centralized training and decentralized execution (CTDE) detects such attacks and identifies the attacker behind the identity of its victims, and a consensus among neighbors corroborates each identification. Over FlySafe, CIRRUS detected 99.67% of the forged location messages, identified the MiM in all simulations with 0.36% of false alarms, and held the location error at 0.50m, against 3.55m under attack.',
+						tags: ['FANETs', 'Cybersecurity', 'MiM Attack', 'MARL', 'CTDE'],
 					},
 				],
 			},
 			projects: {
+				id: 'projects',
 				title: 'Projects',
 				items: [
 					{
@@ -535,18 +600,18 @@ export const content: Record<Locale, PageContent> = {
 				],
 			},
 			experience: {
+				id: 'experience',
 				title: 'Experience',
 				items: [
 					{
 						role: 'Undergraduate Researcher',
 						org: 'Wireless Networks Lab (WiNet) & CCSC Research Lab — UFMG • Advisor: Prof. PhD Aldri Luiz dos Santos',
-						period: 'Oct 2024 — May 2026 (volunteer: Oct 2024 — Apr 2025 • CNPq scholarship: May 2025 — May 2026)',
+						period: 'Oct 2024 — Apr 2027 (volunteer: Oct 2024 — Apr 2025 • CNPq scholarship: May 2025 — Apr 2027)',
 						highlights: [
-							'Project: “UAV Networks Resilient to Man-in-the-Middle Attacks on Location Information”.',
+							'Project: “CiberComUAV — Cybersecurity in the Communications of UAV Aerial Networks”.',
 							'Applied research in network security with simulation in ns-3.',
-							'Proposed scheme (research output): KEYSUAV.',
-							'Paper accepted at SBRC 2026: “An Opportunistic Key Exchange Scheme for Location Information Sharing on UAV Networks Resilient to MiM Attacks”.',
 						],
+						link: { label: 'View details', href: '#research' },
 					},
 					{
 						role: 'Second Lieutenant',
@@ -573,6 +638,7 @@ export const content: Record<Locale, PageContent> = {
 				],
 			},
 			education: {
+				id: 'education',
 				title: 'Education',
 				items: [
 					{
@@ -588,6 +654,7 @@ export const content: Record<Locale, PageContent> = {
 				],
 			},
 			certificates: {
+				id: 'certificates',
 				title: 'Certificates',
 				items: [
 					{
@@ -650,6 +717,7 @@ export const content: Record<Locale, PageContent> = {
 				],
 			},
 			achievements: {
+				id: 'achievements',
 				title: 'Achievements',
 				groups: [
 					{
@@ -728,16 +796,40 @@ export const content: Record<Locale, PageContent> = {
 				],
 			},
 			contact: {
+				id: 'contact',
 				title: 'Contact',
 				locationLine: 'Belo Horizonte, Brazil',
 				links: [
-					{ label: 'Email (UFMG)', href: 'mailto:viniciustda@ufmg.br' },
-					{ label: 'Email (personal)', href: 'mailto:v.trindade.d.a@gmail.com' },
-					{ label: 'LinkedIn', href: 'https://linkedin.com/in/v-trindade' },
-					{ label: 'GitHub', href: 'https://github.com/Viniciustda' },
-					{ label: 'Lattes', href: 'http://lattes.cnpq.br/3991476030874999' },
+					{ label: 'Email (UFMG)', href: 'mailto:viniciustda@ufmg.br', icon: 'mail' },
+					{ label: 'Email (personal)', href: 'mailto:v.trindade.d.a@gmail.com', icon: 'gmail' },
+					{ label: 'LinkedIn', href: 'https://linkedin.com/in/v-trindade', icon: 'linkedin' },
+					{ label: 'GitHub', href: 'https://github.com/Viniciustda', icon: 'github' },
+					{ label: 'YouTube', href: 'https://www.youtube.com/@Viniciustda', icon: 'youtube' },
+					{ label: 'Lattes', href: 'http://lattes.cnpq.br/3991476030874999', icon: 'lattes' },
+					{ label: 'ORCID', href: 'https://orcid.org/0009-0007-9208-8634', icon: 'orcid' },
 				],
 			},
+		},
+		ui: {
+			skipToContent: 'Skip to content',
+			languageSwitchLabel: 'View Portuguese version',
+			themeToggleLabel: 'Toggle theme',
+			photoAlt: 'Photo of Vinicius Trindade',
+			labs: 'Labs',
+			advisors: 'Advisors',
+			publication: 'Publication',
+			projectsHint: 'Scroll to explore →',
+			previousProject: 'Previous project',
+			nextProject: 'Next project',
+			timeline: 'Timeline',
+			certificatesHint: 'Swipe or drag → click any card to view',
+			images: 'images',
+			read: 'Read',
+			close: 'Close',
+			previous: 'Previous',
+			next: 'Next',
+			previousImage: 'Previous image',
+			nextImage: 'Next image',
 		},
 		languageSwitch: { label: 'PT', href: '/pt/' },
 		footer: { text: `© ${new Date().getFullYear()} Vinicius Trindade. All rights reserved.` },

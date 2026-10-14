@@ -200,16 +200,18 @@ const isExternal = (href: string) => href.startsWith('http');
 									)}
 
 									<div class="mt-5 grid gap-x-8 gap-y-4 sm:grid-cols-2">
-										<div class="space-y-2">
-											<p class="text-xs font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-500">{ui.labs}</p>
-											{r.labs.map((lab) => (
-												<div class="flex items-center text-sm">
-													<a href={lab.href} target="_blank" rel="noreferrer" class="link-underline font-medium text-indigo-600 hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300">
-														{lab.name} ↗
-													</a>
-												</div>
-											))}
-										</div>
+										{r.labs.length > 0 && (
+											<div class="space-y-2">
+												<p class="text-xs font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-500">{ui.labs}</p>
+												{r.labs.map((lab) => (
+													<div class="flex items-center text-sm">
+														<a href={lab.href} target="_blank" rel="noreferrer" class="link-underline font-medium text-indigo-600 hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300">
+															{lab.name} ↗
+														</a>
+													</div>
+												))}
+											</div>
+										)}
 
 										<div class="space-y-2">
 											<p class="text-xs font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-500">{ui.advisors}</p>
@@ -226,6 +228,29 @@ const isExternal = (href: string) => href.startsWith('http');
 												</div>
 											))}
 										</div>
+
+										{r.coauthors && r.coauthors.length > 0 && (
+											<div class="space-y-2">
+												<p class="text-xs font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-500">{ui.coauthors}</p>
+												{r.coauthors.map((a) => (
+													<div class="flex flex-wrap items-center gap-x-2 text-sm">
+														<span class="font-medium text-zinc-900 dark:text-white">{a.name}</span>
+														<span class="text-zinc-500 dark:text-zinc-500">— {a.role}</span>
+													</div>
+												))}
+											</div>
+										)}
+
+										{r.repository && (
+											<div class="space-y-2">
+												<p class="text-xs font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-500">{ui.repository}</p>
+												<div class="flex items-center text-sm">
+													<a href={r.repository.href} target="_blank" rel="noreferrer" class="link-underline wrap-anywhere font-medium text-indigo-600 hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300">
+														{r.repository.name} ↗
+													</a>
+												</div>
+											</div>
+										)}
 									</div>
 
 									<div class="mt-5 flex flex-wrap gap-1.5">

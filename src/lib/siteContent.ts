@@ -69,6 +69,8 @@ export type ResearchItem = {
 	labs: ResearchLab[];
 	period: string;
 	advisors: ResearchAdvisor[];
+	coauthors?: Array<{ name: string; role: string }>;
+	repository?: { name: string; href: string };
 	description: string;
 	citation?: Citation;
 	tags: string[];
@@ -146,6 +148,8 @@ export type PageContent = {
 		photoAlt: string;
 		labs: string;
 		advisors: string;
+		coauthors: string;
+		repository: string;
 		publication: string;
 		projectsHint: string;
 		previousProject: string;
@@ -174,15 +178,14 @@ const icLabs: ResearchLab[] = [
 	{ name: 'CCSC Research Lab', href: 'https://ccsc.dcc.ufmg.br/' },
 ];
 
+const aldri: Record<Locale, ResearchAdvisor> = {
+	pt: { name: 'Prof. Dr. Aldri Luiz dos Santos', role: 'Orientador (UFMG)', href: 'https://dcc.ufmg.br/professor/aldri-luiz-dos-santos/' },
+	en: { name: 'Prof. PhD Aldri Luiz dos Santos', role: 'Advisor (UFMG)', href: 'https://dcc.ufmg.br/professor/aldri-luiz-dos-santos/' },
+};
+
 const icAdvisors: Record<Locale, ResearchAdvisor[]> = {
-	pt: [
-		{ name: 'Prof. Dr. Aldri Luiz dos Santos', role: 'Orientador (UFMG)', href: 'https://dcc.ufmg.br/professor/aldri-luiz-dos-santos/' },
-		{ name: 'Dr. Agnaldo de Souza Batista', role: 'Coorientador (UFPR)' },
-	],
-	en: [
-		{ name: 'Prof. PhD Aldri Luiz dos Santos', role: 'Advisor (UFMG)', href: 'https://dcc.ufmg.br/professor/aldri-luiz-dos-santos/' },
-		{ name: 'PhD Agnaldo de Souza Batista', role: 'Co-advisor (UFPR)' },
-	],
+	pt: [aldri.pt, { name: 'Dr. Agnaldo de Souza Batista', role: 'Coorientador (UFPR)' }],
+	en: [aldri.en, { name: 'PhD Agnaldo de Souza Batista', role: 'Co-advisor (UFPR)' }],
 };
 
 const keysuavPaper: Citation = {
@@ -194,6 +197,8 @@ const keysuavPaper: Citation = {
 	pages: '141–154',
 	doi: '10.5753/sbrc.2026.19890',
 };
+
+const keysuavRepository = { name: 'github.com/agnaldosb/flysafe_MiM', href: 'https://github.com/agnaldosb/flysafe_MiM' };
 
 export const content: Record<Locale, PageContent> = {
 	pt: {
@@ -236,17 +241,41 @@ export const content: Record<Locale, PageContent> = {
 						description:
 							'Como os veículos aéreos não tripulados (UAVs) demandam tecnologias sem fio para sua comunicação, eles se tornam suscetíveis a sérias ameaças de segurança que visam comprometer a integridade e a confidencialidade dos dados de controle trocados, destacando-se os ataques homem do meio (MiM) como um dos mais danosos. Além disso, as redes de UAVs requerem serviços críticos essenciais para sua operação regular, como o serviço de localização de UAVs. A troca de chaves é uma forma de proteger as comunicações dos UAVs contra ataques MiM. Este artigo propõe o KEYSUAV, um esquema de troca de chaves que viabiliza um compartilhamento de informações de localização resiliente a ataques MiM em redes de UAVs. O KEYSUAV se baseia em abordagens oportunísticas e no padrão de criptografia leve ASCON, um algoritmo projetado para dispositivos com recursos limitados, como os UAVs. Resultados de simulação mostram que o KEYSUAV, sobre o sistema FlySafe, detectou 100% das mensagens comprometidas enviadas por um atacante MiM, com uma leve redução na consciência espacial dos UAVs, em torno de 4,5%, favorecendo assim a resiliência do serviço de localização para redes de UAVs.',
 						citation: keysuavPaper,
+						repository: keysuavRepository,
 						tags: ['Redes de UAVs', 'Cibersegurança', 'Ataque MiM', 'ns-3', 'CNPq'],
 					},
 					{
 						title: 'Iniciação Científica (IC)',
 						project: 'Detecção e Identificação de Ataques MiM no Serviço de Compartilhamento de Localização para FANETs com MARL',
 						labs: icLabs,
-						period: 'Mai 2026 — Abr 2027',
+						period: 'Mai 2026 — Abr 2027 (bolsista CNPq)',
 						advisors: icAdvisors.pt,
 						description:
 							'A operação segura de redes de UAVs depende de sistemas de infraestrutura crítica com altos níveis de robustez, confiabilidade e segurança durante sua operação. O serviço de compartilhamento de localização é fundamental para que os UAVs tenham consciência espacial da rede, apoiando assim a execução de diversos sistemas críticos. No entanto, esse serviço está sujeito a ataques homem do meio (MiM) que visam interromper sua operação. Este artigo apresenta o CIRRUS, um mecanismo distribuído no qual o aprendizado por reforço multiagente (MARL), sob treinamento centralizado e execução descentralizada (CTDE), detecta tais ataques e identifica o atacante por trás da identidade de suas vítimas, e um consenso entre vizinhos corrobora cada identificação. Sobre o FlySafe, o CIRRUS detectou 99,67% das mensagens de localização forjadas, identificou o MiM em todas as simulações com 0,36% de alarmes falsos e manteve o erro de localização em 0,50 m, contra 3,55 m sob ataque.',
-						tags: ['FANETs', 'Cibersegurança', 'Ataque MiM', 'MARL', 'CTDE'],
+						tags: ['FANETs', 'Cibersegurança', 'Ataque MiM', 'MARL', 'CTDE', 'CNPq'],
+					},
+					{
+						title: 'Projeto de Disciplina — Redes Sem Fio',
+						project: 'Multisource Dual Path Same Parity Routing (MDPSPR)',
+						labs: [],
+						period: 'Mar 2026 — Fev 2027',
+						advisors: [
+							{ name: 'Prof. Dr. Luiz Filipe Menezes Vieira', role: 'Orientador (UFMG)', href: 'https://dcc.ufmg.br/professor/luiz-filipe-menezes-vieira/' },
+						],
+						coauthors: [{ name: 'Gustavo Ferreira Dias', role: 'Segundo autor (UFMG)' }],
+						description:
+							'As redes de sensores sem fio passaram a transportar tráfego multimídia e de streaming, que demanda alta vazão. Plataformas de rádio duplo respondem a essa demanda, e o protocolo de caminho duplo de mesma paridade envia os dados por dois caminhos disjuntos em nós e com a mesma paridade de saltos, de modo que origem e destino usem os dois rádios ao mesmo tempo, mas apenas para um único par origem–destino. Este trabalho estende o roteamento de caminho duplo de mesma paridade a múltiplos pares origem–destino simultâneos. Formulamos o roteamento conjunto como um programa linear inteiro com exclusividade de nós entre os pares, incluindo uma variante que maximiza o número de pares admitidos antes de minimizar o custo das rotas, projetamos heurísticas gulosas com diferentes regras de ordenação dos pares e acrescentamos uma atribuição de canais baseada na geometria da rede. O protocolo é avaliado no ns-3.38 com tráfego UDP e TCP reais sobre IPv6/6LoWPAN e IEEE 802.15.4, medindo admissão, vazão útil, entrega e atraso conforme variam a demanda, a topologia e o transporte. O trabalho nasceu como projeto da disciplina de Redes Sem Fio e está sendo preparado para publicação a convite do professor.',
+						tags: ['Redes de Sensores Sem Fio', 'Rádio Duplo', 'Roteamento', 'PLI', 'ns-3'],
+					},
+					{
+						title: 'Projeto Orientado em Computação (POC) — TCC',
+						project: 'Detecção e Identificação de Ataques MitM em Serviços de Consenso Local para FANETs com MARL',
+						labs: icLabs,
+						period: 'Ago 2026 — Jul 2027',
+						advisors: [aldri.pt],
+						description:
+							'Enxames de UAVs organizados como FANETs dependem de serviços de consenso local, nos quais cada UAV atualiza um estado compartilhado por trocas com seus vizinhos; a sincronização de relógios é o caso de aplicação estudado. Como as mensagens de controle não têm autenticação, um atacante homem do meio (MitM) que pertence ao enxame pode capturar a mensagem de consenso de um vizinho, alterar o valor que ela carrega e reinjetá-la sob a identidade da vítima, e o próprio mecanismo de convergência propaga o valor corrompido por todo o componente conectado. A defesa usa aprendizado por reforço multiagente (MARL), sob treinamento centralizado e execução descentralizada (CTDE), para detectar esse ataque e identificar o UAV responsável: cada UAV carrega seu próprio agente e decide apenas com a informação disponível em sua vizinhança, rotulando cada mensagem para que uma contribuição forjada seja descartada antes de ser absorvida pelo serviço e apontando o atacante. O serviço e a defesa são construídos no ns-3.38 com ns3-ai e avaliados com 40 UAVs em uma topologia esparsa e permanentemente particionada.',
+						tags: ['FANETs', 'Cibersegurança', 'Ataque MitM', 'Consenso', 'MARL', 'ns-3'],
 					},
 				],
 			},
@@ -501,6 +530,8 @@ export const content: Record<Locale, PageContent> = {
 			photoAlt: 'Foto de Vinicius Trindade',
 			labs: 'Laboratórios',
 			advisors: 'Orientação',
+			coauthors: 'Coautoria',
+			repository: 'Repositório',
 			publication: 'Publicação',
 			projectsHint: 'Role para explorar →',
 			previousProject: 'Projeto anterior',
@@ -558,17 +589,41 @@ export const content: Record<Locale, PageContent> = {
 						description:
 							'As unmanned aerial vehicles (UAVs) demand wireless technologies for their communication, they become prone to serious security threats that aim to compromise the integrity and confidentiality of the exchanged control data, standing out man-in-the-middle (MiM) attacks as one of the most damaging. Besides, UAV networks require essential critical services for their regular operation, like the UAV location service. Key exchange is one way to protect UAV communications against MiM attacks. This paper proposes KEYSUAV, a key exchange scheme to enable a resilient location information sharing on UAV networks against MiM attacks. KEYSUAV relies on opportunistic approaches and on the lightweight cryptographic standard ASCON, an algorithm designed for resource-constrained devices like UAVs. Simulation results show that KEYSUAV over the FlySafe system detected 100% of compromised messages sent by a MiM attacker with a slight reduction in UAVs’ spatial awareness, around 4.5%, thus fostering the resilience of the location service for UAV networks.',
 						citation: keysuavPaper,
+						repository: keysuavRepository,
 						tags: ['UAV Networks', 'Cybersecurity', 'MiM Attack', 'ns-3', 'CNPq'],
 					},
 					{
 						title: 'Undergraduate Research (IC)',
 						project: 'MiM Attack Detection and Identification in Location Sharing Service for FANETs with MARL',
 						labs: icLabs,
-						period: 'May 2026 — Apr 2027',
+						period: 'May 2026 — Apr 2027 (CNPq scholar)',
 						advisors: icAdvisors.en,
 						description:
 							'The safe operation of UAV networks depends on critical infrastructure systems with high levels of robustness, reliability, and security during their operation. The location sharing service is pivotal to UAVs have spatial awareness of the network, thus supporting the execution of various critical systems. However, this service is subject to man-in-the-middle (MiM) attacks that aim to disrupt its operation. This paper presents CIRRUS, a distributed mechanism in which multi-agent reinforcement learning (MARL) under centralized training and decentralized execution (CTDE) detects such attacks and identifies the attacker behind the identity of its victims, and a consensus among neighbors corroborates each identification. Over FlySafe, CIRRUS detected 99.67% of the forged location messages, identified the MiM in all simulations with 0.36% of false alarms, and held the location error at 0.50m, against 3.55m under attack.',
-						tags: ['FANETs', 'Cybersecurity', 'MiM Attack', 'MARL', 'CTDE'],
+						tags: ['FANETs', 'Cybersecurity', 'MiM Attack', 'MARL', 'CTDE', 'CNPq'],
+					},
+					{
+						title: 'Course Project — Wireless Networks',
+						project: 'Multisource Dual Path Same Parity Routing (MDPSPR)',
+						labs: [],
+						period: 'Mar 2026 — Feb 2027',
+						advisors: [
+							{ name: 'Prof. PhD Luiz Filipe Menezes Vieira', role: 'Advisor (UFMG)', href: 'https://dcc.ufmg.br/professor/luiz-filipe-menezes-vieira/' },
+						],
+						coauthors: [{ name: 'Gustavo Ferreira Dias', role: 'Second author (UFMG)' }],
+						description:
+							'Wireless sensor networks now carry multimedia and streaming traffic that demands high throughput. Dual-radio platforms answer this demand, and the dual-path same-parity protocol moves data over two node-disjoint paths of equal hop-count parity, so that source and destination use both radios at once, but only for a single source/destination pair. This work extends dual-path same-parity routing to multiple simultaneous source/destination pairs. We formulate the joint routing as an integer linear program with node exclusivity across pairs, including a variant that maximizes the number of admitted pairs before minimizing route cost, design greedy heuristics with different pair-ordering rules, and add a geometry-based channel assignment. The protocol is evaluated in ns-3.38 with real UDP and TCP traffic over IPv6/6LoWPAN and IEEE 802.15.4, measuring admission, goodput, delivery and delay as demand, topology and transport vary. The work started as a course project in Wireless Networks and is being prepared for publication at the professor’s invitation.',
+						tags: ['Wireless Sensor Networks', 'Dual-Radio', 'Routing', 'ILP', 'ns-3'],
+					},
+					{
+						title: 'Undergraduate Final Project (TCC)',
+						project: 'MitM Detection and Identification in Local Consensus Services for FANETs with MARL',
+						labs: icLabs,
+						period: 'Aug 2026 — Jul 2027',
+						advisors: [aldri.en],
+						description:
+							'UAV swarms organized as FANETs rely on local consensus services, in which each UAV updates a shared state through exchanges with its neighbors; clock synchronization is the application case studied here. Because control messages carry no authentication, a man-in-the-middle (MitM) attacker that belongs to the swarm can capture a neighbor’s consensus message, alter the value it carries and reinject it under the victim’s identity, and the convergence mechanism itself then propagates the corrupted value through the whole connected component. The defense uses multi-agent reinforcement learning (MARL) under centralized training and decentralized execution (CTDE) to detect that attack and identify the UAV responsible for it: each UAV carries its own agent and decides using only the information available in its neighborhood, labeling every message so that a forged contribution is dropped before the service absorbs it, and pointing out the attacker. The service and the defense are built on ns-3.38 with ns3-ai and evaluated with 40 UAVs in a sparse, permanently partitioned topology.',
+						tags: ['FANETs', 'Cybersecurity', 'MitM Attack', 'Consensus', 'MARL', 'ns-3'],
 					},
 				],
 			},
@@ -816,7 +871,9 @@ export const content: Record<Locale, PageContent> = {
 			themeToggleLabel: 'Toggle theme',
 			photoAlt: 'Photo of Vinicius Trindade',
 			labs: 'Labs',
-			advisors: 'Advisors',
+			advisors: 'Supervision',
+			coauthors: 'Co-authorship',
+			repository: 'Repository',
 			publication: 'Publication',
 			projectsHint: 'Scroll to explore →',
 			previousProject: 'Previous project',

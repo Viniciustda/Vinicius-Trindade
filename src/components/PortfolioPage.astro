@@ -3,7 +3,8 @@
 // layout and behaviour are always the same; only the content from siteContent.ts differs.
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Icon from './Icon.astro';
-import { content, type AwardItem, type Locale } from '../lib/siteContent';
+import Flag from './Flag.astro';
+import { content, languages, type AwardItem, type Locale } from '../lib/siteContent';
 
 type Props = {
 	locale: Locale;
@@ -15,7 +16,8 @@ const s = c.sections;
 const ui = c.ui;
 
 const baseUrl = import.meta.env.BASE_URL;
-const langHref = `${baseUrl}${c.languageSwitch.href.replace(/^\//, '')}`;
+const currentLanguage = languages.find((lang) => lang.locale === locale)!;
+const languageHref = (href: string) => `${baseUrl}${href.replace(/^\//, '')}`;
 const nav = [s.about, s.research, s.projects, s.experience, s.education, s.certificates, s.achievements, s.contact];
 
 const assetImages = import.meta.glob<string>('/src/assets/images/**/*.{png,jpg,jpeg,webp,avif,svg}', {
@@ -75,13 +77,35 @@ const isExternal = (href: string) => href.startsWith('http');
 				))}
 			</nav>
 			<div class="flex shrink-0 items-center gap-1.5 sm:gap-2">
-				<a
-					href={langHref}
-					class="clickable rounded-lg border border-zinc-200 px-2.5 py-1 text-xs font-semibold text-zinc-700 hover:text-indigo-600 dark:border-zinc-700 dark:text-zinc-300 dark:hover:text-indigo-400"
-					aria-label={ui.languageSwitchLabel}
-				>
-					{c.languageSwitch.label}
-				</a>
+				<details class="relative" data-language-menu>
+					<summary
+						class="clickable flex cursor-pointer list-none items-center gap-1.5 rounded-lg border border-zinc-200 px-2 py-1 text-xs font-semibold text-zinc-700 hover:text-indigo-600 dark:border-zinc-700 dark:text-zinc-300 dark:hover:text-indigo-400 [&::-webkit-details-marker]:hidden"
+						aria-label={ui.languageSwitchLabel}
+					>
+						<Flag locale={currentLanguage.locale} class="h-3.5 w-5 rounded-[2px] shadow-sm ring-1 ring-black/10" />
+						<span>{currentLanguage.locale.toUpperCase()}</span>
+						<span aria-hidden="true" class="text-[0.6rem] opacity-60">▾</span>
+					</summary>
+					<ul class="absolute right-0 mt-1.5 min-w-36 overflow-hidden rounded-lg border border-zinc-200 bg-white py-1 text-sm shadow-lg dark:border-zinc-700 dark:bg-zinc-900">
+						{languages.map((lang) => (
+							<li>
+								<a
+									href={languageHref(lang.href)}
+									hreflang={lang.locale}
+									lang={lang.locale}
+									aria-current={lang.locale === locale ? 'page' : undefined}
+									class:list={[
+										'flex items-center gap-2.5 px-3 py-1.5 hover:bg-zinc-100 hover:text-indigo-600 dark:hover:bg-zinc-800 dark:hover:text-indigo-400',
+										lang.locale === locale ? 'font-semibold text-indigo-600 dark:text-indigo-400' : 'text-zinc-700 dark:text-zinc-300',
+									]}
+								>
+									<Flag locale={lang.locale} class="h-3.5 w-5 shrink-0 rounded-[2px] shadow-sm ring-1 ring-black/10" />
+									{lang.name}
+								</a>
+							</li>
+						))}
+					</ul>
+				</details>
 				<button
 					type="button"
 					data-theme-toggle
@@ -615,6 +639,7 @@ const isExternal = (href: string) => href.startsWith('http');
 
 <script>
 	import '../scripts/theme';
+	import '../scripts/language-menu';
 	import '../scripts/effects';
 	import '../scripts/tilt';
 	import '../scripts/carousel';

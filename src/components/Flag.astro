@@ -1,0 +1,33 @@
+---
+// Inline SVG flags for the language menu (emoji flags don't render on Windows).
+import type { Locale } from '../lib/siteContent';
+
+type Props = {
+	locale: Locale;
+	class?: string;
+};
+
+const { locale, class: className } = Astro.props;
+---
+
+{locale === 'en' ? (
+	<svg class={className} viewBox="0 0 7410 3900" preserveAspectRatio="none" aria-hidden="true">
+		<rect width="7410" height="3900" fill="#b22234" />
+		<path d="M0 450h7410m0 600H0m0 600h7410m0 600H0m0 600h7410m0 600H0" stroke="#fff" stroke-width="300" />
+		<rect width="2964" height="2100" fill="#3c3b6e" />
+		<g fill="#fff">
+			{Array.from({ length: 9 }, (_, row) =>
+				Array.from({ length: row % 2 === 0 ? 6 : 5 }, (_, col) => (
+					<circle cx={247 + col * 494 + (row % 2) * 247} cy={210 + row * 210} r="80" />
+				))
+			)}
+		</g>
+	</svg>
+) : (
+	<svg class={className} viewBox="0 0 720 504" preserveAspectRatio="none" aria-hidden="true">
+		<rect width="720" height="504" fill="#009c3b" />
+		<path d="M360 42 678 252 360 462 42 252z" fill="#ffdf00" />
+		<circle cx="360" cy="252" r="122" fill="#002776" />
+		<path d="M243 220c80-10 170 5 236 50" stroke="#fff" stroke-width="18" fill="none" />
+	</svg>
+)}

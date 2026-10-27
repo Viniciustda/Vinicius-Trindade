@@ -16,6 +16,12 @@
 	--accent-ring: rgb(129 140 248 / 0.22);
 }
 
+/* Cross-fade between pages (e.g. switching language) instead of a hard reload.
+   Browsers without support just navigate normally. */
+@view-transition {
+	navigation: auto;
+}
+
 /* Base font */
 body {
 	font-family: var(--font-sans);

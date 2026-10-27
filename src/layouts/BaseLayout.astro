@@ -25,7 +25,8 @@ const faviconIco = `${baseUrl}favicon.ico`;
 		<meta name="description" content={description} />
 		<meta name="theme-color" content="#0a0a0a" />
 
-		<script>
+		<!-- is:inline keeps this a blocking classic script: it must set the theme before first paint -->
+		<script is:inline>
 			(() => {
 				const storageKey = 'theme';
 				const root = document.documentElement;
@@ -44,6 +45,12 @@ const faviconIco = `${baseUrl}favicon.ico`;
 				root.dataset.theme = isDark ? 'dark' : 'light';
 			})();
 		</script>
+
+		<!-- Page background before the stylesheet loads, so navigating doesn't flash white in dark mode -->
+		<style is:inline>
+			html { background: #fff; }
+			html.dark { background: #09090b; color-scheme: dark; }
+		</style>
 
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

@@ -164,10 +164,6 @@ export type PageContent = {
 		previousImage: string;
 		nextImage: string;
 	};
-	languageSwitch: {
-		label: string;
-		href: string;
-	};
 	footer: {
 		text: string;
 	};
@@ -199,6 +195,12 @@ const keysuavPaper: Citation = {
 };
 
 const keysuavRepository = { name: 'github.com/agnaldosb/flysafe_MiM', href: 'https://github.com/agnaldosb/flysafe_MiM' };
+
+/** Languages offered by the language menu. Names are written in their own language. */
+export const languages: { locale: Locale; name: string; href: string }[] = [
+	{ locale: 'en', name: 'English', href: '/en/' },
+	{ locale: 'pt', name: 'Português', href: '/pt/' },
+];
 
 export const content: Record<Locale, PageContent> = {
 	pt: {
@@ -525,7 +527,7 @@ export const content: Record<Locale, PageContent> = {
 		},
 		ui: {
 			skipToContent: 'Ir para o conteúdo',
-			languageSwitchLabel: 'Ver versão em inglês',
+			languageSwitchLabel: 'Selecionar idioma',
 			themeToggleLabel: 'Alternar tema',
 			photoAlt: 'Foto de Vinicius Trindade',
 			labs: 'Laboratórios',
@@ -546,7 +548,6 @@ export const content: Record<Locale, PageContent> = {
 			previousImage: 'Imagem anterior',
 			nextImage: 'Próxima imagem',
 		},
-		languageSwitch: { label: 'EN', href: '/en/' },
 		footer: { text: `© ${new Date().getFullYear()} Vinicius Trindade. All rights reserved.` },
 	},
 	en: {
@@ -867,7 +868,7 @@ export const content: Record<Locale, PageContent> = {
 		},
 		ui: {
 			skipToContent: 'Skip to content',
-			languageSwitchLabel: 'View Portuguese version',
+			languageSwitchLabel: 'Select language',
 			themeToggleLabel: 'Toggle theme',
 			photoAlt: 'Photo of Vinicius Trindade',
 			labs: 'Labs',
@@ -888,7 +889,6 @@ export const content: Record<Locale, PageContent> = {
 			previousImage: 'Previous image',
 			nextImage: 'Next image',
 		},
-		languageSwitch: { label: 'PT', href: '/pt/' },
 		footer: { text: `© ${new Date().getFullYear()} Vinicius Trindade. All rights reserved.` },
 	},
 };

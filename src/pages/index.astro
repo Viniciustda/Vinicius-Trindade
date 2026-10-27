@@ -4,17 +4,19 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 const baseUrl = import.meta.env.BASE_URL;
 const ptUrl = `${baseUrl}pt/`;
 const enUrl = `${baseUrl}en/`;
+const frUrl = `${baseUrl}fr/`;
 ---
 
 <BaseLayout
 	title="Vinicius Trindade"
-	description="Portfolio / Portfólio (PT/EN)."
+	description="Portfolio / Portfólio (PT/EN/FR)."
 	lang="en"
 	canonicalPath=""
 >
 	<main class="mx-auto max-w-3xl px-6 pt-16 pb-20">
 		<h1 class="text-3xl font-semibold tracking-tight">Choose a language</h1>
 		<p class="mt-3 text-zinc-200">Selecione um idioma para continuar.</p>
+		<p class="mt-1 text-zinc-200" lang="fr">Choisissez une langue pour continuer.</p>
 
 		<div class="mt-8 flex flex-wrap gap-3">
 			<a
@@ -29,6 +31,13 @@ const enUrl = `${baseUrl}en/`;
 			>
 				Português
 			</a>
+			<a
+				href={frUrl}
+				lang="fr"
+				class="inline-flex items-center justify-center rounded-lg border border-zinc-700 px-4 py-2 text-sm font-medium text-zinc-100 hover:border-zinc-500"
+			>
+				Français
+			</a>
 		</div>
 
 		<p class="mt-10 text-sm text-zinc-400">
@@ -36,15 +45,15 @@ const enUrl = `${baseUrl}en/`;
 		</p>
 	</main>
 
-	<script define:vars={{ ptUrl, enUrl }}>
+	<script define:vars={{ ptUrl, enUrl, frUrl }}>
 		(() => {
 			try {
 				const preferred = (navigator.language || '').toLowerCase();
-				const target = preferred.startsWith('pt') ? ptUrl : enUrl;
+				const target = preferred.startsWith('pt') ? ptUrl : preferred.startsWith('fr') ? frUrl : enUrl;
 				if (location.pathname.endsWith('/')) {
 					// Avoid redirect loops if already on a localized route.
 					const path = location.pathname;
-					if (!path.includes('/pt/') && !path.includes('/en/')) {
+					if (!path.includes('/pt/') && !path.includes('/en/') && !path.includes('/fr/')) {
 						location.replace(target);
 					}
 				}

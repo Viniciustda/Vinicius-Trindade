@@ -23,6 +23,12 @@ const { locale, class: className } = Astro.props;
 			)}
 		</g>
 	</svg>
+) : locale === 'fr' ? (
+	<svg class={className} viewBox="0 0 3 2" preserveAspectRatio="none" aria-hidden="true">
+		<rect width="1" height="2" fill="#0055a4" />
+		<rect x="1" width="1" height="2" fill="#fff" />
+		<rect x="2" width="1" height="2" fill="#ef4135" />
+	</svg>
 ) : (
 	<svg class={className} viewBox="0 0 720 504" preserveAspectRatio="none" aria-hidden="true">
 		<rect width="720" height="504" fill="#009c3b" />

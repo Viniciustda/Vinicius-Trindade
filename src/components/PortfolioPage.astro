@@ -1,5 +1,5 @@
 ---
-// The whole portfolio page. Both locale routes (/pt/, /en/) render this component, so
+// The whole portfolio page. Every locale route (/pt/, /en/, /fr/) renders this component, so
 // layout and behaviour are always the same; only the content from siteContent.ts differs.
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Icon from './Icon.astro';
@@ -60,7 +60,7 @@ const lightboxOf = (gallery: GalleryImage[]) => JSON.stringify(gallery.map(({ sr
 const isExternal = (href: string) => href.startsWith('http');
 ---
 
-<BaseLayout title={c.meta.title} description={c.meta.description} lang={locale === 'pt' ? 'pt-BR' : 'en'} canonicalPath={`${locale}/`}>
+<BaseLayout title={c.meta.title} description={c.meta.description} lang={locale === 'pt' ? 'pt-BR' : locale} canonicalPath={`${locale}/`}>
 
 	<a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:rounded-lg focus:bg-indigo-600 focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-white focus:shadow-lg">
 		{ui.skipToContent}

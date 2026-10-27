@@ -1,4 +1,4 @@
-export type Locale = 'pt' | 'en';
+export type Locale = 'pt' | 'en' | 'fr';
 
 export type Project = {
 	title: string;
@@ -177,11 +177,13 @@ const icLabs: ResearchLab[] = [
 const aldri: Record<Locale, ResearchAdvisor> = {
 	pt: { name: 'Prof. Dr. Aldri Luiz dos Santos', role: 'Orientador (UFMG)', href: 'https://dcc.ufmg.br/professor/aldri-luiz-dos-santos/' },
 	en: { name: 'Prof. PhD Aldri Luiz dos Santos', role: 'Advisor (UFMG)', href: 'https://dcc.ufmg.br/professor/aldri-luiz-dos-santos/' },
+	fr: { name: 'Prof. Aldri Luiz dos Santos', role: 'Directeur de recherche (UFMG)', href: 'https://dcc.ufmg.br/professor/aldri-luiz-dos-santos/' },
 };
 
 const icAdvisors: Record<Locale, ResearchAdvisor[]> = {
 	pt: [aldri.pt, { name: 'Dr. Agnaldo de Souza Batista', role: 'Coorientador (UFPR)' }],
 	en: [aldri.en, { name: 'PhD Agnaldo de Souza Batista', role: 'Co-advisor (UFPR)' }],
+	fr: [aldri.fr, { name: 'Dr Agnaldo de Souza Batista', role: 'Codirecteur de recherche (UFPR)' }],
 };
 
 const keysuavPaper: Citation = {
@@ -199,6 +201,7 @@ const keysuavRepository = { name: 'github.com/agnaldosb/flysafe_MiM', href: 'htt
 /** Languages offered by the language menu. Names are written in their own language. */
 export const languages: { locale: Locale; name: string; href: string }[] = [
 	{ locale: 'en', name: 'English', href: '/en/' },
+	{ locale: 'fr', name: 'Français', href: '/fr/' },
 	{ locale: 'pt', name: 'Português', href: '/pt/' },
 ];
 
@@ -207,7 +210,7 @@ export const content: Record<Locale, PageContent> = {
 		meta: {
 			title: 'Vinicius Trindade — Portfólio',
 			description:
-				'Portfólio bilingue (PT/EN) com projetos, iniciação científica (WiNet/UFMG), experiência, formação e conquistas — Ciência da Computação (UFMG).',
+				'Portfólio trilíngue (PT/EN/FR) com projetos, iniciação científica (WiNet/UFMG), experiência, formação e conquistas — Ciência da Computação (UFMG).',
 		},
 		header: {
 			name: 'Vinicius Trindade',
@@ -554,7 +557,7 @@ export const content: Record<Locale, PageContent> = {
 		meta: {
 			title: 'Vinicius Trindade — Portfolio',
 			description:
-				'Bilingual (PT/EN) portfolio with projects, undergraduate research (WiNet/UFMG), experience, education and selected achievements — Computer Science (UFMG).',
+				'Trilingual (PT/EN/FR) portfolio with projects, undergraduate research (WiNet/UFMG), experience, education and selected achievements — Computer Science (UFMG).',
 		},
 		header: {
 			name: 'Vinicius Trindade',
@@ -890,5 +893,346 @@ export const content: Record<Locale, PageContent> = {
 			nextImage: 'Next image',
 		},
 		footer: { text: `© ${new Date().getFullYear()} Vinicius Trindade. All rights reserved.` },
+	},
+	fr: {
+		meta: {
+			title: 'Vinicius Trindade — Portfolio',
+			description:
+				'Portfolio trilingue (PT/EN/FR) : projets, initiation à la recherche (WiNet/UFMG), expérience, formation et distinctions — Informatique (UFMG).',
+		},
+		header: {
+			name: 'Vinicius Trindade',
+			tagline: 'Informatique @ UFMG • Cybersécurité • IA • Réseaux',
+			summary:
+				'Étudiant en informatique à l’UFMG et étudiant-chercheur au Wireless Networks Lab (WiNet/UFMG) et au CCSC Research Lab (UFMG), spécialisé en cybersécurité, en intelligence artificielle (apprentissage par renforcement) et en réseaux informatiques. Ancien officier de l’Armée brésilienne (sous-lieutenant) : j’ai commandé des sections lors d’activités opérationnelles et dirigé des services administratifs, en particulier le service financier.',
+			ctaPrimary: { label: 'Voir les projets', href: '#projets' },
+			ctaSecondary: { label: 'Contact', href: '#contact' },
+		},
+		sections: {
+			about: {
+				id: 'a-propos',
+				title: 'À propos',
+				bullets: [
+					'Je travaille et mène des recherches en cybersécurité, en intelligence artificielle (apprentissage par renforcement) et en réseaux informatiques.',
+					'Expérience pratique en C/C++, Python, SQL et Git/GitHub ; bonnes notions de développement web.',
+					'Méthodologies : connaissance de Scrum et de Kanban pour organiser et suivre le travail.',
+					'Architecture : connaissance des microservices, des applications monolithiques et du modèle MVC.',
+					'Intérêt pour le développement de jeux vidéo et la robotique, que j’explore à travers des projets personnels.',
+					'Savoir-être : leadership, discipline, organisation, sens des responsabilités, abnégation et esprit d’équipe.',
+				],
+			},
+			research: {
+				id: 'recherche',
+				title: 'Recherche',
+				items: [
+					{
+						title: 'Initiation à la recherche (IC)',
+						project: keysuavPaper.title,
+						labs: icLabs,
+						period: 'oct. 2024 — avr. 2026 (bénévole : oct. 2024 — avr. 2025 • boursier CNPq : mai 2025 — avr. 2026)',
+						advisors: icAdvisors.fr,
+						description:
+							'Comme les véhicules aériens sans pilote (UAV, ou drones) dépendent de technologies sans fil pour communiquer, ils sont exposés à de graves menaces de sécurité visant à compromettre l’intégrité et la confidentialité des données de contrôle échangées, les attaques de l’homme du milieu (MiM) étant parmi les plus dommageables. En outre, les réseaux de drones nécessitent des services critiques essentiels à leur fonctionnement normal, comme le service de localisation des drones. L’échange de clés est un moyen de protéger les communications des drones contre les attaques MiM. Cet article propose KEYSUAV, un schéma d’échange de clés qui permet un partage d’informations de localisation résilient face aux attaques MiM dans les réseaux de drones. KEYSUAV repose sur des approches opportunistes et sur la norme de cryptographie légère ASCON, un algorithme conçu pour les dispositifs aux ressources limitées tels que les drones. Les résultats de simulation montrent que KEYSUAV, appliqué au système FlySafe, a détecté 100 % des messages compromis envoyés par un attaquant MiM, au prix d’une légère baisse de la connaissance spatiale des drones, d’environ 4,5 %, renforçant ainsi la résilience du service de localisation des réseaux de drones.',
+						citation: keysuavPaper,
+						repository: keysuavRepository,
+						tags: ['Réseaux de drones', 'Cybersécurité', 'Attaque MiM', 'ns-3', 'CNPq'],
+					},
+					{
+						title: 'Initiation à la recherche (IC)',
+						project: 'Détection et identification d’attaques MiM dans le service de partage de localisation des FANET avec MARL',
+						labs: icLabs,
+						period: 'mai 2026 — avr. 2027 (boursier CNPq)',
+						advisors: icAdvisors.fr,
+						description:
+							'Le fonctionnement sûr des réseaux de drones repose sur des systèmes d’infrastructure critique offrant des niveaux élevés de robustesse, de fiabilité et de sécurité. Le service de partage de localisation est indispensable pour que les drones aient une connaissance spatiale du réseau, ce qui soutient l’exécution de divers systèmes critiques. Cependant, ce service est exposé à des attaques de l’homme du milieu (MiM) qui visent à perturber son fonctionnement. Cet article présente CIRRUS, un mécanisme distribué dans lequel l’apprentissage par renforcement multi-agents (MARL), avec entraînement centralisé et exécution décentralisée (CTDE), détecte ces attaques et identifie l’attaquant qui se cache derrière l’identité de ses victimes, tandis qu’un consensus entre voisins corrobore chaque identification. Sur FlySafe, CIRRUS a détecté 99,67 % des messages de localisation falsifiés, a identifié l’attaquant MiM dans toutes les simulations avec 0,36 % de fausses alertes et a maintenu l’erreur de localisation à 0,50 m, contre 3,55 m sous attaque.',
+						tags: ['FANET', 'Cybersécurité', 'Attaque MiM', 'MARL', 'CTDE', 'CNPq'],
+					},
+					{
+						title: 'Projet de cours — Réseaux sans fil',
+						project: 'Multisource Dual Path Same Parity Routing (MDPSPR)',
+						labs: [],
+						period: 'mars 2026 — févr. 2027',
+						advisors: [
+							{ name: 'Prof. Luiz Filipe Menezes Vieira', role: 'Professeur encadrant (UFMG)', href: 'https://dcc.ufmg.br/professor/luiz-filipe-menezes-vieira/' },
+						],
+						coauthors: [{ name: 'Gustavo Ferreira Dias', role: 'Deuxième auteur (UFMG)' }],
+						description:
+							'Les réseaux de capteurs sans fil transportent désormais du trafic multimédia et de streaming qui exige un débit élevé. Les plateformes à double radio répondent à cette demande, et le protocole à double chemin de même parité achemine les données par deux chemins disjoints en nœuds et de même parité en nombre de sauts, de sorte que la source et la destination utilisent les deux radios simultanément, mais pour une seule paire source–destination. Ce travail étend le routage à double chemin de même parité à plusieurs paires source–destination simultanées. Nous formulons le routage conjoint sous la forme d’un programme linéaire en nombres entiers avec exclusivité des nœuds entre les paires, y compris une variante qui maximise le nombre de paires admises avant de minimiser le coût des routes ; nous concevons des heuristiques gloutonnes avec différentes règles d’ordonnancement des paires et ajoutons une attribution de canaux fondée sur la géométrie du réseau. Le protocole est évalué dans ns-3.38 avec du trafic UDP et TCP réel sur IPv6/6LoWPAN et IEEE 802.15.4, en mesurant l’admission, le débit utile, le taux de livraison et le délai selon la demande, la topologie et le protocole de transport. Né d’un projet du cours de Réseaux sans fil, ce travail est en cours de préparation pour publication, à l’invitation du professeur.',
+						tags: ['Réseaux de capteurs sans fil', 'Double radio', 'Routage', 'PLNE', 'ns-3'],
+					},
+					{
+						title: 'Projet de fin d’études (TCC)',
+						project: 'Détection et identification d’attaques MitM dans les services de consensus local des FANET avec MARL',
+						labs: icLabs,
+						period: 'août 2026 — juil. 2027',
+						advisors: [aldri.fr],
+						description:
+							'Les essaims de drones organisés en FANET reposent sur des services de consensus local, dans lesquels chaque drone met à jour un état partagé au moyen d’échanges avec ses voisins ; la synchronisation d’horloges est le cas d’application étudié ici. Comme les messages de contrôle ne sont pas authentifiés, un attaquant de l’homme du milieu (MitM) appartenant à l’essaim peut capturer le message de consensus d’un voisin, modifier la valeur qu’il transporte et le réinjecter sous l’identité de la victime ; le mécanisme de convergence lui-même propage alors la valeur corrompue dans toute la composante connexe. La défense utilise l’apprentissage par renforcement multi-agents (MARL), avec entraînement centralisé et exécution décentralisée (CTDE), pour détecter cette attaque et identifier le drone qui en est responsable : chaque drone embarque son propre agent et décide uniquement à partir des informations disponibles dans son voisinage, en étiquetant chaque message afin qu’une contribution falsifiée soit écartée avant d’être absorbée par le service, et en désignant l’attaquant. Le service et la défense sont développés dans ns-3.38 avec ns3-ai et évalués avec 40 drones dans une topologie clairsemée et partitionnée en permanence.',
+						tags: ['FANET', 'Cybersécurité', 'Attaque MitM', 'Consensus', 'MARL', 'ns-3'],
+					},
+				],
+			},
+			projects: {
+				id: 'projets',
+				title: 'Projets',
+				items: [
+					{
+						title: 'Caixinha',
+						description:
+							'Application de partage des dépenses de groupe, développée en binôme. En cours de développement ; lien pas encore disponible. Architecture par composants : Front-Caixinha (SPA React/Vite, UI/UX et consommation de l’API), Api-Caixinha (NestJS + TypeScript, Prisma + PostgreSQL, authentification/autorisation et règles métier) et Mobile-Caixinha (React Native, interface mobile et consommation de la même API). Connexion avec Google.',
+						tags: ['React', 'Vite', 'React Native', 'NestJS', 'TypeScript', 'Prisma', 'PostgreSQL', 'OAuth', 'GitHub Actions'],
+					},
+					{
+						title: 'Animae',
+						description:
+							'Jeu indépendant en 2D de type Metroidvania, développé seul, centré sur le lien avec la nature et la reconstruction d’un monde dévasté. En cours de développement ; lien pas encore disponible.',
+						tags: ['C++', 'SDL2', 'OpenGL', 'Game Dev', '2D'],
+					},
+					{
+						title: 'Site personnel (ce site)',
+						description:
+							'Portfolio statique réalisé avec Astro + Tailwind, conçu pour être rapide, accessible et facile à maintenir (GitHub Pages).',
+						tags: ['Astro', 'Tailwind', 'GitHub Pages', 'GitHub Actions'],
+						links: [
+							{ label: 'GitHub', href: 'https://github.com/Viniciustda/Vinicius-Trindade' },
+						],
+					},
+				],
+			},
+			experience: {
+				id: 'experience',
+				title: 'Expérience',
+				items: [
+					{
+						role: 'Étudiant-chercheur (initiation à la recherche)',
+						org: 'Wireless Networks Lab (WiNet) & CCSC Research Lab — UFMG • Directeur de recherche : Prof. Aldri Luiz dos Santos',
+						period: 'oct. 2024 — avr. 2027 (bénévole : oct. 2024 — avr. 2025 • boursier CNPq : mai 2025 — avr. 2027)',
+						highlights: [
+							'Projet : « CiberComUAV — Cybersécurité des communications dans les réseaux aériens de drones ».',
+							'Recherche appliquée en sécurité des réseaux, avec des simulations dans ns-3.',
+						],
+						link: { label: 'Voir les détails', href: '#recherche' },
+					},
+					{
+						role: 'Sous-lieutenant',
+						org: 'Armée brésilienne — 4e Compagnie légère de transmissions de montagne',
+						period: 'déc. 2021 — juin 2023',
+						highlights: [
+							'J’ai commandé des sections et coordonné leur disponibilité, leur instruction et leur emploi opérationnel.',
+							'J’ai dirigé des services administratifs (opérations, logistique et finances), surtout le service financier, où j’ai passé le plus de temps.',
+							'J’ai été instructeur dans des cours et des stages, en contribuant à la formation de caporaux et de soldats.',
+						],
+					},
+					{
+						role: 'Élève officier de réserve',
+						org: 'CPOR-BH (Centre de préparation des officiers de réserve)',
+						period: 'févr. 2021 — déc. 2021',
+						highlights: ['Formation militaire et au commandement ; meilleurs résultats de la promotion.'],
+					},
+					{
+						role: 'Membre en formation (trainee)',
+						org: 'iJunior UFMG — Junior-Entreprise',
+						period: 'août 2020 — janv. 2021',
+						highlights: ['Expérience de la gestion de projets, du respect des délais et du travail en équipe.'],
+					},
+				],
+			},
+			education: {
+				id: 'formation',
+				title: 'Formation',
+				items: [
+					{
+						program: 'Licence (Bacharelado) en informatique',
+						school: 'Université fédérale du Minas Gerais (UFMG)',
+						period: '2020 — aujourd’hui',
+					},
+					{
+						program: 'Diplôme de technicien en bâtiment',
+						school: 'Institut fédéral du Minas Gerais (IFMG)',
+						period: '2017 — 2019',
+					},
+				],
+			},
+			certificates: {
+				id: 'certificats',
+				title: 'Certificats',
+				items: [
+					{
+						title: 'Stage sectoriel de gestion financière',
+						detail: 'Armée brésilienne',
+						images: [
+							{ src: 'Certificados/fin_1.jpeg', alt: 'Stage sectoriel de gestion financière — 1' },
+							{ src: 'Certificados/fin_2.jpeg', alt: 'Stage sectoriel de gestion financière — 2' },
+						],
+					},
+					{
+						title: 'Stage sectoriel d’assistant du service financier',
+						detail: 'Armée brésilienne',
+						images: [
+							{ src: 'Certificados/aux_set_fin_1.jpeg', alt: 'Stage sectoriel d’assistant du service financier — 1' },
+							{ src: 'Certificados/aux_set_fin_2.jpeg', alt: 'Stage sectoriel d’assistant du service financier — 2' },
+						],
+					},
+					{
+						title: 'Stage sectoriel de gestion d’entrepôt',
+						detail: 'Armée brésilienne',
+						images: [
+							{ src: 'Certificados/almox_1.jpeg', alt: 'Stage sectoriel de gestion d’entrepôt — 1' },
+							{ src: 'Certificados/almox_2.jpeg', alt: 'Stage sectoriel de gestion d’entrepôt — 2' },
+						],
+					},
+					{
+						title: 'Stage sectoriel de gestion des stocks',
+						detail: 'Armée brésilienne',
+						images: [
+							{ src: 'Certificados/est_1.jpeg', alt: 'Stage sectoriel de gestion des stocks — 1' },
+							{ src: 'Certificados/est_2.jpeg', alt: 'Stage sectoriel de gestion des stocks — 2' },
+						],
+					},
+					{
+						title: 'Stage de base du combattant de montagne',
+						detail: 'Armée brésilienne',
+						image: { src: 'Certificados/mth.jpeg', alt: 'Stage de base du combattant de montagne' },
+					},
+					{
+						title: 'Formation en réseaux et téléphonie VoIP',
+						detail: 'Armée brésilienne',
+						image: { src: 'Certificados/voip.jpeg', alt: 'Formation en réseaux et téléphonie VoIP' },
+					},
+					{
+						title: 'Perfectionnement en câblage structuré',
+						detail: 'SENAI MG',
+						image: { src: 'Certificados/cabeamento.jpeg', alt: 'Perfectionnement en câblage structuré' },
+					},
+					{
+						title: 'Perfectionnement en installation de réseaux sans fil',
+						detail: 'SENAI MG',
+						image: { src: 'Certificados/wireless.jpeg', alt: 'Perfectionnement en installation de réseaux sans fil' },
+					},
+					{
+						title: 'Perfectionnement en réseaux informatiques',
+						detail: 'SENAI MG',
+						image: { src: 'Certificados/redes.jpeg', alt: 'Perfectionnement en réseaux informatiques' },
+					},
+				],
+			},
+			achievements: {
+				id: 'distinctions',
+				title: 'Distinctions',
+				groups: [
+					{
+						title: 'Armée brésilienne',
+						items: [
+							{
+								title: 'Félicitations du commandant de la 4e Compagnie légère de transmissions de montagne',
+								detail: '4e Compagnie légère de transmissions de montagne — 2022',
+								image: {
+									src: 'Conquistas/re_cmd_22.jpeg',
+									alt: 'Félicitations du commandant de la 4e Compagnie légère de transmissions de montagne (2022)',
+								},
+							},
+							{
+								title: 'Félicitations du commandant de la 4e Compagnie légère de transmissions de montagne',
+								detail: '4e Compagnie légère de transmissions de montagne — 2023',
+								images: [
+									{
+										src: 'Conquistas/re_cmd_23-1.jpeg',
+										alt: 'Félicitations du commandant de la 4e Compagnie légère de transmissions de montagne (2023) — 1',
+									},
+									{
+										src: 'Conquistas/re_cmd_23-2.jpeg',
+										alt: 'Félicitations du commandant de la 4e Compagnie légère de transmissions de montagne (2023) — 2',
+									},
+								],
+							},
+							{
+								title: 'Félicitations de l’inspecteur administratif de la 4e Compagnie légère de transmissions de montagne',
+								detail: '4e Compagnie légère de transmissions de montagne — 2023',
+								image: {
+									src: 'Conquistas/re_fis.jpeg',
+									alt: 'Félicitations de l’inspecteur administratif de la 4e Compagnie légère de transmissions de montagne (2023)',
+								},
+							},
+							{
+								title: 'Prix de la meilleure gestion financière de la 4e Brigade d’infanterie légère de montagne',
+								detail: '4e Compagnie légère de transmissions de montagne — 2022',
+							},
+							{
+								title: 'Médaille du prix Correia Lima',
+								detail: 'CPOR-BH — 2021',
+								image: {
+									src: 'Conquistas/medalha.jpeg',
+									alt: 'Médaille du prix Correia Lima (2021)',
+								},
+							},
+							{
+								title: '1er au classement général de la promotion',
+								detail: 'CPOR-BH — 2021',
+								image: {
+									src: 'Conquistas/geral.jpeg',
+									alt: '1er au classement général de la promotion (2021)',
+								},
+							},
+							{ title: '1er de la filière Transmissions', detail: 'CPOR-BH — 2021' },
+							{
+								title: 'Meilleure condition physique',
+								detail: 'CPOR-BH — 2021',
+								image: {
+									src: 'Conquistas/apt_fis.jpeg',
+									alt: 'Meilleure condition physique (2021)',
+								},
+							},
+							{
+								title: 'Distinction lors de l’opération FIT (Fibre, Initiative et Ténacité)',
+								detail: 'CPOR-BH — 2021',
+								image: {
+									src: 'Conquistas/fit.jpeg',
+									alt: 'Distinction lors de l’opération FIT (2021)',
+								},
+							},
+							{ title: 'Signature du Livre d’or', detail: 'CPOR-BH — 2021' },
+						],
+					},
+				],
+			},
+			contact: {
+				id: 'contact',
+				title: 'Contact',
+				locationLine: 'Belo Horizonte, Brésil',
+				links: [
+					{ label: 'E-mail (UFMG)', href: 'mailto:viniciustda@ufmg.br', icon: 'mail' },
+					{ label: 'E-mail (personnel)', href: 'mailto:v.trindade.d.a@gmail.com', icon: 'gmail' },
+					{ label: 'LinkedIn', href: 'https://linkedin.com/in/v-trindade', icon: 'linkedin' },
+					{ label: 'GitHub', href: 'https://github.com/Viniciustda', icon: 'github' },
+					{ label: 'YouTube', href: 'https://www.youtube.com/@Viniciustda', icon: 'youtube' },
+					{ label: 'Lattes', href: 'http://lattes.cnpq.br/3991476030874999', icon: 'lattes' },
+					{ label: 'ORCID', href: 'https://orcid.org/0009-0007-9208-8634', icon: 'orcid' },
+				],
+			},
+		},
+		ui: {
+			skipToContent: 'Aller au contenu',
+			languageSwitchLabel: 'Choisir la langue',
+			themeToggleLabel: 'Changer de thème',
+			photoAlt: 'Photo de Vinicius Trindade',
+			labs: 'Laboratoires',
+			advisors: 'Encadrement',
+			coauthors: 'Coauteurs',
+			repository: 'Dépôt',
+			publication: 'Publication',
+			projectsHint: 'Faites défiler pour explorer →',
+			previousProject: 'Projet précédent',
+			nextProject: 'Projet suivant',
+			timeline: 'Chronologie',
+			certificatesHint: 'Faites glisser → cliquez pour voir',
+			images: 'images',
+			read: 'Lire',
+			close: 'Fermer',
+			previous: 'Précédent',
+			next: 'Suivant',
+			previousImage: 'Image précédente',
+			nextImage: 'Image suivante',
+		},
+		footer: { text: `© ${new Date().getFullYear()} Vinicius Trindade. Tous droits réservés.` },
 	},
 };
